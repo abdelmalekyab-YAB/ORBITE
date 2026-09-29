@@ -220,3 +220,6 @@ a.stat:hover .label::after { opacity: 1; }
 .checks label { font-weight: 400; display: flex; gap: 6px; align-items: center; }
 .row-actions form { margin: 0; }
 .btn-link-mini.blue { color: var(--primary); }
+.demo-accounts { margin-top: 18px; border-top: 1px solid var(--border); padding-top: 14px; display: grid; gap: 8px; font-size: 13px; color: var(--muted); }
+.demo-accounts p { margin: 0; }
+.demo-accounts .btn { text-align: left; font-size: 13px; }

@@ -20,10 +20,10 @@ class Command(BaseCommand):
         today = timezone.localdate()
         day = datetime.timedelta(days=1)
 
-        def user(username, first, last, company, role=User.Role.CLIENT, **extra):
+        def user(username, first, last, company, role=User.Role.CLIENT, email=None, **extra):
             u, created = User.objects.get_or_create(
                 username=username,
-                defaults=dict(first_name=first, last_name=last, email=f"{username}@example.com",
+                defaults=dict(first_name=first, last_name=last, email=email or f"{username}@example.com",
                               company=company, role=role, **extra),
             )
             if created:
@@ -32,18 +32,19 @@ class Command(BaseCommand):
             return u
 
         digitalia, _ = Company.objects.get_or_create(name="Digitalia", defaults={"is_internal": True})
-        admin = user("admin", "Admin", "Digitalia", digitalia, User.Role.STAFF, is_staff=True, is_superuser=True)
-        dev = user("sara", "Sara", "Dev", digitalia, User.Role.STAFF)
-        pm = user("yanis", "Yanis", "PM", digitalia, User.Role.STAFF, is_staff=True)
+        user("admin", "Admin", "Digitalia", digitalia, User.Role.STAFF, email="admin@digitalia.fr",
+             is_staff=True, is_superuser=True)
+        dev = user("sara", "Sara", "Dev", digitalia, User.Role.STAFF, email="sara@digitalia.fr")
+        pm = user("yanis", "Yanis", "PM", digitalia, User.Role.STAFF, email="yanis@digitalia.fr", is_staff=True)
 
         specs = [
-            ("WWS", "Smart CV", "SCV", "wws", "Julie", "Martin"),
-            ("RM Club", "RM Club", "RMC", "rmclub", "Karim", "Benali"),
-            ("Bodytime", "TWM", "TWM", "bodytime", "Lina", "Morel"),
+            ("WWS", "Smart CV", "SCV", "wws", "Julie", "Martin", "julie.martin@wws.fr"),
+            ("RM Club", "RM Club", "RMC", "rmclub", "Karim", "Benali", "karim.benali@rmclub.fr"),
+            ("Bodytime", "TWM", "TWM", "bodytime", "Lina", "Morel", "lina.morel@bodytime.fr"),
         ]
-        for company_name, project_name, key, username, first, last in specs:
+        for company_name, project_name, key, username, first, last, email in specs:
             company, _ = Company.objects.get_or_create(name=company_name)
-            client = user(username, first, last, company)
+            client = user(username, first, last, company, email=email)
             project, created = Project.objects.get_or_create(
                 key=key, defaults={"company": company, "name": project_name, "lead": pm,
                                    "description": f"Projet {project_name} pour {company_name}."},

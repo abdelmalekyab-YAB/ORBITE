@@ -22,11 +22,12 @@
     <a class="btn" href="{% if project %}{{ project.get_absolute_url }}{% else %}{% url 'project_list' %}{% endif %}">{% translate "Cancel" %}</a>
   </form>
 </div>
+<form method="get" id="company-switch" hidden><input type="hidden" name="company" id="company-switch-value"></form>
 <script>
-  // Changing the client reloads the list of its accounts.
-  document.getElementById("id_company").addEventListener("change", e => {
-    const url = new URL(location.href); url.searchParams.set("company", e.target.value);
-    {% if not project %}location.href = url;{% endif %}
-  });
+  // New project: choosing the client reloads the list of its accounts.
+  {% if not project %}document.getElementById("id_company").addEventListener("change", e => {
+    document.getElementById("company-switch-value").value = e.target.value;
+    document.getElementById("company-switch").requestSubmit();
+  });{% endif %}
 </script>
 {% endblock %}

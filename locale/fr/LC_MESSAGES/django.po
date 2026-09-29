@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-29 19:01+0200\n"
+"POT-Creation-Date: 2026-09-29 19:13+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -171,7 +171,8 @@ msgstr "utilisateur"
 msgid "users"
 msgstr "utilisateurs"
 
-#: core/models.py:58
+#: core/models.py:58 templates/registration/login.html:18
+#: templates/registration/login.html:19
 msgid "client"
 msgstr "client"
 
@@ -875,6 +876,18 @@ msgstr "Mot de passe"
 #: templates/registration/password_reset_form.html:4
 msgid "Forgot your password?"
 msgstr "Mot de passe oublié ?"
+
+#: templates/registration/login.html:17
+msgid "Demo accounts (password orbit-demo):"
+msgstr "Comptes de démonstration (mot de passe orbit-demo) :"
+
+#: templates/registration/login.html:20
+msgid "admin"
+msgstr "admin"
+
+#: templates/registration/login.html:21
+msgid "developer"
+msgstr "développeuse"
 
 #: templates/registration/password_change_done.html:3
 msgid "Password changed"

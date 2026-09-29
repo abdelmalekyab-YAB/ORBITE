@@ -79,3 +79,17 @@ python manage.py makemessages -l fr -l en && python manage.py compilemessages  #
 ```
 
 Structure : `core/` (sociétés, utilisateurs, projets, roadmap, tableaux de bord), `tickets/` (tickets, commentaires, pièces jointes, historique), `templates/`, `static/`, `locale/`.
+
+## Démo dans le navigateur
+
+`demo/` fait tourner la vraie application dans le navigateur du visiteur (Pyodide + SQLite), sans serveur :
+données de démonstration, pièces jointes, boîte mail de démo, réinitialisation.
+
+```bash
+python demo/build.py OUT_DIR PYODIDE_DIR WHEELS_DIR
+```
+
+- `PYODIDE_DIR` : Pyodide 0.27 (archive « core ») + les wheels `sqlite3` et `tzdata` de l'archive complète.
+- `WHEELS_DIR` : `pip download --only-binary=:all: --python-version 3.12 --platform any Django==5.2.*`.
+
+`OUT_DIR` se publie comme un site statique. `demo/settings.py` n'est jamais utilisé en production.

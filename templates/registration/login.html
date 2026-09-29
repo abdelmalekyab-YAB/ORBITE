@@ -12,4 +12,19 @@
     <button class="btn btn-primary btn-block" type="submit">{% translate "Log in" %}</button>
     <p class="auth-link"><a href="{% url 'password_reset' %}">{% translate "Forgot your password?" %}</a></p>
   </form>
+  {% if orbit_demo %}
+  <div class="demo-accounts">
+    <p>{% translate "Demo accounts (password orbit-demo):" %}</p>
+    <button type="button" class="btn" data-fill="julie.martin@wws.fr">🟣 Julie Martin · {% translate "client" %} WWS</button>
+    <button type="button" class="btn" data-fill="karim.benali@rmclub.fr">🟣 Karim Benali · {% translate "client" %} RM Club</button>
+    <button type="button" class="btn" data-fill="yanis@digitalia.fr">🔵 Yanis · Digitalia ({% translate "admin" %})</button>
+    <button type="button" class="btn" data-fill="sara@digitalia.fr">🔵 Sara · Digitalia ({% translate "developer" %})</button>
+  </div>
+  <script>
+    document.querySelectorAll("[data-fill]").forEach(b => b.addEventListener("click", () => {
+      document.getElementById("id_username").value = b.dataset.fill;
+      document.getElementById("id_password").value = "orbit-demo";
+    }));
+  </script>
+  {% endif %}
 {% endblock %}
