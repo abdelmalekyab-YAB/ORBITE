@@ -15,7 +15,7 @@
   <h2>{% translate "Projects" %}</h2>
   <table>
     <thead><tr><th>{% translate "Project" %}</th><th>{% translate "Client" %}</th><th class="num">{% translate "Bugs" %}</th><th class="num">{% translate "Changes" %}</th>
-      <th class="num">{% translate "In progress" %}</th><th class="num">{% translate "Waiting for client" %}</th><th class="num">{% translate "Late" %}</th><th class="num">{% translate "Open" %}</th><th>{% translate "Progress" %}</th></tr></thead>
+      <th class="num">{% translate "In progress" %}</th><th class="num">{% translate "Waiting for client" %}</th><th class="num">{% translate "Late" %}</th><th class="num">{% translate "Open" %}</th><th>{% translate "Progress" %}</th><th></th></tr></thead>
     <tbody>
     {% for row in projects %}{% with p=row.project s=row.stats %}
       <tr>
@@ -27,6 +27,7 @@
         <td class="num {% if s.late %}late{% endif %}"><a href="{% url 'all_tickets' %}?project={{ p.pk }}&late=on">{{ s.late }}</a></td>
         <td class="num">{{ s.open }}</td>
         <td><div class="progress"><span style="width: {{ row.progress }}%"></span></div></td>
+        <td><a class="btn-link" href="{% url 'project_board' p.key %}">{% translate "Board" %} →</a></td>
       </tr>
     {% endwith %}{% empty %}<tr><td colspan="9" class="empty">{% translate "No active project." %}</td></tr>{% endfor %}
     </tbody>

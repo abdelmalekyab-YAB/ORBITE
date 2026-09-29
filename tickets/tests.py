@@ -176,3 +176,51 @@ class OrbitTests(TestCase):
         for name in ("client_list", "project_list", "team"):
             self.assertEqual(self.client.get(self.url(name)).status_code, 200)
         self.assertEqual(self.client.get(self.url("milestone_create", "SCV")).status_code, 200)
+
+
+@override_settings(MEDIA_ROOT=MEDIA, LANGUAGE_CODE="en")
+class BoardTests(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        wws = Company.objects.create(name="WWS")
+        cls.staff = User.objects.create_user("staff", password="x", role=User.Role.STAFF)
+        cls.client_user = User.objects.create_user("client", password="x", company=wws)
+        cls.project = Project.objects.create(company=wws, name="Smart CV", key="SCV")
+        cls.project.members.add(cls.client_user)
+        cls.ticket = Ticket.objects.create(project=cls.project, title="Test me", author=cls.client_user,
+                                           status=Ticket.Status.IN_TEST)
+        Ticket.objects.create(project=cls.project, title="Secret task", author=cls.staff,
+                              visibility=Ticket.Visibility.INTERNAL)
+
+    def test_client_board_is_simple_and_read_only(self):
+        self.client.force_login(self.client_user)
+        response = self.client.get(reverse("project_board", args=["SCV"]))
+        self.assertContains(response, "Your turn")
+        self.assertContains(response, "Test me")
+        self.assertNotContains(response, "Secret task")
+        self.assertNotContains(response, 'draggable="true"')
+        move = self.client.post(reverse("ticket_move", args=[self.ticket.pk]), '{"status": "done"}',
+                                content_type="application/json")
+        self.assertEqual(move.status_code, 403)
+
+    def test_staff_moves_ticket_and_history_is_recorded(self):
+        self.client.force_login(self.staff)
+        response = self.client.post(reverse("ticket_move", args=[self.ticket.pk]), '{"status": "done"}',
+                                    content_type="application/json")
+        self.assertEqual(response.json()["status"], "done")
+        self.ticket.refresh_from_db()
+        self.assertEqual(self.ticket.status, "done")
+        self.assertIsNotNone(self.ticket.closed_at)
+        self.assertTrue(self.ticket.events.filter(field="status", new_value="Done").exists())
+        bad = self.client.post(reverse("ticket_move", args=[self.ticket.pk]), '{"status": "nope"}',
+                               content_type="application/json")
+        self.assertEqual(bad.status_code, 400)
+
+    def test_staff_boards_render_with_groups(self):
+        self.client.force_login(self.staff)
+        for group in ("", "project", "assignee", "priority", "type"):
+            response = self.client.get(reverse("global_board"), {"group": group})
+            self.assertContains(response, "Secret task")
+        response = self.client.get(reverse("project_board", args=["SCV"]), {"group": "assignee", "q": "Test"})
+        self.assertContains(response, "Test me")
+        self.assertContains(response, 'draggable="true"')

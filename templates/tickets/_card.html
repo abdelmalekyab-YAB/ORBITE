@@ -1,0 +1,19 @@
+{% load i18n orbit %}
+<article class="kcard prio-edge-{{ t.priority }}{% if t.is_late %} is-late{% endif %}" data-id="{{ t.pk }}" data-ref="{{ t.reference }}" data-status="{{ t.status }}"
+  {% if can_drag %}draggable="true" data-move-url="{% url 'ticket_move' t.pk %}"{% endif %}>
+  <a class="kcard-title" href="{{ t.get_absolute_url }}" draggable="false">{% if t.parent_id %}↳ {% endif %}{{ t.title }}</a>
+  {% if not project %}<div class="kcard-project">{{ t.project.name }}</div>{% endif %}
+  <div class="kcard-meta">
+    <span class="type-chip type-{{ t.type }}">{{ t.get_type_display }}</span>
+    {% if t.priority == "critical" or t.priority == "high" %}<span class="badge prio-{{ t.priority }}">{{ t.get_priority_display }}</span>{% endif %}
+    {% if t.due_date %}<span class="kcard-date{% if t.is_late %} late{% endif %}">📅 {{ t.due_date|date:"d/m" }}</span>{% endif %}
+  </div>
+  <div class="kcard-foot">
+    <span class="kcard-ref">{% if user.is_digitalia %}<span title="{{ t.get_origin_display }}">{{ t.origin|origin_icon }}</span>{% endif %}
+      {{ t.reference }}{% if t.visibility == "internal" %} 🔒{% endif %}
+      {% if t.n_subtasks %}<span class="muted" title="{% translate 'Subtasks' %}"> · ☰ {{ t.n_subtasks }}</span>{% endif %}
+      {% if t.n_comments %}<span class="muted" title="{% translate 'Comments' %}"> · 💬 {{ t.n_comments }}</span>{% endif %}</span>
+    {% if t.assignee %}<span class="avatar" title="{{ t.assignee }}">{{ t.assignee.first_name|first|default:t.assignee.username|first|upper }}{{ t.assignee.last_name|first|upper }}</span>
+    {% elif user.is_digitalia %}<span class="avatar empty" title="{% translate 'Unassigned' %}">?</span>{% endif %}
+  </div>
+</article>

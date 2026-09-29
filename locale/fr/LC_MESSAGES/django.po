@@ -3,12 +3,11 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-29 15:56+0200\n"
+"POT-Creation-Date: 2026-09-29 16:44+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -133,18 +132,19 @@ msgstr "Sprint"
 msgid "Milestone"
 msgstr "Jalon"
 
-#: core/models.py:105
+#: core/models.py:105 tickets/board.py:37
 msgid "Planned"
-msgstr "Prévu"
+msgstr "Planifiées"
 
 #: core/models.py:106 templates/core/dashboard.html:10
 #: templates/core/dashboard.html:18 templates/core/project_detail.html:10
-#: templates/core/project_detail.html:34 tickets/models.py:39
+#: templates/core/project_detail.html:34 tickets/board.py:38
+#: tickets/models.py:39
 msgid "In progress"
 msgstr "En cours"
 
 #: core/models.py:107 templates/core/project_detail.html:13
-#: tickets/models.py:42
+#: tickets/board.py:40 tickets/models.py:42
 msgid "Done"
 msgstr "Terminé"
 
@@ -195,23 +195,29 @@ msgstr "Clients"
 msgid "Projects"
 msgstr "Projets"
 
-#: templates/base.html:19 templates/tickets/ticket_list.html:4
+#: templates/base.html:19 templates/core/dashboard.html:30
+#: templates/includes/project_tabs.html:12 templates/tickets/board.html:2
+#: templates/tickets/board.html:6
+msgid "Board"
+msgstr "Tableau"
+
+#: templates/base.html:20 templates/tickets/ticket_list.html:4
 msgid "All tickets"
 msgstr "Tous les tickets"
 
-#: templates/base.html:20 templates/core/team.html:2
+#: templates/base.html:21 templates/core/team.html:2
 msgid "Team"
 msgstr "Équipe"
 
-#: templates/base.html:21
+#: templates/base.html:22
 msgid "Administration"
 msgstr "Administration"
 
-#: templates/base.html:29
+#: templates/base.html:30
 msgid "Language"
 msgstr "Langue"
 
-#: templates/base.html:35
+#: templates/base.html:36
 msgid "Log out"
 msgstr "Déconnexion"
 
@@ -260,8 +266,9 @@ msgid "Late"
 msgstr "En retard"
 
 #: templates/core/dashboard.html:17 templates/core/project_list.html:6
-#: templates/includes/ticket_table.html:5
-#: templates/tickets/ticket_detail.html:61 tickets/forms.py:107
+#: templates/includes/ticket_table.html:5 templates/tickets/board.html:12
+#: templates/tickets/ticket_detail.html:61 tickets/board.py:45
+#: tickets/forms.py:107
 msgid "Project"
 msgstr "Projet"
 
@@ -281,27 +288,27 @@ msgstr "Ouverts"
 msgid "Progress"
 msgstr "Avancement"
 
-#: templates/core/dashboard.html:31
+#: templates/core/dashboard.html:32
 msgid "No active project."
 msgstr "Aucun projet actif."
 
-#: templates/core/dashboard.html:36
+#: templates/core/dashboard.html:37
 msgid "New client requests"
 msgstr "Nouvelles demandes client"
 
-#: templates/core/dashboard.html:37
+#: templates/core/dashboard.html:38
 msgid "Late tickets"
 msgstr "Tickets en retard"
 
-#: templates/core/dashboard.html:38 templates/core/project_detail.html:35
+#: templates/core/dashboard.html:39 templates/core/project_detail.html:35
 msgid "Next deadlines"
 msgstr "Prochaines échéances"
 
-#: templates/core/dashboard.html:39
+#: templates/core/dashboard.html:40 templates/tickets/board.html:19
 msgid "Assigned to me"
 msgstr "Mes tickets"
 
-#: templates/core/milestone_form.html:2
+#: templates/core/milestone_form.html:2 templates/tickets/board.html:26
 #: templates/tickets/ticket_detail.html:67 tickets/forms.py:114
 msgid "Roadmap step"
 msgstr "Étape de roadmap"
@@ -335,7 +342,7 @@ msgid "Digitalia is waiting for your answer"
 msgstr "Digitalia attend votre réponse"
 
 #: templates/core/project_detail.html:24 templates/core/roadmap.html:2
-#: templates/includes/project_tabs.html:12
+#: templates/includes/project_tabs.html:13
 msgid "Roadmap"
 msgstr "Roadmap"
 
@@ -426,12 +433,12 @@ msgstr "Nouvelle demande"
 msgid "Overview"
 msgstr "Mon projet"
 
-#: templates/includes/project_tabs.html:13
+#: templates/includes/project_tabs.html:14
 #: templates/tickets/ticket_list.html:2
 msgid "Tickets"
 msgstr "Tickets"
 
-#: templates/includes/project_tabs.html:13
+#: templates/includes/project_tabs.html:14
 msgid "My requests"
 msgstr "Mes demandes"
 
@@ -456,9 +463,10 @@ msgstr "Statut"
 msgid "Target date"
 msgstr "Date cible"
 
-#: templates/includes/ticket_table.html:6
+#: templates/includes/ticket_table.html:6 templates/tickets/board.html:18
 #: templates/tickets/ticket_detail.html:64
-#: templates/tickets/ticket_list.html:26 tickets/forms.py:113
+#: templates/tickets/ticket_list.html:26 tickets/board.py:46
+#: tickets/forms.py:113
 msgid "Assignee"
 msgstr "Responsable"
 
@@ -482,6 +490,116 @@ msgstr "Identifiant"
 msgid "Password"
 msgstr "Mot de passe"
 
+#: templates/tickets/_card.html:14 templates/tickets/ticket_detail.html:37
+msgid "Subtasks"
+msgstr "Sous-tâches"
+
+#: templates/tickets/_card.html:15
+#| msgid "comments"
+msgid "Comments"
+msgstr "Commentaires"
+
+#: templates/tickets/_card.html:17 templates/tickets/board.html:20
+#: tickets/board.py:101
+#| msgid "assignee"
+msgid "Unassigned"
+msgstr "Non assigné"
+
+#: templates/tickets/board.html:6
+msgid "Every client project on one board. Drag a card to change its status."
+msgstr ""
+"Tous les projets clients sur un seul tableau. Glissez une carte pour changer"
+" son statut."
+
+#: templates/tickets/board.html:10
+msgid "Search the board"
+msgstr "Rechercher dans le tableau"
+
+#: templates/tickets/board.html:10 tickets/forms.py:105
+msgid "Search"
+msgstr "Recherche"
+
+#: templates/tickets/board.html:12
+#| msgid "projects"
+msgid "All projects"
+msgstr "Tous les projets"
+
+#: templates/tickets/board.html:15 templates/tickets/ticket_list.html:25
+#: tickets/board.py:48 tickets/forms.py:108
+msgid "Type"
+msgstr "Type"
+
+#: templates/tickets/board.html:15
+#| msgid "All tickets"
+msgid "All types"
+msgstr "Tous les types"
+
+#: templates/tickets/board.html:18
+msgid "Everyone"
+msgstr "Tout le monde"
+
+#: templates/tickets/board.html:22 templates/tickets/ticket_list.html:23
+#: tickets/forms.py:111
+msgid "Origin"
+msgstr "Origine"
+
+#: templates/tickets/board.html:22
+#| msgid "origin"
+msgid "All origins"
+msgstr "Toutes origines"
+
+#: templates/tickets/board.html:26
+#| msgid "roadmap steps"
+msgid "All roadmap steps"
+msgstr "Toutes les étapes"
+
+#: templates/tickets/board.html:30
+msgid "Group by"
+msgstr "Regrouper par"
+
+#: templates/tickets/board.html:32
+#| msgid "Subtasks"
+msgid "Show subtasks"
+msgstr "Afficher les sous-tâches"
+
+#: templates/tickets/board.html:34
+msgid "Apply"
+msgstr "Appliquer"
+
+#: templates/tickets/board.html:35 templates/tickets/ticket_list.html:11
+msgid "Reset"
+msgstr "Réinitialiser"
+
+#: templates/tickets/board.html:49 templates/tickets/board.html:75
+msgid "Drop here"
+msgstr "Déposer ici"
+
+#: templates/tickets/board.html:54
+#| msgid "No ticket matches these filters."
+msgid "No ticket on the board."
+msgstr "Aucun ticket sur le tableau."
+
+#: templates/tickets/board.html:58
+#, python-format
+msgid "Done column: tickets closed in the last %(done_days)s days."
+msgstr "Colonne Terminé : tickets clôturés ces %(done_days)s derniers jours."
+
+#: templates/tickets/board.html:59
+msgid ""
+"Cards in “Your turn” are waiting for you: open them to answer or confirm the"
+" test."
+msgstr ""
+"Les cartes « À vous » attendent votre action : ouvrez-les pour répondre ou "
+"valider le test."
+
+#: templates/tickets/board.html:97
+msgid "Move the card within its own row."
+msgstr "Déplacez la carte dans sa propre ligne."
+
+#: templates/tickets/board.html:107
+msgid "The status could not be saved. Try again."
+msgstr "Le statut n'a pas pu être enregistré. Réessayez."
+
 #: templates/tickets/ticket_detail.html:19
 msgid "Subtask"
 msgstr "Sous-tâche"
@@ -497,10 +615,6 @@ msgstr "Pas de description."
 #: templates/tickets/ticket_detail.html:31
 msgid "Attachments"
 msgstr "Pièces jointes"
-
-#: templates/tickets/ticket_detail.html:37
-msgid "Subtasks"
-msgstr "Sous-tâches"
 
 #: templates/tickets/ticket_detail.html:41
 msgid "Discussion"
@@ -580,10 +694,6 @@ msgstr "Tous les tickets de tous les projets clients."
 msgid "Filter"
 msgstr "Filtrer"
 
-#: templates/tickets/ticket_list.html:11
-msgid "Reset"
-msgstr "Réinitialiser"
-
 #: templates/tickets/ticket_list.html:15
 #, python-format
 msgid "%(counter)s ticket"
@@ -611,25 +721,35 @@ msgstr "date cible"
 msgid "priority"
 msgstr "priorité"
 
-#: templates/tickets/ticket_list.html:23 tickets/forms.py:111
-msgid "Origin"
-msgstr "Origine"
-
 #: templates/tickets/ticket_list.html:24
 msgid "Client / project"
 msgstr "Client / projet"
 
-#: templates/tickets/ticket_list.html:25 tickets/forms.py:108
-msgid "Type"
-msgstr "Type"
-
-#: templates/tickets/ticket_list.html:25 tickets/forms.py:110
+#: templates/tickets/ticket_list.html:25 tickets/board.py:47
+#: tickets/forms.py:110
 msgid "Priority"
 msgstr "Priorité"
 
 #: templates/tickets/ticket_list.html:42
 msgid "No ticket matches these filters."
 msgstr "Aucun ticket ne correspond à ces filtres."
+
+#: tickets/board.py:36
+#| msgid "Archived"
+msgid "Received"
+msgstr "Reçues"
+
+#: tickets/board.py:39
+msgid "Your turn: answer or test"
+msgstr "À vous : répondre ou tester"
+
+#: tickets/board.py:44
+msgid "None"
+msgstr "Aucun"
+
+#: tickets/board.py:181
+msgid "Unknown status."
+msgstr "Statut inconnu."
 
 #: tickets/forms.py:26
 #, python-format
@@ -651,10 +771,6 @@ msgstr "Écrire une réponse…"
 #: tickets/forms.py:100
 msgid "Write a comment or add a file."
 msgstr "Écrivez un commentaire ou ajoutez un fichier."
-
-#: tickets/forms.py:105
-msgid "Search"
-msgstr "Recherche"
 
 #: tickets/forms.py:112
 msgid "Visibility"
