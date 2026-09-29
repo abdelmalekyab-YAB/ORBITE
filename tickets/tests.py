@@ -58,7 +58,7 @@ class OrbitTests(TestCase):
 
     def test_client_home_redirects_to_single_project(self):
         self.client.force_login(self.client_user)
-        self.assertRedirects(self.client.get("/"), self.url("project_detail", "SCV"))
+        self.assertRedirects(self.client.get("/"), self.url("project_board", "SCV"))
 
     def test_staff_home_goes_to_dashboard(self):
         self.client.force_login(self.staff)

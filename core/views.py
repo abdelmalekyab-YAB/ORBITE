@@ -21,7 +21,8 @@ def home(request):
         return redirect("dashboard")
     projects = list(user.visible_projects().filter(is_active=True))
     if len(projects) == 1:
-        return redirect(projects[0])
+        # Clients land on their Kanban board: the simplest view of what is going on.
+        return redirect("project_board", key=projects[0].key)
     return render(request, "core/project_picker.html", {"projects": projects})
 
 
