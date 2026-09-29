@@ -4,13 +4,13 @@
 {% include "includes/project_tabs.html" %}
 <div class="stats">
   <div class="stat"><div class="value">{{ progress }}%</div><div class="label">{% translate "Overall progress" %}</div><div class="progress"><span style="width: {{ progress }}%"></span></div></div>
-  <div class="stat"><div class="value">{{ stats.open }}</div><div class="label">{% translate "Open tickets" %}</div></div>
-  <div class="stat"><div class="value">{{ stats.bugs }}</div><div class="label">{% translate "Open bugs" %}</div></div>
-  <div class="stat"><div class="value">{{ stats.evolutions }}</div><div class="label">{% translate "Changes & features" %}</div></div>
-  <div class="stat warning"><div class="value">{{ stats.in_progress }}</div><div class="label">{% translate "In progress" %}</div></div>
-  <div class="stat {% if stats.waiting_client %}danger{% endif %}"><div class="value">{{ stats.waiting_client }}</div><div class="label">{% translate "Waiting for client" %}</div></div>
-  <div class="stat {% if stats.late %}danger{% endif %}"><div class="value">{{ stats.late }}</div><div class="label">{% translate "Late" %}</div></div>
-  <div class="stat success"><div class="value">{{ stats.done }}</div><div class="label">{% translate "Done" %}</div></div>
+  <a class="stat" href="{% url 'project_tickets' project.key %}"><div class="value">{{ stats.open }}</div><div class="label">{% translate "Open tickets" %}</div></a>
+  <a class="stat" href="{% url 'project_tickets' project.key %}?type=bug"><div class="value">{{ stats.bugs }}</div><div class="label">{% translate "Open bugs" %}</div></a>
+  <a class="stat" href="{% url 'project_tickets' project.key %}?type=changes"><div class="value">{{ stats.evolutions }}</div><div class="label">{% translate "Changes & features" %}</div></a>
+  <a class="stat warning" href="{% url 'project_tickets' project.key %}?status=working"><div class="value">{{ stats.in_progress }}</div><div class="label">{% translate "In progress" %}</div></a>
+  <a class="stat {% if stats.waiting_client %}danger{% endif %}" href="{% url 'project_tickets' project.key %}?status=waiting_client"><div class="value">{{ stats.waiting_client }}</div><div class="label">{% translate "Waiting for client" %}</div></a>
+  <a class="stat {% if stats.late %}danger{% endif %}" href="{% url 'project_tickets' project.key %}?late=on"><div class="value">{{ stats.late }}</div><div class="label">{% translate "Late" %}</div></a>
+  <a class="stat success" href="{% url 'project_tickets' project.key %}?status=done"><div class="value">{{ stats.done }}</div><div class="label">{% translate "Done" %}</div></a>
 </div>
 
 {% if waiting_client %}

@@ -167,6 +167,24 @@ class OrbitTests(TestCase):
         self.assertNotContains(response, "Other evo")
         self.assertContains(self.client.get(self.url("all_tickets"), {"q": "SCV-1"}), "A bug")
 
+    def test_dashboard_counters_open_the_matching_tickets(self):
+        Ticket.objects.create(project=self.project, title="Evo one", type="evolution", author=self.client_user)
+        Ticket.objects.create(project=self.project, title="Feature two", type="feature", author=self.client_user)
+        Ticket.objects.create(project=self.project, title="Bug three", type="bug", author=self.client_user)
+        Ticket.objects.create(project=self.project, title="Testing four", status="in_test", author=self.staff)
+        self.client.force_login(self.staff)
+        dashboard = self.client.get(self.url("dashboard")).content.decode()
+        self.assertIn('href="/tickets/?type=changes"', dashboard)
+        changes = self.client.get(self.url("all_tickets"), {"type": "changes"})
+        self.assertContains(changes, "Evo one")
+        self.assertContains(changes, "Feature two")
+        self.assertNotContains(changes, "Bug three")
+        working = self.client.get(self.url("all_tickets"), {"status": "working"})
+        self.assertContains(working, "Testing four")
+        self.assertNotContains(working, "Evo one")
+        self.client.force_login(self.client_user)
+        self.assertContains(self.client.get(self.url("project_tickets", "SCV"), {"type": "changes"}), "Feature two")
+
     def test_pages_render(self):
         Ticket.objects.create(project=self.project, title="t", author=self.client_user, milestone=self.milestone)
         for user in (self.staff, self.client_user):

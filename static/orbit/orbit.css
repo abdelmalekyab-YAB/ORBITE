@@ -179,3 +179,7 @@ main.wide { max-width: none; }
 .btn-ko-solid { background: var(--danger); border-color: var(--danger); color: #fff; }
 .btn-ko-solid:hover { background: #b82f2f; }
 .ticket-client-actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 10px; }
+a.stat { color: inherit; display: block; transition: border-color .15s, box-shadow .15s; }
+a.stat:hover { text-decoration: none; border-color: #c9ccf5; box-shadow: 0 2px 8px rgba(75, 59, 219, .12); }
+a.stat .label::after { content: " →"; opacity: 0; transition: opacity .15s; }
+a.stat:hover .label::after { opacity: 1; }

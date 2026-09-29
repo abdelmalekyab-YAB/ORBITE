@@ -4,12 +4,12 @@
 <h1>{% translate "Digitalia cockpit" %}</h1>
 <p class="subtitle">{% translate "All client projects at a glance." %}</p>
 <div class="stats">
-  <div class="stat"><div class="value">{{ totals.open }}</div><div class="label">{% translate "Open tickets" %}</div></div>
-  <div class="stat"><div class="value">{{ totals.bugs }}</div><div class="label">{% translate "Open bugs" %}</div></div>
-  <div class="stat"><div class="value">{{ totals.evolutions }}</div><div class="label">{% translate "Changes & features" %}</div></div>
-  <div class="stat warning"><div class="value">{{ totals.in_progress }}</div><div class="label">{% translate "In progress" %}</div></div>
-  <div class="stat"><div class="value">{{ totals.waiting_client }}</div><div class="label">{% translate "Waiting for client" %}</div></div>
-  <div class="stat danger"><div class="value">{{ totals.late }}</div><div class="label">{% translate "Late" %}</div></div>
+  <a class="stat" href="{% url 'all_tickets' %}"><div class="value">{{ totals.open }}</div><div class="label">{% translate "Open tickets" %}</div></a>
+  <a class="stat" href="{% url 'all_tickets' %}?type=bug"><div class="value">{{ totals.bugs }}</div><div class="label">{% translate "Open bugs" %}</div></a>
+  <a class="stat" href="{% url 'all_tickets' %}?type=changes"><div class="value">{{ totals.evolutions }}</div><div class="label">{% translate "Changes & features" %}</div></a>
+  <a class="stat warning" href="{% url 'all_tickets' %}?status=working"><div class="value">{{ totals.in_progress }}</div><div class="label">{% translate "In progress" %}</div></a>
+  <a class="stat" href="{% url 'all_tickets' %}?status=waiting_client"><div class="value">{{ totals.waiting_client }}</div><div class="label">{% translate "Waiting for client" %}</div></a>
+  <a class="stat danger" href="{% url 'all_tickets' %}?late=on"><div class="value">{{ totals.late }}</div><div class="label">{% translate "Late" %}</div></a>
 </div>
 <div class="card">
   <h2>{% translate "Projects" %}</h2>

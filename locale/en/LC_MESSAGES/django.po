@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-29 18:31+0200\n"
+"POT-Creation-Date: 2026-09-29 18:41+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -289,6 +289,7 @@ msgid "Open bugs"
 msgstr ""
 
 #: templates/core/dashboard.html:9 templates/core/project_detail.html:9
+#: tickets/forms.py:128 tickets/forms.py:144
 msgid "Changes & features"
 msgstr ""
 
@@ -934,6 +935,10 @@ msgstr ""
 
 #: tickets/forms.py:118
 msgid "Include closed"
+msgstr ""
+
+#: tickets/forms.py:129
+msgid "In progress or in test"
 msgstr ""
 
 #: tickets/models.py:28

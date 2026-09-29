@@ -118,12 +118,15 @@ class TicketFilterForm(forms.Form):
     show_closed = forms.BooleanField(label=_("Include closed"), required=False)
 
     OPEN = "open"
+    # Grouped choices, used by the clickable counters of the dashboards.
+    CHANGES = "changes"
+    WORKING = "working"
 
     def __init__(self, *args, user, project=None, **kwargs):
         super().__init__(*args, **kwargs)
         blank = [("", "—")]
-        self.fields["type"].choices = blank + list(Ticket.Type.choices)
-        self.fields["status"].choices = blank + list(Ticket.Status.choices)
+        self.fields["type"].choices = blank + [(self.CHANGES, _("Changes & features"))] + list(Ticket.Type.choices)
+        self.fields["status"].choices = blank + [(self.WORKING, _("In progress or in test"))] + list(Ticket.Status.choices)
         self.fields["priority"].choices = blank + list(Ticket.Priority.choices)
         self.fields["origin"].choices = blank + list(Ticket.Origin.choices)
         self.fields["visibility"].choices = blank + list(Ticket.Visibility.choices)
@@ -138,7 +141,9 @@ class TicketFilterForm(forms.Form):
         if not user.is_digitalia:
             for name in ("origin", "visibility", "assignee"):
                 del self.fields[name]
-            self.fields["type"].choices = blank + [c for c in Ticket.Type.choices if c[0] in Ticket.CLIENT_TYPES]
+            self.fields["type"].choices = blank + [(self.CHANGES, _("Changes & features"))] + [
+                c for c in Ticket.Type.choices if c[0] in Ticket.CLIENT_TYPES
+            ]
 
     def apply(self, qs):
         if not self.is_valid():
@@ -152,6 +157,12 @@ class TicketFilterForm(forms.Form):
                 if num.isdigit():
                     cond |= Q(project__key__iexact=key, number=int(num))
             qs = qs.filter(cond)
+        if data.get("type") == self.CHANGES:
+            qs = qs.filter(type__in=[Ticket.Type.EVOLUTION, Ticket.Type.FEATURE])
+            data = {**data, "type": ""}
+        if data.get("status") == self.WORKING:
+            qs = qs.filter(status__in=[Ticket.Status.IN_PROGRESS, Ticket.Status.IN_TEST])
+            data = {**data, "status": ""}
         for name in ("type", "status", "priority", "origin", "visibility"):
             if data.get(name):
                 qs = qs.filter(**{name: data[name]})
