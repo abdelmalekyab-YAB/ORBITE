@@ -38,6 +38,11 @@ def record_changes(ticket, before, user):
         if before[field] != after[field]
     ]
     TicketEvent.objects.bulk_create(events)
+    if before["status"] != after["status"]:
+        from .notifications import status_changed
+
+        labels = {str(label): value for value, label in Ticket.Status.choices}
+        status_changed(ticket, labels.get(before["status"]), user)
     return events
 
 

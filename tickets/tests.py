@@ -219,7 +219,27 @@ class BoardTests(TestCase):
         self.action(other, column="in_progress", message="Still broken on mobile")
         other.refresh_from_db()
         self.assertEqual(other.status, "in_progress")
-        self.assertEqual(other.comments.get().body, "Still broken on mobile")
+        self.assertIn("Still broken on mobile", other.comments.get().body)
+
+    def test_not_ok_requires_an_explanation(self):
+        self.client.force_login(self.client_user)
+        for payload in ({"action": "test_ko"}, {"column": "in_progress"}, {"action": "test_ko", "message": "  bad  "}):
+            response = self.action(self.ticket, **payload)
+            self.assertEqual(response.status_code, 400)
+            self.assertTrue(response.json()["needs_message"])
+        self.ticket.refresh_from_db()
+        self.assertEqual(self.ticket.status, "in_test")
+        self.assertFalse(self.ticket.comments.exists())
+
+    def test_client_can_reopen_a_validated_ticket_with_explanation(self):
+        self.client.force_login(self.client_user)
+        self.action(self.ticket, action="test_ok")
+        self.assertEqual(self.action(self.ticket, action="reopen").status_code, 400)
+        self.action(self.ticket, action="reopen", message="The export is empty in Firefox")
+        self.ticket.refresh_from_db()
+        self.assertEqual(self.ticket.status, "in_progress")
+        self.assertIsNone(self.ticket.closed_at)
+        self.assertIn("Firefox", self.ticket.comments.get().body)
 
     def test_client_answers_question_but_cannot_move_other_cards(self):
         self.client.force_login(self.client_user)
@@ -257,3 +277,52 @@ class BoardTests(TestCase):
         response = self.client.get(reverse("project_board", args=["SCV"]), {"group": "assignee", "q": "Test"})
         self.assertContains(response, "Test me")
         self.assertContains(response, 'draggable="true"')
+
+
+@override_settings(MEDIA_ROOT=MEDIA, LANGUAGE_CODE="en", ORBIT_BASE_URL="https://orbit.example")
+class NotificationTests(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        wws = Company.objects.create(name="WWS")
+        cls.dev = User.objects.create_user("dev", email="dev@digitalia.fr", password="x", role=User.Role.STAFF)
+        cls.lead = User.objects.create_user("lead", email="lead@digitalia.fr", password="x", role=User.Role.STAFF)
+        cls.client_user = User.objects.create_user("client", email="julie@wws.fr", password="x", company=wws)
+        cls.project = Project.objects.create(company=wws, name="Smart CV", key="SCV", lead=cls.lead)
+        cls.project.members.add(cls.client_user)
+
+    def test_client_is_told_when_it_is_their_turn(self):
+        from django.core import mail
+        ticket = Ticket.objects.create(project=self.project, title="Export", author=self.client_user, assignee=self.dev)
+        self.client.force_login(self.dev)
+        with self.captureOnCommitCallbacks(execute=True):
+            self.client.post(reverse("ticket_move", args=[ticket.pk]), '{"status": "in_test"}', content_type="application/json")
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertEqual(mail.outbox[0].to, ["julie@wws.fr"])
+        self.assertIn("SCV-1", mail.outbox[0].subject)
+        self.assertIn("https://orbit.example/p/SCV/tickets/1/", mail.outbox[0].body)
+
+    def test_assignee_gets_the_not_ok_explanation(self):
+        from django.core import mail
+        ticket = Ticket.objects.create(project=self.project, title="Export", author=self.dev, assignee=self.dev,
+                                       status=Ticket.Status.IN_TEST)
+        self.client.force_login(self.client_user)
+        with self.captureOnCommitCallbacks(execute=True):
+            self.client.post(reverse("ticket_client_action", args=[ticket.pk]),
+                             '{"action": "test_ko", "message": "Nothing happens on click"}', content_type="application/json")
+        self.assertEqual(mail.outbox[0].to, ["dev@digitalia.fr"])
+        self.assertIn("Nothing happens on click", mail.outbox[0].body)
+
+    def test_new_client_request_goes_to_the_project_lead_and_internal_stays_silent(self):
+        from django.core import mail
+        self.client.force_login(self.client_user)
+        with self.captureOnCommitCallbacks(execute=True):
+            self.client.post(reverse("ticket_create", args=["SCV"]),
+                             {"type": "bug", "title": "Crash", "description": "It crashes", "priority": "high"})
+        self.assertEqual(mail.outbox[0].to, ["lead@digitalia.fr"])
+        mail.outbox.clear()
+        internal = Ticket.objects.create(project=self.project, title="Refactor", author=self.dev,
+                                         visibility=Ticket.Visibility.INTERNAL)
+        self.client.force_login(self.dev)
+        with self.captureOnCommitCallbacks(execute=True):
+            self.client.post(reverse("ticket_move", args=[internal.pk]), '{"status": "in_test"}', content_type="application/json")
+        self.assertEqual(mail.outbox, [])

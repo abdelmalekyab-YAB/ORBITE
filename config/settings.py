@@ -96,3 +96,13 @@ FILE_UPLOAD_MAX_MEMORY_SIZE = 5 * 1024 * 1024
 ORBIT_MAX_ATTACHMENT_SIZE = 20 * 1024 * 1024
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# E-mail. Default: printed in the console. Set EMAIL_HOST etc. to send real e-mails.
+EMAIL_BACKEND = os.environ.get("EMAIL_BACKEND", "django.core.mail.backends.console.EmailBackend")
+EMAIL_HOST = os.environ.get("EMAIL_HOST", "localhost")
+EMAIL_PORT = int(os.environ.get("EMAIL_PORT", "587"))
+EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER", "")
+EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD", "")
+EMAIL_USE_TLS = env_bool("EMAIL_USE_TLS", True)
+DEFAULT_FROM_EMAIL = os.environ.get("DEFAULT_FROM_EMAIL", "Orbit <orbit@digitalia.fr>")
+ORBIT_BASE_URL = os.environ.get("ORBIT_BASE_URL", "http://localhost:8000")

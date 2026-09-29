@@ -1,7 +1,8 @@
 {% load i18n orbit %}
 <article class="kcard prio-edge-{{ t.priority }}{% if t.is_late %} is-late{% endif %}" data-id="{{ t.pk }}" data-ref="{{ t.reference }}" data-status="{{ t.status }}"
   {% if can_drag %}draggable="true" data-move-url="{% url 'ticket_move' t.pk %}"
-  {% elif t.client_actionable %}draggable="true" data-move-url="{% url 'ticket_client_action' t.pk %}" data-client="1"{% endif %}>
+  {% elif t.client_actionable %}draggable="true" data-move-url="{% url 'ticket_client_action' t.pk %}" data-client="1"
+  {% elif t.client_reopenable and not user.is_digitalia %}draggable="true" data-move-url="{% url 'ticket_client_action' t.pk %}" data-client="1" data-reopen="1"{% endif %}>
   <a class="kcard-title" href="{{ t.get_absolute_url }}" draggable="false">{% if t.parent_id %}↳ {% endif %}{{ t.title }}</a>
   {% if not project %}<div class="kcard-project">{{ t.project.name }}</div>{% endif %}
   <div class="kcard-meta">
@@ -20,6 +21,8 @@
       <button type="button" class="btn-mini ko" data-action="test_ko">✗ {% translate "Not OK" %}</button>
     {% endif %}
   </div>
+  {% elif t.client_reopenable and not user.is_digitalia %}
+  <div class="kcard-reopen"><button type="button" class="btn-link-mini" data-action="reopen">✗ {% translate "Not OK after all?" %}</button></div>
   {% endif %}
   <div class="kcard-foot">
     <span class="kcard-ref">{% if user.is_digitalia %}<span title="{{ t.get_origin_display }}">{{ t.origin|origin_icon }}</span>{% endif %}

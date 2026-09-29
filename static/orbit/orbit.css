@@ -167,3 +167,15 @@ main.wide { max-width: none; }
 .overview-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 12px; }
 .overview-grid .big { font-size: 22px; font-weight: 700; font-variant-numeric: tabular-nums; }
 .overview-types { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
+.kcard-reopen { text-align: right; }
+.btn-link-mini { font: inherit; font-size: 12px; background: none; border: 0; color: #b01f1f; cursor: pointer; padding: 0; }
+.btn-link-mini:hover { text-decoration: underline; }
+.explain-dialog { border: 0; border-radius: 12px; padding: 22px; width: min(520px, calc(100% - 32px)); box-shadow: 0 20px 60px rgba(20, 20, 50, .3); }
+.explain-dialog::backdrop { background: rgba(22, 21, 43, .45); }
+.explain-dialog h2 { margin-bottom: 4px; }
+.explain-dialog textarea { margin-top: 8px; }
+.explain-error { color: var(--danger); margin: 6px 0 0; font-size: 13px; }
+.explain-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 14px; }
+.btn-ko-solid { background: var(--danger); border-color: var(--danger); color: #fff; }
+.btn-ko-solid:hover { background: #b82f2f; }
+.ticket-client-actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 10px; }

@@ -3,6 +3,7 @@ import datetime
 import json
 
 from django.contrib.auth.decorators import login_required
+from django.db import transaction
 from django.db.models import Count, Q
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, render
@@ -48,7 +49,12 @@ CLIENT_ACTIONS = {
     "answered": ((S.WAITING_CLIENT,), S.TO_ANALYSE, gettext_lazy("Answered by the client, back to Digitalia")),
     "test_ok": ((S.IN_TEST,), S.DONE, gettext_lazy("Test approved by the client")),
     "test_ko": ((S.IN_TEST,), S.IN_PROGRESS, gettext_lazy("Test not conclusive, back to Digitalia")),
+    "reopen": ((S.DONE,), S.IN_PROGRESS, gettext_lazy("Reopened by the client, back to Digitalia")),
 }
+# These actions send the ticket back to Digitalia as "not OK": an explanation is mandatory,
+# so that Digitalia does not have to call the client back.
+EXPLANATION_REQUIRED = {"test_ko", "reopen"}
+MIN_EXPLANATION = 10
 
 GROUPS = {
     "": gettext_lazy("None"),
@@ -124,6 +130,7 @@ def _build(tickets, columns_spec, group):
     tickets = list(tickets.order_by(PRIORITY_ORDER.asc(), "due_date", "number"))
     for t in tickets:
         t.client_actionable = t.status in CLIENT_ACTION_STATUSES
+        t.client_reopenable = t.status == S.DONE
     lanes = []
     for label, items in _lanes(tickets, group):
         cols = []
@@ -245,16 +252,25 @@ def client_action(request, pk):
     if not action and target:
         if ticket.status == S.IN_TEST:
             action = "test_ok" if target == "done" else "test_ko"
+        elif ticket.status == S.DONE and target != "done":
+            action = "reopen"
         elif ticket.status == S.WAITING_CLIENT and target != "done":
             action = "answered"
     if action not in CLIENT_ACTIONS or ticket.status not in CLIENT_ACTIONS[action][0]:
         return JsonResponse({"error": _("This card cannot be moved there.")}, status=400)
-    before = snapshot(ticket)
-    ticket.status = CLIENT_ACTIONS[action][1]
-    ticket.save()
-    record_changes(ticket, before, user)
-    note = payload.get("message", "").strip()
-    if note:
-        ticket.comments.create(author=user, body=note)
-        TicketEvent.objects.create(ticket=ticket, user=user, kind=TicketEvent.Kind.COMMENTED)
+    note = str(payload.get("message", "")).strip()
+    if action in EXPLANATION_REQUIRED and len(note) < MIN_EXPLANATION:
+        return JsonResponse({
+            "error": _("Please explain what is not working (at least %(n)s characters).") % {"n": MIN_EXPLANATION},
+            "needs_message": True,
+        }, status=400)
+    with transaction.atomic():
+        if note:
+            prefix = {"test_ko": _("Test not OK"), "reopen": _("Reopened: not OK after all")}.get(action)
+            ticket.comments.create(author=user, body=f"{prefix} : {note}" if prefix else note)
+            TicketEvent.objects.create(ticket=ticket, user=user, kind=TicketEvent.Kind.COMMENTED)
+        before = snapshot(ticket)
+        ticket.status = CLIENT_ACTIONS[action][1]
+        ticket.save()
+        record_changes(ticket, before, user)
     return JsonResponse({"ok": True, "status": ticket.status, "label": str(CLIENT_ACTIONS[action][2])})

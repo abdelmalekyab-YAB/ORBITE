@@ -10,6 +10,7 @@ from django.utils.translation import gettext as _
 
 from core.permissions import digitalia_required, get_project_for
 
+from . import notifications
 from .forms import ClientTicketForm, CommentForm, StaffTicketForm, TicketFilterForm
 from .models import Attachment, Ticket, TicketEvent
 from .services import record_changes, record_creation, snapshot
@@ -86,6 +87,7 @@ def ticket_create(request, key):
             ticket.save()
             record_creation(ticket, user)
             _save_files(ticket, form.cleaned_data["files"], user, internal=ticket.visibility == Ticket.Visibility.INTERNAL)
+            notifications.ticket_created(ticket)
         messages.success(request, _("Ticket %(ref)s created.") % {"ref": ticket.reference})
         return redirect(ticket)
     return render(request, "tickets/ticket_form.html", {"project": project, "form": form})
@@ -107,6 +109,9 @@ def ticket_detail(request, key, number):
                 comment.is_internal = internal
                 comment.save()
                 TicketEvent.objects.create(ticket=ticket, user=user, kind=TicketEvent.Kind.COMMENTED, is_internal=internal)
+                if user.is_digitalia or ticket.status != Ticket.Status.WAITING_CLIENT:
+                    # When a client answers a waiting ticket, the status change e-mail already carries the message.
+                    notifications.comment_added(comment)
             _save_files(ticket, form.cleaned_data["files"], user, comment=comment, internal=internal)
             if not user.is_digitalia and ticket.status == Ticket.Status.WAITING_CLIENT:
                 # The client answered: hand the ticket back to Digitalia.

@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{% block title %}Orbit{% endblock %} · Orbit</title>
   <link rel="stylesheet" href="{% static 'orbit/orbit.css' %}">
+  <meta name="csrf-token" content="{{ csrf_token }}">
 </head>
 <body>
 {% if user.is_authenticated %}
@@ -41,5 +42,28 @@
   {% if messages %}<ul class="messages">{% for m in messages %}<li class="{{ m.tags }}">{{ m }}</li>{% endfor %}</ul>{% endif %}
   {% block content %}{% endblock %}
 </main>
+{% if user.is_authenticated %}
+<div class="toast" id="board-toast" role="status" hidden></div>
+<dialog id="explain-dialog" class="explain-dialog" aria-labelledby="explain-title">
+  <form method="dialog" id="explain-form" novalidate>
+    <h2 id="explain-title">{% translate "What is not working?" %}</h2>
+    <p class="muted">{% translate "Describe what you tested and what went wrong, so Digitalia can fix it without calling you back." %}</p>
+    <textarea id="explain-text" rows="5" required minlength="10" placeholder="{% translate 'Example: on the results page, the date filter shows no result when I pick last month.' %}"></textarea>
+    <p class="explain-error" id="explain-error" hidden></p>
+    <div class="explain-actions">
+      <button type="button" class="btn" id="explain-cancel">{% translate "Cancel" %}</button>
+      <button type="submit" class="btn btn-ko-solid" id="explain-submit">{% translate "Send: not OK" %}</button>
+    </div>
+  </form>
+</dialog>
+<script>
+  window.ORBIT_I18N = {
+    moveRow: "{% translate 'Move the card within its own row.' %}",
+    saveError: "{% translate 'The status could not be saved. Try again.' %}",
+    tooShort: "{% translate 'Please explain what is not working (at least 10 characters).' %}"
+  };
+</script>
+<script src="{% static 'orbit/board.js' %}"></script>
+{% endif %}
 </body>
 </html>

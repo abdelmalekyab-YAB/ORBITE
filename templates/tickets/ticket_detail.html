@@ -19,8 +19,24 @@
     {% if not ticket.parent %}<a class="btn" href="{% url 'ticket_create' project.key %}?parent={{ ticket.number }}">+ {% translate "Subtask" %}</a>{% endif %}</div>{% endif %}
 </div>
 
-{% if ticket.status == 'waiting_client' and not user.is_digitalia %}
+{% if not user.is_digitalia %}
+  {% if ticket.status == 'waiting_client' %}
   <div class="card" style="border-color:#f1b8d6;background:#fff7fb">⚠️ {% translate "Digitalia is waiting for your answer on this ticket. Reply below." %}</div>
+  {% elif ticket.status == 'in_test' %}
+  <div class="card" style="border-color:#f5d48a;background:#fffaf0" data-move-url="{% url 'ticket_client_action' ticket.pk %}" data-ref="{{ ticket.reference }}">
+    🧪 <strong>{% translate "This ticket is ready for you to test." %}</strong> {% translate "Tell us the result:" %}
+    <div class="ticket-client-actions">
+      <button type="button" class="btn btn-ok" data-action="test_ok">✓ {% translate "Test OK" %}</button>
+      <button type="button" class="btn btn-ko" data-action="test_ko">✗ {% translate "Not OK" %}</button>
+      <span class="muted">{% translate "If it is not OK, you will be asked to explain what is wrong." %}</span>
+    </div>
+  </div>
+  {% elif ticket.status == 'done' %}
+  <div class="card" data-move-url="{% url 'ticket_client_action' ticket.pk %}" data-ref="{{ ticket.reference }}">
+    ✅ {% translate "This ticket is done." %}
+    <button type="button" class="btn-link-mini" data-action="reopen">✗ {% translate "Not OK after all?" %}</button>
+  </div>
+  {% endif %}
 {% endif %}
 
 <div class="grid-2">

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-29 17:08+0200\n"
+"POT-Creation-Date: 2026-09-29 18:31+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -132,19 +132,19 @@ msgstr ""
 msgid "Milestone"
 msgstr ""
 
-#: core/models.py:105 tickets/board.py:37
+#: core/models.py:105 tickets/board.py:38
 msgid "Planned"
 msgstr ""
 
 #: core/models.py:106 templates/core/dashboard.html:10
 #: templates/core/dashboard.html:18 templates/core/project_detail.html:10
-#: templates/core/project_detail.html:34 tickets/board.py:38
+#: templates/core/project_detail.html:34 tickets/board.py:39
 #: tickets/models.py:39
 msgid "In progress"
 msgstr ""
 
 #: core/models.py:107 templates/core/project_detail.html:13
-#: tickets/board.py:40 tickets/models.py:42
+#: tickets/board.py:41 tickets/models.py:42
 msgid "Done"
 msgstr ""
 
@@ -180,45 +180,82 @@ msgstr ""
 msgid "Roadmap step saved."
 msgstr ""
 
-#: templates/base.html:16 templates/core/dashboard.html:2
+#: templates/base.html:17 templates/core/dashboard.html:2
 msgid "Dashboard"
 msgstr ""
 
-#: templates/base.html:17 templates/core/client_list.html:2
+#: templates/base.html:18 templates/core/client_list.html:2
 #: templates/core/client_list.html:4
 msgid "Clients"
 msgstr ""
 
-#: templates/base.html:18 templates/core/client_list.html:6
+#: templates/base.html:19 templates/core/client_list.html:6
 #: templates/core/dashboard.html:15 templates/core/project_list.html:2
 #: templates/core/project_list.html:4
 msgid "Projects"
 msgstr ""
 
-#: templates/base.html:19 templates/core/dashboard.html:30
+#: templates/base.html:20 templates/core/dashboard.html:30
 #: templates/includes/project_tabs.html:11 templates/tickets/board.html:2
 #: templates/tickets/board.html:7
 msgid "Board"
 msgstr ""
 
-#: templates/base.html:20 templates/tickets/ticket_list.html:4
+#: templates/base.html:21 templates/tickets/ticket_list.html:4
 msgid "All tickets"
 msgstr ""
 
-#: templates/base.html:21 templates/core/team.html:2
+#: templates/base.html:22 templates/core/team.html:2
 msgid "Team"
 msgstr ""
 
-#: templates/base.html:22
+#: templates/base.html:23
 msgid "Administration"
 msgstr ""
 
-#: templates/base.html:30
+#: templates/base.html:31
 msgid "Language"
 msgstr ""
 
-#: templates/base.html:36
+#: templates/base.html:37
 msgid "Log out"
+msgstr ""
+
+#: templates/base.html:49
+msgid "What is not working?"
+msgstr ""
+
+#: templates/base.html:50
+msgid ""
+"Describe what you tested and what went wrong, so Digitalia can fix it "
+"without calling you back."
+msgstr ""
+
+#: templates/base.html:51
+msgid ""
+"Example: on the results page, the date filter shows no result when I pick "
+"last month."
+msgstr ""
+
+#: templates/base.html:54 templates/core/milestone_form.html:11
+#: templates/tickets/ticket_form.html:18
+msgid "Cancel"
+msgstr ""
+
+#: templates/base.html:55
+msgid "Send: not OK"
+msgstr ""
+
+#: templates/base.html:61
+msgid "Move the card within its own row."
+msgstr ""
+
+#: templates/base.html:62
+msgid "The status could not be saved. Try again."
+msgstr ""
+
+#: templates/base.html:63
+msgid "Please explain what is not working (at least 10 characters)."
 msgstr ""
 
 #: templates/core/client_list.html:4
@@ -267,7 +304,7 @@ msgstr ""
 
 #: templates/core/dashboard.html:17 templates/core/project_list.html:6
 #: templates/includes/ticket_table.html:5 templates/tickets/board.html:13
-#: templates/tickets/ticket_detail.html:61 tickets/board.py:55
+#: templates/tickets/ticket_detail.html:77 tickets/board.py:61
 #: tickets/forms.py:107
 msgid "Project"
 msgstr ""
@@ -309,7 +346,7 @@ msgid "Assigned to me"
 msgstr ""
 
 #: templates/core/milestone_form.html:2 templates/tickets/board.html:27
-#: templates/tickets/ticket_detail.html:67 tickets/forms.py:114
+#: templates/tickets/ticket_detail.html:83 tickets/forms.py:114
 msgid "Roadmap step"
 msgstr ""
 
@@ -325,10 +362,6 @@ msgstr ""
 msgid "Save"
 msgstr ""
 
-#: templates/core/milestone_form.html:11 templates/tickets/ticket_form.html:18
-msgid "Cancel"
-msgstr ""
-
 #: templates/core/project_detail.html:6
 msgid "Overall progress"
 msgstr ""
@@ -337,7 +370,7 @@ msgstr ""
 msgid "Waiting for the client"
 msgstr ""
 
-#: templates/core/project_detail.html:18 templates/tickets/_card.html:15
+#: templates/core/project_detail.html:18 templates/tickets/_card.html:16
 msgid "Digitalia is waiting for your answer"
 msgstr ""
 
@@ -465,14 +498,14 @@ msgid "Status"
 msgstr ""
 
 #: templates/includes/ticket_table.html:6
-#: templates/tickets/ticket_detail.html:65
+#: templates/tickets/ticket_detail.html:81
 #: templates/tickets/ticket_list.html:26
 msgid "Target date"
 msgstr ""
 
 #: templates/includes/ticket_table.html:6 templates/tickets/board.html:19
-#: templates/tickets/ticket_detail.html:64
-#: templates/tickets/ticket_list.html:26 tickets/board.py:56
+#: templates/tickets/ticket_detail.html:80
+#: templates/tickets/ticket_list.html:26 tickets/board.py:62
 #: tickets/forms.py:113
 msgid "Assignee"
 msgstr ""
@@ -497,32 +530,38 @@ msgstr ""
 msgid "Password"
 msgstr ""
 
-#: templates/tickets/_card.html:16 templates/tickets/board.html:79
+#: templates/tickets/_card.html:17 templates/tickets/board.html:79
 msgid "I answered"
 msgstr ""
 
-#: templates/tickets/_card.html:18
+#: templates/tickets/_card.html:19
 msgid "Please test this"
 msgstr ""
 
-#: templates/tickets/_card.html:19 templates/tickets/board.html:81
+#: templates/tickets/_card.html:20 templates/tickets/board.html:81
+#: templates/tickets/ticket_detail.html:29
 msgid "Test OK"
 msgstr ""
 
-#: templates/tickets/_card.html:20 templates/tickets/board.html:82
+#: templates/tickets/_card.html:21 templates/tickets/board.html:82
+#: templates/tickets/ticket_detail.html:30
 msgid "Not OK"
 msgstr ""
 
-#: templates/tickets/_card.html:27 templates/tickets/ticket_detail.html:37
+#: templates/tickets/_card.html:25 templates/tickets/ticket_detail.html:37
+msgid "Not OK after all?"
+msgstr ""
+
+#: templates/tickets/_card.html:30 templates/tickets/ticket_detail.html:53
 msgid "Subtasks"
 msgstr ""
 
-#: templates/tickets/_card.html:28
+#: templates/tickets/_card.html:31
 msgid "Comments"
 msgstr ""
 
-#: templates/tickets/_card.html:30 templates/tickets/board.html:21
-#: tickets/board.py:111
+#: templates/tickets/_card.html:33 templates/tickets/board.html:21
+#: tickets/board.py:117
 msgid "Unassigned"
 msgstr ""
 
@@ -543,7 +582,7 @@ msgid "All projects"
 msgstr ""
 
 #: templates/tickets/board.html:16 templates/tickets/ticket_list.html:25
-#: tickets/board.py:58 tickets/forms.py:108
+#: tickets/board.py:64 tickets/forms.py:108
 msgid "Type"
 msgstr ""
 
@@ -659,86 +698,93 @@ msgstr ""
 msgid "Next deadline"
 msgstr ""
 
-#: templates/tickets/board.html:152
-msgid "Move the card within its own row."
-msgstr ""
-
-#: templates/tickets/board.html:155 templates/tickets/board.html:160
-#: templates/tickets/board.html:169
-msgid "The status could not be saved. Try again."
-msgstr ""
-
 #: templates/tickets/ticket_detail.html:19
 msgid "Subtask"
 msgstr ""
 
-#: templates/tickets/ticket_detail.html:23
+#: templates/tickets/ticket_detail.html:24
 msgid "Digitalia is waiting for your answer on this ticket. Reply below."
 msgstr ""
 
-#: templates/tickets/ticket_detail.html:29
-msgid "No description."
+#: templates/tickets/ticket_detail.html:27
+msgid "This ticket is ready for you to test."
+msgstr ""
+
+#: templates/tickets/ticket_detail.html:27
+msgid "Tell us the result:"
 msgstr ""
 
 #: templates/tickets/ticket_detail.html:31
-msgid "Attachments"
+msgid "If it is not OK, you will be asked to explain what is wrong."
 msgstr ""
 
-#: templates/tickets/ticket_detail.html:41
-msgid "Discussion"
-msgstr ""
-
-#: templates/tickets/ticket_detail.html:44
-#: templates/tickets/ticket_detail.html:62 tickets/models.py:55
-msgid "System"
+#: templates/tickets/ticket_detail.html:36
+msgid "This ticket is done."
 msgstr ""
 
 #: templates/tickets/ticket_detail.html:45
+msgid "No description."
+msgstr ""
+
+#: templates/tickets/ticket_detail.html:47
+msgid "Attachments"
+msgstr ""
+
+#: templates/tickets/ticket_detail.html:57
+msgid "Discussion"
+msgstr ""
+
+#: templates/tickets/ticket_detail.html:60
+#: templates/tickets/ticket_detail.html:78 tickets/models.py:55
+msgid "System"
+msgstr ""
+
+#: templates/tickets/ticket_detail.html:61
 msgid "Internal note"
 msgstr ""
 
-#: templates/tickets/ticket_detail.html:49
+#: templates/tickets/ticket_detail.html:65
 msgid "No comment yet."
 msgstr ""
 
-#: templates/tickets/ticket_detail.html:53
+#: templates/tickets/ticket_detail.html:69
 msgid "Send"
 msgstr ""
 
-#: templates/tickets/ticket_detail.html:62
+#: templates/tickets/ticket_detail.html:78
 msgid "Author"
 msgstr ""
 
-#: templates/tickets/ticket_detail.html:63
+#: templates/tickets/ticket_detail.html:79
 #: templates/tickets/ticket_list.html:26 tickets/models.py:205
 msgid "Created"
 msgstr ""
 
-#: templates/tickets/ticket_detail.html:69
+#: templates/tickets/ticket_detail.html:85
 msgid "Updated"
 msgstr ""
 
-#: templates/tickets/ticket_detail.html:70
+#: templates/tickets/ticket_detail.html:86
 msgid "Closed"
 msgstr ""
 
-#: templates/tickets/ticket_detail.html:74
+#: templates/tickets/ticket_detail.html:90
 msgid "History"
 msgstr ""
 
-#: templates/tickets/ticket_detail.html:79
+#: templates/tickets/ticket_detail.html:95
 msgid "created the ticket"
 msgstr ""
 
-#: templates/tickets/ticket_detail.html:80
+#: templates/tickets/ticket_detail.html:96
 msgid "commented"
 msgstr ""
 
-#: templates/tickets/ticket_detail.html:81
+#: templates/tickets/ticket_detail.html:97
 msgid "added"
 msgstr ""
 
-#: templates/tickets/ticket_detail.html:82
+#: templates/tickets/ticket_detail.html:98
 msgid "changed"
 msgstr ""
 
@@ -791,7 +837,7 @@ msgstr ""
 msgid "Client / project"
 msgstr ""
 
-#: templates/tickets/ticket_list.html:25 tickets/board.py:57
+#: templates/tickets/ticket_list.html:25 tickets/board.py:63
 #: tickets/forms.py:110
 msgid "Priority"
 msgstr ""
@@ -800,36 +846,53 @@ msgstr ""
 msgid "No ticket matches these filters."
 msgstr ""
 
-#: tickets/board.py:36
+#: tickets/board.py:37
 msgid "Received"
 msgstr ""
 
-#: tickets/board.py:39
+#: tickets/board.py:40
 msgid "Your turn: answer or test"
 msgstr ""
 
-#: tickets/board.py:48
+#: tickets/board.py:49
 msgid "Answered by the client, back to Digitalia"
 msgstr ""
 
-#: tickets/board.py:49
+#: tickets/board.py:50
 msgid "Test approved by the client"
 msgstr ""
 
-#: tickets/board.py:50
+#: tickets/board.py:51
 msgid "Test not conclusive, back to Digitalia"
 msgstr ""
 
-#: tickets/board.py:54
+#: tickets/board.py:52
+msgid "Reopened by the client, back to Digitalia"
+msgstr ""
+
+#: tickets/board.py:60
 msgid "None"
 msgstr ""
 
-#: tickets/board.py:223
+#: tickets/board.py:230
 msgid "Unknown status."
 msgstr ""
 
-#: tickets/board.py:251
+#: tickets/board.py:260
 msgid "This card cannot be moved there."
+msgstr ""
+
+#: tickets/board.py:264
+#, python-format
+msgid "Please explain what is not working (at least %(n)s characters)."
+msgstr ""
+
+#: tickets/board.py:269
+msgid "Test not OK"
+msgstr ""
+
+#: tickets/board.py:269
+msgid "Reopened: not OK after all"
 msgstr ""
 
 #: tickets/forms.py:26
@@ -1074,15 +1137,91 @@ msgstr ""
 msgid "history"
 msgstr ""
 
-#: tickets/views.py:89
+#: tickets/notifications.py:51
+#, python-format
+msgid "Open the ticket: %(url)s"
+msgstr ""
+
+#: tickets/notifications.py:59
+msgid "Digitalia needs your answer"
+msgstr ""
+
+#: tickets/notifications.py:60 tickets/notifications.py:66
+msgid "Hello,"
+msgstr ""
+
+#: tickets/notifications.py:61
+#, python-format
+msgid "Digitalia is waiting for your answer on “%(title)s”."
+msgstr ""
+
+#: tickets/notifications.py:62
+msgid "Reply directly in Orbit, then click “I answered”."
+msgstr ""
+
+#: tickets/notifications.py:65
+msgid "Ready for you to test"
+msgstr ""
+
+#: tickets/notifications.py:67
+#, python-format
+msgid ""
+"“%(title)s” is ready. Please test it and tell us the result in Orbit (Test "
+"OK / Not OK)."
+msgstr ""
+
+#: tickets/notifications.py:73
+msgid "The client answered"
+msgstr ""
+
+#: tickets/notifications.py:74
+msgid "The client approved the test"
+msgstr ""
+
+#: tickets/notifications.py:75
+msgid "The client says it is NOT OK"
+msgstr ""
+
+#: tickets/notifications.py:76
+msgid "The client updated the ticket"
+msgstr ""
+
+#: tickets/notifications.py:79
+msgid "Client message:"
+msgstr ""
+
+#: tickets/notifications.py:88
+#, python-format
+msgid "New client request: %(type)s"
+msgstr ""
+
+#: tickets/notifications.py:89
+#, python-format
+msgid "%(author)s (%(company)s) created a request on %(project)s:"
+msgstr ""
+
+#: tickets/notifications.py:101
+msgid "New message from Digitalia"
+msgstr ""
+
+#: tickets/notifications.py:102 tickets/notifications.py:105
+#, python-format
+msgid "%(author)s wrote:"
+msgstr ""
+
+#: tickets/notifications.py:104
+msgid "New message from the client"
+msgstr ""
+
+#: tickets/views.py:91
 #, python-format
 msgid "Ticket %(ref)s created."
 msgstr ""
 
-#: tickets/views.py:117
+#: tickets/views.py:122
 msgid "Your reply has been added."
 msgstr ""
 
-#: tickets/views.py:145
+#: tickets/views.py:150
 msgid "Ticket updated."
 msgstr ""
