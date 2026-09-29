@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-29 16:51+0200\n"
+"POT-Creation-Date: 2026-09-29 17:08+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -267,7 +267,7 @@ msgstr ""
 
 #: templates/core/dashboard.html:17 templates/core/project_list.html:6
 #: templates/includes/ticket_table.html:5 templates/tickets/board.html:13
-#: templates/tickets/ticket_detail.html:61 tickets/board.py:45
+#: templates/tickets/ticket_detail.html:61 tickets/board.py:55
 #: tickets/forms.py:107
 msgid "Project"
 msgstr ""
@@ -337,7 +337,7 @@ msgstr ""
 msgid "Waiting for the client"
 msgstr ""
 
-#: templates/core/project_detail.html:18
+#: templates/core/project_detail.html:18 templates/tickets/_card.html:15
 msgid "Digitalia is waiting for your answer"
 msgstr ""
 
@@ -472,7 +472,7 @@ msgstr ""
 
 #: templates/includes/ticket_table.html:6 templates/tickets/board.html:19
 #: templates/tickets/ticket_detail.html:64
-#: templates/tickets/ticket_list.html:26 tickets/board.py:46
+#: templates/tickets/ticket_list.html:26 tickets/board.py:56
 #: tickets/forms.py:113
 msgid "Assignee"
 msgstr ""
@@ -497,16 +497,32 @@ msgstr ""
 msgid "Password"
 msgstr ""
 
-#: templates/tickets/_card.html:14 templates/tickets/ticket_detail.html:37
+#: templates/tickets/_card.html:16 templates/tickets/board.html:79
+msgid "I answered"
+msgstr ""
+
+#: templates/tickets/_card.html:18
+msgid "Please test this"
+msgstr ""
+
+#: templates/tickets/_card.html:19 templates/tickets/board.html:81
+msgid "Test OK"
+msgstr ""
+
+#: templates/tickets/_card.html:20 templates/tickets/board.html:82
+msgid "Not OK"
+msgstr ""
+
+#: templates/tickets/_card.html:27 templates/tickets/ticket_detail.html:37
 msgid "Subtasks"
 msgstr ""
 
-#: templates/tickets/_card.html:15
+#: templates/tickets/_card.html:28
 msgid "Comments"
 msgstr ""
 
-#: templates/tickets/_card.html:17 templates/tickets/board.html:21
-#: tickets/board.py:101
+#: templates/tickets/_card.html:30 templates/tickets/board.html:21
+#: tickets/board.py:111
 msgid "Unassigned"
 msgstr ""
 
@@ -527,7 +543,7 @@ msgid "All projects"
 msgstr ""
 
 #: templates/tickets/board.html:16 templates/tickets/ticket_list.html:25
-#: tickets/board.py:48 tickets/forms.py:108
+#: tickets/board.py:58 tickets/forms.py:108
 msgid "Type"
 msgstr ""
 
@@ -568,7 +584,7 @@ msgstr ""
 msgid "Reset"
 msgstr ""
 
-#: templates/tickets/board.html:50 templates/tickets/board.html:76
+#: templates/tickets/board.html:50
 msgid "Drop here"
 msgstr ""
 
@@ -581,17 +597,74 @@ msgstr ""
 msgid "Done column: tickets closed in the last %(done_days)s days."
 msgstr ""
 
-#: templates/tickets/board.html:60
-msgid ""
-"Cards in “Your turn” are waiting for you: open them to answer or confirm the"
-" test."
+#: templates/tickets/board.html:64
+msgid "What we need from you"
 msgstr ""
 
-#: templates/tickets/board.html:98
+#: templates/tickets/board.html:66
+msgid ""
+"Answer or test these tickets, then tell us with the buttons (or drag the "
+"card out of “Your turn”). The ticket goes straight back to Digitalia."
+msgstr ""
+
+#: templates/tickets/board.html:71
+msgid "Answer"
+msgstr ""
+
+#: templates/tickets/board.html:71
+msgid "Test"
+msgstr ""
+
+#: templates/tickets/board.html:73
+msgid "by"
+msgstr ""
+
+#: templates/tickets/board.html:78
+msgid "Reply"
+msgstr ""
+
+#: templates/tickets/board.html:89
+msgid "Nothing is waiting for you. Digitalia is on it."
+msgstr ""
+
+#: templates/tickets/board.html:94
+msgid "Status of all your tickets"
+msgstr ""
+
+#: templates/tickets/board.html:95
+msgid "Tickets by column"
+msgstr ""
+
+#: templates/tickets/board.html:102
+msgid "done"
+msgstr ""
+
+#: templates/tickets/board.html:103
+msgid "open"
+msgstr ""
+
+#: templates/tickets/board.html:104
+msgid "late"
+msgstr ""
+
+#: templates/tickets/board.html:105
+msgid "requests in total"
+msgstr ""
+
+#: templates/tickets/board.html:109
+msgid "Rejected or cancelled"
+msgstr ""
+
+#: templates/tickets/board.html:111
+msgid "Next deadline"
+msgstr ""
+
+#: templates/tickets/board.html:152
 msgid "Move the card within its own row."
 msgstr ""
 
-#: templates/tickets/board.html:108
+#: templates/tickets/board.html:155 templates/tickets/board.html:160
+#: templates/tickets/board.html:169
 msgid "The status could not be saved. Try again."
 msgstr ""
 
@@ -718,7 +791,7 @@ msgstr ""
 msgid "Client / project"
 msgstr ""
 
-#: templates/tickets/ticket_list.html:25 tickets/board.py:47
+#: templates/tickets/ticket_list.html:25 tickets/board.py:57
 #: tickets/forms.py:110
 msgid "Priority"
 msgstr ""
@@ -735,12 +808,28 @@ msgstr ""
 msgid "Your turn: answer or test"
 msgstr ""
 
-#: tickets/board.py:44
+#: tickets/board.py:48
+msgid "Answered by the client, back to Digitalia"
+msgstr ""
+
+#: tickets/board.py:49
+msgid "Test approved by the client"
+msgstr ""
+
+#: tickets/board.py:50
+msgid "Test not conclusive, back to Digitalia"
+msgstr ""
+
+#: tickets/board.py:54
 msgid "None"
 msgstr ""
 
-#: tickets/board.py:181
+#: tickets/board.py:223
 msgid "Unknown status."
+msgstr ""
+
+#: tickets/board.py:251
+msgid "This card cannot be moved there."
 msgstr ""
 
 #: tickets/forms.py:26

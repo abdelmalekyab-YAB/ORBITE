@@ -15,7 +15,7 @@ from core.models import Project
 from core.permissions import digitalia_required, get_project_for
 
 from .forms import staff_users
-from .models import Ticket
+from .models import Ticket, TicketEvent
 from .services import record_changes, snapshot
 
 S = Ticket.Status
@@ -39,6 +39,16 @@ CLIENT_COLUMNS = [
     ("your_turn", gettext_lazy("Your turn: answer or test"), [S.WAITING_CLIENT, S.IN_TEST]),
     ("done", gettext_lazy("Done"), [S.DONE]),
 ]
+
+# Statuses where the ball is in the client's court; only these cards can be moved by a client.
+CLIENT_ACTION_STATUSES = (S.WAITING_CLIENT, S.IN_TEST)
+
+# What the client does with an actionable ticket, and the status it goes back to.
+CLIENT_ACTIONS = {
+    "answered": ((S.WAITING_CLIENT,), S.TO_ANALYSE, gettext_lazy("Answered by the client, back to Digitalia")),
+    "test_ok": ((S.IN_TEST,), S.DONE, gettext_lazy("Test approved by the client")),
+    "test_ko": ((S.IN_TEST,), S.IN_PROGRESS, gettext_lazy("Test not conclusive, back to Digitalia")),
+}
 
 GROUPS = {
     "": gettext_lazy("None"),
@@ -112,6 +122,8 @@ def _build(tickets, columns_spec, group):
     from .views import PRIORITY_ORDER
 
     tickets = list(tickets.order_by(PRIORITY_ORDER.asc(), "due_date", "number"))
+    for t in tickets:
+        t.client_actionable = t.status in CLIENT_ACTION_STATUSES
     lanes = []
     for label, items in _lanes(tickets, group):
         cols = []
@@ -140,8 +152,11 @@ def _render(request, project=None):
     else:
         group = ""
         lanes, totals = _build(qs, CLIENT_COLUMNS, group)
+        extra = _client_panel(user, project)
     groups = {k: v for k, v in GROUPS.items() if not (project and k == "project")}
+    context = extra if not user.is_digitalia else {}
     return render(request, "tickets/board.html", {
+        **context,
         "project": project,
         "lanes": lanes,
         "totals": totals,
@@ -157,6 +172,33 @@ def _render(request, project=None):
         "can_drag": user.is_digitalia,
         "done_days": DONE_DAYS,
     })
+
+
+def _client_panel(user, project):
+    """What the client must do, and an overview of all their tickets."""
+    from .services import progress, ticket_stats
+
+    visible = Ticket.objects.visible_to(user).filter(project=project)
+    todo = list(visible.filter(status__in=CLIENT_ACTION_STATUSES).select_related("assignee").order_by("due_date", "number"))
+    for t in todo:
+        last = t.comments.filter(is_internal=False).exclude(author=user).select_related("author").last()
+        t.last_message = last
+    stats = ticket_stats(visible)
+    by_type = visible.exclude(status__in=[S.REJECTED, S.CANCELLED]).values("type").annotate(n=Count("id")).order_by("-n")
+    type_labels = dict(Ticket.Type.choices)
+    overview = []
+    for key, title, statuses in CLIENT_COLUMNS:
+        overview.append({"key": key, "title": title, "count": visible.filter(status__in=statuses).count()})
+    next_due = visible.open().filter(due_date__isnull=False).order_by("due_date").first()
+    return {
+        "client_todo": todo,
+        "overview": overview,
+        "overview_stats": stats,
+        "overview_progress": progress(stats),
+        "overview_types": [{"label": type_labels[r["type"]], "type": r["type"], "n": r["n"]} for r in by_type],
+        "overview_next_due": next_due,
+        "overview_closed": visible.filter(status__in=[S.REJECTED, S.CANCELLED]).count(),
+    }
 
 
 @login_required
@@ -185,3 +227,34 @@ def move_ticket(request, pk):
         ticket.save()
         record_changes(ticket, before, request.user)
     return JsonResponse({"ok": True, "status": ticket.status, "label": ticket.get_status_display()})
+
+
+@require_POST
+@login_required
+def client_action(request, pk):
+    """A client answers a question or gives the result of a test, from the board."""
+    user = request.user
+    ticket = get_object_or_404(Ticket.objects.visible_to(user), pk=pk)
+    try:
+        payload = json.loads(request.body or "{}")
+    except ValueError:
+        payload = {}
+    action = payload.get("action")
+    # Dropping a card on a column is translated into an action.
+    target = payload.get("column")
+    if not action and target:
+        if ticket.status == S.IN_TEST:
+            action = "test_ok" if target == "done" else "test_ko"
+        elif ticket.status == S.WAITING_CLIENT and target != "done":
+            action = "answered"
+    if action not in CLIENT_ACTIONS or ticket.status not in CLIENT_ACTIONS[action][0]:
+        return JsonResponse({"error": _("This card cannot be moved there.")}, status=400)
+    before = snapshot(ticket)
+    ticket.status = CLIENT_ACTIONS[action][1]
+    ticket.save()
+    record_changes(ticket, before, user)
+    note = payload.get("message", "").strip()
+    if note:
+        ticket.comments.create(author=user, body=note)
+        TicketEvent.objects.create(ticket=ticket, user=user, kind=TicketEvent.Kind.COMMENTED)
+    return JsonResponse({"ok": True, "status": ticket.status, "label": str(CLIENT_ACTIONS[action][2])})

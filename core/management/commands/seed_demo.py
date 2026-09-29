@@ -76,6 +76,11 @@ class Command(BaseCommand):
             waiting = ticket(client, title="Logo à mettre à jour", type=Ticket.Type.QUESTION,
                              status=Ticket.Status.WAITING_CLIENT, assignee=pm)
             Comment.objects.create(ticket=waiting, author=pm, body="Pouvez-vous nous envoyer le logo en SVG ?")
+            to_test = ticket(client, title="Filtre par date sur les résultats", type=Ticket.Type.EVOLUTION,
+                             status=Ticket.Status.IN_TEST, milestone=v2, assignee=dev, due_date=today + 3 * day,
+                             description="Pouvoir filtrer les résultats par période.")
+            Comment.objects.create(ticket=to_test, author=dev,
+                                   body="C'est disponible sur la préproduction, pouvez-vous tester et nous dire si c'est bon ?")
             ticket(dev, title="Refactor API authentication", type=Ticket.Type.TASK,
                    visibility=Ticket.Visibility.INTERNAL, status=Ticket.Status.TODO, assignee=dev, milestone=v2)
             ticket(client, title="Nouvelle page statistiques", type=Ticket.Type.EVOLUTION,

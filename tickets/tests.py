@@ -1,4 +1,5 @@
 import datetime
+import json
 import shutil
 import tempfile
 
@@ -198,10 +199,42 @@ class BoardTests(TestCase):
         self.assertContains(response, "Your turn")
         self.assertContains(response, "Test me")
         self.assertNotContains(response, "Secret task")
-        self.assertNotContains(response, 'draggable="true"')
+        self.assertContains(response, "What we need from you")
+        # Only the card waiting for the client can be moved by the client.
+        self.assertContains(response, 'data-client="1"', count=1)
         move = self.client.post(reverse("ticket_move", args=[self.ticket.pk]), '{"status": "done"}',
                                 content_type="application/json")
         self.assertEqual(move.status_code, 403)
+
+    def action(self, ticket, **payload):
+        return self.client.post(reverse("ticket_client_action", args=[ticket.pk]), json.dumps(payload),
+                                content_type="application/json")
+
+    def test_client_validates_or_refuses_a_test(self):
+        self.client.force_login(self.client_user)
+        self.assertEqual(self.action(self.ticket, action="test_ok").status_code, 200)
+        self.ticket.refresh_from_db()
+        self.assertEqual(self.ticket.status, "done")
+        other = Ticket.objects.create(project=self.project, title="t2", author=self.staff, status="in_test")
+        self.action(other, column="in_progress", message="Still broken on mobile")
+        other.refresh_from_db()
+        self.assertEqual(other.status, "in_progress")
+        self.assertEqual(other.comments.get().body, "Still broken on mobile")
+
+    def test_client_answers_question_but_cannot_move_other_cards(self):
+        self.client.force_login(self.client_user)
+        question = Ticket.objects.create(project=self.project, title="Q", author=self.staff, status="waiting_client")
+        self.assertEqual(self.action(question, column="done").status_code, 400)
+        self.action(question, action="answered")
+        question.refresh_from_db()
+        self.assertEqual(question.status, "to_analyse")
+        self.assertTrue(question.events.filter(user=self.client_user, field="status").exists())
+        busy = Ticket.objects.create(project=self.project, title="B", author=self.staff, status="in_progress")
+        self.assertEqual(self.action(busy, action="test_ok").status_code, 400)
+        secret = Ticket.objects.get(title="Secret task")
+        secret.status = "in_test"
+        secret.save()
+        self.assertEqual(self.action(secret, action="test_ok").status_code, 404)
 
     def test_staff_moves_ticket_and_history_is_recorded(self):
         self.client.force_login(self.staff)
