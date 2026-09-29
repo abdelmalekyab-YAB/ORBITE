@@ -1,0 +1,15 @@
+{% extends "base.html" %}{% load i18n %}
+{% block title %}{% translate "Log in" %}{% endblock %}
+{% block content %}
+<div class="card login">
+  <h1>◎ Orbit</h1>
+  <p class="subtitle">{% translate "Your project space with Digitalia" %}</p>
+  <form method="post">{% csrf_token %}
+    {% if form.non_field_errors %}<ul class="errorlist">{% for e in form.non_field_errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
+    <div class="form-row"><label for="id_username">{% translate "Username" %}</label>{{ form.username }}</div>
+    <div class="form-row"><label for="id_password">{% translate "Password" %}</label>{{ form.password }}</div>
+    <input type="hidden" name="next" value="{{ next }}">
+    <button class="btn btn-primary" type="submit">{% translate "Log in" %}</button>
+  </form>
+</div>
+{% endblock %}

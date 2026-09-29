@@ -1,0 +1,38 @@
+{% extends "base.html" %}{% load i18n %}
+{% block title %}{{ project.name }}{% endblock %}
+{% block content %}
+{% include "includes/project_tabs.html" %}
+<div class="stats">
+  <div class="stat"><div class="value">{{ progress }}%</div><div class="label">{% translate "Overall progress" %}</div><div class="progress"><span style="width: {{ progress }}%"></span></div></div>
+  <div class="stat"><div class="value">{{ stats.open }}</div><div class="label">{% translate "Open tickets" %}</div></div>
+  <div class="stat"><div class="value">{{ stats.bugs }}</div><div class="label">{% translate "Open bugs" %}</div></div>
+  <div class="stat"><div class="value">{{ stats.evolutions }}</div><div class="label">{% translate "Changes & features" %}</div></div>
+  <div class="stat warning"><div class="value">{{ stats.in_progress }}</div><div class="label">{% translate "In progress" %}</div></div>
+  <div class="stat {% if stats.waiting_client %}danger{% endif %}"><div class="value">{{ stats.waiting_client }}</div><div class="label">{% translate "Waiting for client" %}</div></div>
+  <div class="stat {% if stats.late %}danger{% endif %}"><div class="value">{{ stats.late }}</div><div class="label">{% translate "Late" %}</div></div>
+  <div class="stat success"><div class="value">{{ stats.done }}</div><div class="label">{% translate "Done" %}</div></div>
+</div>
+
+{% if waiting_client %}
+<div class="card" style="border-color:#f1b8d6">
+  <h2>⚠️ {% if user.is_digitalia %}{% translate "Waiting for the client" %}{% else %}{% translate "Digitalia is waiting for your answer" %}{% endif %}</h2>
+  {% include "includes/ticket_table.html" with tickets=waiting_client %}
+</div>
+{% endif %}
+
+<div class="grid">
+  <div class="card"><h2>{% translate "Roadmap" %}</h2>
+    {% for item in milestones %}
+      <div style="margin-bottom:12px">
+        <div style="display:flex;justify-content:space-between;gap:8px"><strong>{{ item.milestone }}</strong>
+          <span class="muted {% if item.milestone.is_late %}late{% endif %}">{{ item.milestone.due_date|date:"SHORT_DATE_FORMAT"|default:"" }}</span></div>
+        <div class="progress"><span style="width: {{ item.progress }}%"></span></div>
+        <small class="muted">{{ item.milestone.get_status_display }} · {{ item.stats.done }}/{{ item.stats.open|add:item.stats.done }}</small>
+      </div>
+    {% empty %}<p class="empty">{% translate "No roadmap step yet." %}</p>{% endfor %}
+  </div>
+  <div class="card"><h2>{% translate "In progress" %}</h2>{% include "includes/ticket_table.html" with tickets=in_progress %}</div>
+  <div class="card"><h2>{% translate "Next deadlines" %}</h2>{% include "includes/ticket_table.html" with tickets=upcoming %}</div>
+  <div class="card"><h2>{% translate "Recently done" %}</h2>{% include "includes/ticket_table.html" with tickets=recently_done %}</div>
+</div>
+{% endblock %}

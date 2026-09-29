@@ -1,0 +1,14 @@
+{% extends "base.html" %}{% load i18n %}
+{% block title %}{% translate "Roadmap step" %}{% endblock %}
+{% block content %}
+{% include "includes/project_tabs.html" %}
+<div class="card" style="max-width:720px">
+  <h2>{% if milestone.pk %}{% translate "Edit roadmap step" %}{% else %}{% translate "New roadmap step" %}{% endif %}</h2>
+  <form method="post">{% csrf_token %}
+    {{ form.non_field_errors }}
+    <div class="form-grid">{% for field in form %}{% include "includes/field.html" %}{% endfor %}</div>
+    <button class="btn btn-primary">{% translate "Save" %}</button>
+    <a class="btn" href="{% url 'roadmap' project.key %}">{% translate "Cancel" %}</a>
+  </form>
+</div>
+{% endblock %}

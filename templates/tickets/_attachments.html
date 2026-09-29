@@ -1,0 +1,6 @@
+<div class="thumbs">
+{% for a in files %}
+  {% if a.is_image %}<a href="{% url 'attachment_download' a.pk %}" target="_blank"><img src="{% url 'attachment_download' a.pk %}" alt="{{ a.filename }}"></a>
+  {% else %}<a class="btn" href="{% url 'attachment_download' a.pk %}">📎 {{ a.filename }}</a>{% endif %}
+{% endfor %}
+</div>

@@ -1,0 +1,13 @@
+{% extends "base.html" %}{% load i18n %}
+{% block title %}{% translate "Team" %}{% endblock %}
+{% block content %}
+<h1>{% translate "Digitalia team" %}</h1>
+<p class="subtitle">{% translate "Workload per team member." %}</p>
+<div class="card"><table>
+  <thead><tr><th>{% translate "Name" %}</th><th>{% translate "Email" %}</th><th class="num">{% translate "Open tickets" %}</th><th class="num">{% translate "Late" %}</th></tr></thead>
+  <tbody>{% for m in members %}
+    <tr><td><a href="{% url 'all_tickets' %}?assignee={{ m.pk }}">{{ m }}</a></td><td>{{ m.email }}</td>
+      <td class="num">{{ m.n_open }}</td><td class="num {% if m.n_late %}late{% endif %}">{{ m.n_late }}</td></tr>
+  {% endfor %}</tbody>
+</table></div>
+{% endblock %}

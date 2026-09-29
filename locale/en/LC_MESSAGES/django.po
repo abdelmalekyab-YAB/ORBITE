@@ -1,0 +1,885 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-29 15:56+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: config/settings.py:84
+msgid "French"
+msgstr ""
+
+#: config/settings.py:84
+msgid "English"
+msgstr ""
+
+#: core/admin.py:17 core/admin.py:19
+msgid "Orbit"
+msgstr ""
+
+#: core/models.py:12 core/models.py:61 core/models.py:110
+msgid "name"
+msgstr ""
+
+#: core/models.py:14
+msgid "Digitalia (internal)"
+msgstr ""
+
+#: core/models.py:15
+msgid "Check for Digitalia itself; leave unchecked for clients."
+msgstr ""
+
+#: core/models.py:17 core/models.py:77 tickets/models.py:100
+#: tickets/models.py:165 tickets/models.py:185
+msgid "created at"
+msgstr ""
+
+#: core/models.py:21 core/models.py:35
+msgid "company"
+msgstr ""
+
+#: core/models.py:22
+msgid "companies"
+msgstr ""
+
+#: core/models.py:30 templates/core/client_list.html:6
+#: templates/core/dashboard.html:17 templates/core/project_list.html:6
+#: tickets/forms.py:106 tickets/models.py:53
+msgid "Client"
+msgstr ""
+
+#: core/models.py:31 templates/core/team.html:4
+msgid "Digitalia team"
+msgstr ""
+
+#: core/models.py:33
+msgid "role"
+msgstr ""
+
+#: core/models.py:40 tickets/models.py:211
+msgid "user"
+msgstr ""
+
+#: core/models.py:41
+msgid "users"
+msgstr ""
+
+#: core/models.py:58
+msgid "client"
+msgstr ""
+
+#: core/models.py:63
+msgid "key"
+msgstr ""
+
+#: core/models.py:64
+msgid "Short prefix used in ticket references, e.g. SCV."
+msgstr ""
+
+#: core/models.py:66 core/models.py:113 tickets/models.py:80
+msgid "description"
+msgstr ""
+
+#: core/models.py:68
+msgid "client members"
+msgstr ""
+
+#: core/models.py:69
+msgid "Client accounts that can access this project."
+msgstr ""
+
+#: core/models.py:72
+msgid "project lead"
+msgstr ""
+
+#: core/models.py:76
+msgid "active"
+msgstr ""
+
+#: core/models.py:81 core/models.py:109 tickets/models.py:69
+msgid "project"
+msgstr ""
+
+#: core/models.py:82
+msgid "projects"
+msgstr ""
+
+#: core/models.py:99
+msgid "Version"
+msgstr ""
+
+#: core/models.py:100
+msgid "Lot"
+msgstr ""
+
+#: core/models.py:101
+msgid "Sprint"
+msgstr ""
+
+#: core/models.py:102
+msgid "Milestone"
+msgstr ""
+
+#: core/models.py:105
+msgid "Planned"
+msgstr ""
+
+#: core/models.py:106 templates/core/dashboard.html:10
+#: templates/core/dashboard.html:18 templates/core/project_detail.html:10
+#: templates/core/project_detail.html:34 tickets/models.py:39
+msgid "In progress"
+msgstr ""
+
+#: core/models.py:107 templates/core/project_detail.html:13
+#: tickets/models.py:42
+msgid "Done"
+msgstr ""
+
+#: core/models.py:111 tickets/models.py:212
+msgid "kind"
+msgstr ""
+
+#: core/models.py:112 tickets/models.py:82
+msgid "status"
+msgstr ""
+
+#: core/models.py:114
+msgid "start date"
+msgstr ""
+
+#: core/models.py:115
+msgid "due date"
+msgstr ""
+
+#: core/models.py:116
+msgid "visible to client"
+msgstr ""
+
+#: core/models.py:120 tickets/models.py:76
+msgid "roadmap step"
+msgstr ""
+
+#: core/models.py:121
+msgid "roadmap steps"
+msgstr ""
+
+#: core/views.py:77
+msgid "Roadmap step saved."
+msgstr ""
+
+#: templates/base.html:16 templates/core/dashboard.html:2
+msgid "Dashboard"
+msgstr ""
+
+#: templates/base.html:17 templates/core/client_list.html:2
+#: templates/core/client_list.html:4
+msgid "Clients"
+msgstr ""
+
+#: templates/base.html:18 templates/core/client_list.html:6
+#: templates/core/dashboard.html:15 templates/core/project_list.html:2
+#: templates/core/project_list.html:4
+msgid "Projects"
+msgstr ""
+
+#: templates/base.html:19 templates/tickets/ticket_list.html:4
+msgid "All tickets"
+msgstr ""
+
+#: templates/base.html:20 templates/core/team.html:2
+msgid "Team"
+msgstr ""
+
+#: templates/base.html:21
+msgid "Administration"
+msgstr ""
+
+#: templates/base.html:29
+msgid "Language"
+msgstr ""
+
+#: templates/base.html:35
+msgid "Log out"
+msgstr ""
+
+#: templates/core/client_list.html:4
+msgid "Add a client"
+msgstr ""
+
+#: templates/core/client_list.html:6
+msgid "Users"
+msgstr ""
+
+#: templates/core/client_list.html:6 templates/core/dashboard.html:7
+#: templates/core/project_detail.html:7 templates/core/project_list.html:6
+#: templates/core/team.html:7
+msgid "Open tickets"
+msgstr ""
+
+#: templates/core/client_list.html:11
+msgid "No client yet."
+msgstr ""
+
+#: templates/core/dashboard.html:4
+msgid "Digitalia cockpit"
+msgstr ""
+
+#: templates/core/dashboard.html:5
+msgid "All client projects at a glance."
+msgstr ""
+
+#: templates/core/dashboard.html:8 templates/core/project_detail.html:8
+msgid "Open bugs"
+msgstr ""
+
+#: templates/core/dashboard.html:9 templates/core/project_detail.html:9
+msgid "Changes & features"
+msgstr ""
+
+#: templates/core/dashboard.html:11 templates/core/dashboard.html:18
+#: templates/core/project_detail.html:11 tickets/models.py:40
+msgid "Waiting for client"
+msgstr ""
+
+#: templates/core/dashboard.html:12 templates/core/dashboard.html:18
+#: templates/core/project_detail.html:12 templates/core/team.html:7
+msgid "Late"
+msgstr ""
+
+#: templates/core/dashboard.html:17 templates/core/project_list.html:6
+#: templates/includes/ticket_table.html:5
+#: templates/tickets/ticket_detail.html:61 tickets/forms.py:107
+msgid "Project"
+msgstr ""
+
+#: templates/core/dashboard.html:17
+msgid "Bugs"
+msgstr ""
+
+#: templates/core/dashboard.html:17
+msgid "Changes"
+msgstr ""
+
+#: templates/core/dashboard.html:18
+msgid "Open"
+msgstr ""
+
+#: templates/core/dashboard.html:18
+msgid "Progress"
+msgstr ""
+
+#: templates/core/dashboard.html:31
+msgid "No active project."
+msgstr ""
+
+#: templates/core/dashboard.html:36
+msgid "New client requests"
+msgstr ""
+
+#: templates/core/dashboard.html:37
+msgid "Late tickets"
+msgstr ""
+
+#: templates/core/dashboard.html:38 templates/core/project_detail.html:35
+msgid "Next deadlines"
+msgstr ""
+
+#: templates/core/dashboard.html:39
+msgid "Assigned to me"
+msgstr ""
+
+#: templates/core/milestone_form.html:2 templates/tickets/ticket_detail.html:67
+#: tickets/forms.py:114
+msgid "Roadmap step"
+msgstr ""
+
+#: templates/core/milestone_form.html:6
+msgid "Edit roadmap step"
+msgstr ""
+
+#: templates/core/milestone_form.html:6
+msgid "New roadmap step"
+msgstr ""
+
+#: templates/core/milestone_form.html:10 templates/tickets/ticket_form.html:17
+msgid "Save"
+msgstr ""
+
+#: templates/core/milestone_form.html:11 templates/tickets/ticket_form.html:18
+msgid "Cancel"
+msgstr ""
+
+#: templates/core/project_detail.html:6
+msgid "Overall progress"
+msgstr ""
+
+#: templates/core/project_detail.html:18
+msgid "Waiting for the client"
+msgstr ""
+
+#: templates/core/project_detail.html:18
+msgid "Digitalia is waiting for your answer"
+msgstr ""
+
+#: templates/core/project_detail.html:24 templates/core/roadmap.html:2
+#: templates/includes/project_tabs.html:12
+msgid "Roadmap"
+msgstr ""
+
+#: templates/core/project_detail.html:32 templates/core/roadmap.html:22
+msgid "No roadmap step yet."
+msgstr ""
+
+#: templates/core/project_detail.html:36
+msgid "Recently done"
+msgstr ""
+
+#: templates/core/project_list.html:4
+msgid "Add a project"
+msgstr ""
+
+#: templates/core/project_list.html:6
+msgid "Key"
+msgstr ""
+
+#: templates/core/project_list.html:6 templates/includes/project_tabs.html:5
+msgid "Lead"
+msgstr ""
+
+#: templates/core/project_list.html:6
+msgid "Client members"
+msgstr ""
+
+#: templates/core/project_list.html:9
+msgid "Archived"
+msgstr ""
+
+#: templates/core/project_list.html:10
+msgid "No project yet."
+msgstr ""
+
+#: templates/core/project_picker.html:2 templates/core/project_picker.html:4
+msgid "My projects"
+msgstr ""
+
+#: templates/core/project_picker.html:5
+msgid "Choose a project."
+msgstr ""
+
+#: templates/core/project_picker.html:10
+msgid "No project is linked to your account yet. Please contact Digitalia."
+msgstr ""
+
+#: templates/core/roadmap.html:5
+msgid "Add a roadmap step"
+msgstr ""
+
+#: templates/core/roadmap.html:10 templates/tickets/ticket_list.html:32
+msgid "Internal"
+msgstr ""
+
+#: templates/core/roadmap.html:11 templates/tickets/ticket_detail.html:18
+#: templates/tickets/ticket_form.html:6
+msgid "Edit"
+msgstr ""
+
+#: templates/core/roadmap.html:23
+msgid "Not planned yet"
+msgstr ""
+
+#: templates/core/team.html:5
+msgid "Workload per team member."
+msgstr ""
+
+#: templates/core/team.html:7
+msgid "Name"
+msgstr ""
+
+#: templates/core/team.html:7
+msgid "Email"
+msgstr ""
+
+#: templates/includes/project_tabs.html:7 templates/tickets/ticket_form.html:6
+msgid "New ticket"
+msgstr ""
+
+#: templates/includes/project_tabs.html:7 templates/tickets/ticket_form.html:2
+#: templates/tickets/ticket_form.html:6
+msgid "New request"
+msgstr ""
+
+#: templates/includes/project_tabs.html:11
+msgid "Overview"
+msgstr ""
+
+#: templates/includes/project_tabs.html:13 templates/tickets/ticket_list.html:2
+msgid "Tickets"
+msgstr ""
+
+#: templates/includes/project_tabs.html:13
+msgid "My requests"
+msgstr ""
+
+#: templates/includes/ticket_table.html:5 templates/tickets/ticket_list.html:23
+msgid "Ref."
+msgstr ""
+
+#: templates/includes/ticket_table.html:5 templates/tickets/ticket_list.html:23
+msgid "Title"
+msgstr ""
+
+#: templates/includes/ticket_table.html:6 templates/tickets/ticket_list.html:25
+#: tickets/forms.py:109
+msgid "Status"
+msgstr ""
+
+#: templates/includes/ticket_table.html:6
+#: templates/tickets/ticket_detail.html:65
+#: templates/tickets/ticket_list.html:26
+msgid "Target date"
+msgstr ""
+
+#: templates/includes/ticket_table.html:6
+#: templates/tickets/ticket_detail.html:64
+#: templates/tickets/ticket_list.html:26 tickets/forms.py:113
+msgid "Assignee"
+msgstr ""
+
+#: templates/includes/ticket_table.html:21
+msgid "Nothing here."
+msgstr ""
+
+#: templates/registration/login.html:2 templates/registration/login.html:12
+msgid "Log in"
+msgstr ""
+
+#: templates/registration/login.html:6
+msgid "Your project space with Digitalia"
+msgstr ""
+
+#: templates/registration/login.html:9
+msgid "Username"
+msgstr ""
+
+#: templates/registration/login.html:10
+msgid "Password"
+msgstr ""
+
+#: templates/tickets/ticket_detail.html:19
+msgid "Subtask"
+msgstr ""
+
+#: templates/tickets/ticket_detail.html:23
+msgid "Digitalia is waiting for your answer on this ticket. Reply below."
+msgstr ""
+
+#: templates/tickets/ticket_detail.html:29
+msgid "No description."
+msgstr ""
+
+#: templates/tickets/ticket_detail.html:31
+msgid "Attachments"
+msgstr ""
+
+#: templates/tickets/ticket_detail.html:37
+msgid "Subtasks"
+msgstr ""
+
+#: templates/tickets/ticket_detail.html:41
+msgid "Discussion"
+msgstr ""
+
+#: templates/tickets/ticket_detail.html:44
+#: templates/tickets/ticket_detail.html:62 tickets/models.py:55
+msgid "System"
+msgstr ""
+
+#: templates/tickets/ticket_detail.html:45
+msgid "Internal note"
+msgstr ""
+
+#: templates/tickets/ticket_detail.html:49
+msgid "No comment yet."
+msgstr ""
+
+#: templates/tickets/ticket_detail.html:53
+msgid "Send"
+msgstr ""
+
+#: templates/tickets/ticket_detail.html:62
+msgid "Author"
+msgstr ""
+
+#: templates/tickets/ticket_detail.html:63
+#: templates/tickets/ticket_list.html:26 tickets/models.py:205
+msgid "Created"
+msgstr ""
+
+#: templates/tickets/ticket_detail.html:69
+msgid "Updated"
+msgstr ""
+
+#: templates/tickets/ticket_detail.html:70
+msgid "Closed"
+msgstr ""
+
+#: templates/tickets/ticket_detail.html:74
+msgid "History"
+msgstr ""
+
+#: templates/tickets/ticket_detail.html:79
+msgid "created the ticket"
+msgstr ""
+
+#: templates/tickets/ticket_detail.html:80
+msgid "commented"
+msgstr ""
+
+#: templates/tickets/ticket_detail.html:81
+msgid "added"
+msgstr ""
+
+#: templates/tickets/ticket_detail.html:82
+msgid "changed"
+msgstr ""
+
+#: templates/tickets/ticket_form.html:7
+msgid ""
+"Describe your request as precisely as possible. You can attach files or "
+"screenshots."
+msgstr ""
+
+#: templates/tickets/ticket_form.html:17
+msgid "Create"
+msgstr ""
+
+#: templates/tickets/ticket_list.html:4
+msgid "Every ticket of every client project."
+msgstr ""
+
+#: templates/tickets/ticket_list.html:11
+msgid "Filter"
+msgstr ""
+
+#: templates/tickets/ticket_list.html:11
+msgid "Reset"
+msgstr ""
+
+#: templates/tickets/ticket_list.html:15
+#, python-format
+msgid "%(counter)s ticket"
+msgid_plural "%(counter)s tickets"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/tickets/ticket_list.html:16
+msgid "Sort by"
+msgstr ""
+
+#: templates/tickets/ticket_list.html:17
+msgid "creation"
+msgstr ""
+
+#: templates/tickets/ticket_list.html:18
+msgid "last update"
+msgstr ""
+
+#: templates/tickets/ticket_list.html:19 tickets/models.py:99
+msgid "target date"
+msgstr ""
+
+#: templates/tickets/ticket_list.html:20 tickets/models.py:83
+msgid "priority"
+msgstr ""
+
+#: templates/tickets/ticket_list.html:23 tickets/forms.py:111
+msgid "Origin"
+msgstr ""
+
+#: templates/tickets/ticket_list.html:24
+msgid "Client / project"
+msgstr ""
+
+#: templates/tickets/ticket_list.html:25 tickets/forms.py:108
+msgid "Type"
+msgstr ""
+
+#: templates/tickets/ticket_list.html:25 tickets/forms.py:110
+msgid "Priority"
+msgstr ""
+
+#: templates/tickets/ticket_list.html:42
+msgid "No ticket matches these filters."
+msgstr ""
+
+#: tickets/forms.py:26
+#, python-format
+msgid "%(name)s is too large (max %(max)s)."
+msgstr ""
+
+#: tickets/forms.py:39 tickets/forms.py:53 tickets/forms.py:84
+msgid "Files or screenshots"
+msgstr ""
+
+#: tickets/forms.py:80
+msgid "Client requests always stay visible to the client."
+msgstr ""
+
+#: tickets/forms.py:89
+msgid "Write a reply…"
+msgstr ""
+
+#: tickets/forms.py:100
+msgid "Write a comment or add a file."
+msgstr ""
+
+#: tickets/forms.py:105
+msgid "Search"
+msgstr ""
+
+#: tickets/forms.py:112
+msgid "Visibility"
+msgstr ""
+
+#: tickets/forms.py:115
+msgid "Created from"
+msgstr ""
+
+#: tickets/forms.py:116
+msgid "Created until"
+msgstr ""
+
+#: tickets/forms.py:117
+msgid "Late only"
+msgstr ""
+
+#: tickets/forms.py:118
+msgid "Include closed"
+msgstr ""
+
+#: tickets/models.py:28
+msgid "Change request"
+msgstr ""
+
+#: tickets/models.py:29
+msgid "Bug / anomaly"
+msgstr ""
+
+#: tickets/models.py:30
+msgid "Question"
+msgstr ""
+
+#: tickets/models.py:31
+msgid "Support request"
+msgstr ""
+
+#: tickets/models.py:32
+msgid "New feature"
+msgstr ""
+
+#: tickets/models.py:33
+msgid "Internal task"
+msgstr ""
+
+#: tickets/models.py:36
+msgid "New"
+msgstr ""
+
+#: tickets/models.py:37
+msgid "To analyse"
+msgstr ""
+
+#: tickets/models.py:38
+msgid "To do"
+msgstr ""
+
+#: tickets/models.py:41
+msgid "In test"
+msgstr ""
+
+#: tickets/models.py:43
+msgid "Rejected"
+msgstr ""
+
+#: tickets/models.py:44
+msgid "Cancelled"
+msgstr ""
+
+#: tickets/models.py:47
+msgid "Low"
+msgstr ""
+
+#: tickets/models.py:48
+msgid "Normal"
+msgstr ""
+
+#: tickets/models.py:49
+msgid "High"
+msgstr ""
+
+#: tickets/models.py:50
+msgid "Critical"
+msgstr ""
+
+#: tickets/models.py:54
+msgid "Digitalia"
+msgstr ""
+
+#: tickets/models.py:58
+msgid "Visible to client"
+msgstr ""
+
+#: tickets/models.py:59
+msgid "Internal Digitalia"
+msgstr ""
+
+#: tickets/models.py:70
+msgid "number"
+msgstr ""
+
+#: tickets/models.py:72
+msgid "parent ticket"
+msgstr ""
+
+#: tickets/models.py:79
+msgid "title"
+msgstr ""
+
+#: tickets/models.py:81
+msgid "type"
+msgstr ""
+
+#: tickets/models.py:84
+msgid "origin"
+msgstr ""
+
+#: tickets/models.py:85
+msgid "visibility"
+msgstr ""
+
+#: tickets/models.py:87 tickets/models.py:160
+msgid "author"
+msgstr ""
+
+#: tickets/models.py:91
+msgid "author company"
+msgstr ""
+
+#: tickets/models.py:95
+msgid "assignee"
+msgstr ""
+
+#: tickets/models.py:101
+msgid "updated at"
+msgstr ""
+
+#: tickets/models.py:102
+msgid "closed at"
+msgstr ""
+
+#: tickets/models.py:109 tickets/models.py:159 tickets/models.py:178
+#: tickets/models.py:210
+msgid "ticket"
+msgstr ""
+
+#: tickets/models.py:110
+msgid "tickets"
+msgstr ""
+
+#: tickets/models.py:161 tickets/models.py:169 tickets/models.py:180
+msgid "comment"
+msgstr ""
+
+#: tickets/models.py:163
+msgid "internal note"
+msgstr ""
+
+#: tickets/models.py:163
+msgid "Internal notes are never shown to the client."
+msgstr ""
+
+#: tickets/models.py:170
+msgid "comments"
+msgstr ""
+
+#: tickets/models.py:182
+msgid "file"
+msgstr ""
+
+#: tickets/models.py:183
+msgid "uploaded by"
+msgstr ""
+
+#: tickets/models.py:184 tickets/models.py:216
+msgid "internal"
+msgstr ""
+
+#: tickets/models.py:189
+msgid "attachment"
+msgstr ""
+
+#: tickets/models.py:190
+msgid "attachments"
+msgstr ""
+
+#: tickets/models.py:206
+msgid "Changed"
+msgstr ""
+
+#: tickets/models.py:207
+msgid "Commented"
+msgstr ""
+
+#: tickets/models.py:208
+msgid "File added"
+msgstr ""
+
+#: tickets/models.py:213
+msgid "field"
+msgstr ""
+
+#: tickets/models.py:214
+msgid "old value"
+msgstr ""
+
+#: tickets/models.py:215
+msgid "new value"
+msgstr ""
+
+#: tickets/models.py:217
+msgid "date"
+msgstr ""
+
+#: tickets/models.py:221
+msgid "history entry"
+msgstr ""
+
+#: tickets/models.py:222
+msgid "history"
+msgstr ""
+
+#: tickets/views.py:89
+#, python-format
+msgid "Ticket %(ref)s created."
+msgstr ""
+
+#: tickets/views.py:117
+msgid "Your reply has been added."
+msgstr ""
+
+#: tickets/views.py:145
+msgid "Ticket updated."
+msgstr ""

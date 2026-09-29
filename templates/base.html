@@ -1,0 +1,44 @@
+{% load static i18n %}<!doctype html>
+{% get_current_language as LANGUAGE_CODE %}
+<html lang="{{ LANGUAGE_CODE }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Orbit{% endblock %} · Orbit</title>
+  <link rel="stylesheet" href="{% static 'orbit/orbit.css' %}">
+</head>
+<body>
+{% if user.is_authenticated %}
+<header class="topbar">
+  <a class="brand" href="{% url 'home' %}">◎ Orbit</a>
+  <nav>
+    {% if user.is_digitalia %}
+      <a href="{% url 'dashboard' %}">{% translate "Dashboard" %}</a>
+      <a href="{% url 'client_list' %}">{% translate "Clients" %}</a>
+      <a href="{% url 'project_list' %}">{% translate "Projects" %}</a>
+      <a href="{% url 'all_tickets' %}">{% translate "All tickets" %}</a>
+      <a href="{% url 'team' %}">{% translate "Team" %}</a>
+      {% if user.is_staff %}<a href="{% url 'admin:index' %}">{% translate "Administration" %}</a>{% endif %}
+    {% else %}
+      {% for p in user.projects.all %}<a href="{{ p.get_absolute_url }}">{{ p.name }}</a>{% endfor %}
+    {% endif %}
+  </nav>
+  <div class="user">
+    <form action="{% url 'set_language' %}" method="post">{% csrf_token %}
+      <input name="next" type="hidden" value="{{ request.get_full_path }}">
+      <select name="language" onchange="this.form.submit()" aria-label="{% translate 'Language' %}">
+        {% get_available_languages as LANGUAGES %}
+        {% for code, name in LANGUAGES %}<option value="{{ code }}"{% if code == LANGUAGE_CODE %} selected{% endif %}>{{ code|upper }}</option>{% endfor %}
+      </select>
+    </form>
+    <span>{{ user }}{% if user.company %} · {{ user.company }}{% endif %}</span>
+    <form action="{% url 'logout' %}" method="post">{% csrf_token %}<button class="linkbtn">{% translate "Log out" %}</button></form>
+  </div>
+</header>
+{% endif %}
+<main>
+  {% if messages %}<ul class="messages">{% for m in messages %}<li class="{{ m.tags }}">{{ m }}</li>{% endfor %}</ul>{% endif %}
+  {% block content %}{% endblock %}
+</main>
+</body>
+</html>

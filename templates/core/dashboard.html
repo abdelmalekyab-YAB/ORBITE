@@ -1,0 +1,41 @@
+{% extends "base.html" %}{% load i18n %}
+{% block title %}{% translate "Dashboard" %}{% endblock %}
+{% block content %}
+<h1>{% translate "Digitalia cockpit" %}</h1>
+<p class="subtitle">{% translate "All client projects at a glance." %}</p>
+<div class="stats">
+  <div class="stat"><div class="value">{{ totals.open }}</div><div class="label">{% translate "Open tickets" %}</div></div>
+  <div class="stat"><div class="value">{{ totals.bugs }}</div><div class="label">{% translate "Open bugs" %}</div></div>
+  <div class="stat"><div class="value">{{ totals.evolutions }}</div><div class="label">{% translate "Changes & features" %}</div></div>
+  <div class="stat warning"><div class="value">{{ totals.in_progress }}</div><div class="label">{% translate "In progress" %}</div></div>
+  <div class="stat"><div class="value">{{ totals.waiting_client }}</div><div class="label">{% translate "Waiting for client" %}</div></div>
+  <div class="stat danger"><div class="value">{{ totals.late }}</div><div class="label">{% translate "Late" %}</div></div>
+</div>
+<div class="card">
+  <h2>{% translate "Projects" %}</h2>
+  <table>
+    <thead><tr><th>{% translate "Project" %}</th><th>{% translate "Client" %}</th><th class="num">{% translate "Bugs" %}</th><th class="num">{% translate "Changes" %}</th>
+      <th class="num">{% translate "In progress" %}</th><th class="num">{% translate "Waiting for client" %}</th><th class="num">{% translate "Late" %}</th><th class="num">{% translate "Open" %}</th><th>{% translate "Progress" %}</th></tr></thead>
+    <tbody>
+    {% for row in projects %}{% with p=row.project s=row.stats %}
+      <tr>
+        <td><a href="{{ p.get_absolute_url }}">{{ p.name }}</a></td><td>{{ p.company }}</td>
+        <td class="num"><a href="{% url 'all_tickets' %}?project={{ p.pk }}&type=bug">{{ s.bugs }}</a></td>
+        <td class="num">{{ s.evolutions }}</td>
+        <td class="num">{{ s.in_progress }}</td>
+        <td class="num"><a href="{% url 'all_tickets' %}?project={{ p.pk }}&status=waiting_client">{{ s.waiting_client }}</a></td>
+        <td class="num {% if s.late %}late{% endif %}"><a href="{% url 'all_tickets' %}?project={{ p.pk }}&late=on">{{ s.late }}</a></td>
+        <td class="num">{{ s.open }}</td>
+        <td><div class="progress"><span style="width: {{ row.progress }}%"></span></div></td>
+      </tr>
+    {% endwith %}{% empty %}<tr><td colspan="9" class="empty">{% translate "No active project." %}</td></tr>{% endfor %}
+    </tbody>
+  </table>
+</div>
+<div class="grid">
+  <div class="card"><h2>🟣 {% translate "New client requests" %}</h2>{% include "includes/ticket_table.html" with tickets=new_client show_project=True %}</div>
+  <div class="card"><h2>{% translate "Late tickets" %}</h2>{% include "includes/ticket_table.html" with tickets=late show_project=True %}</div>
+  <div class="card"><h2>{% translate "Next deadlines" %}</h2>{% include "includes/ticket_table.html" with tickets=upcoming show_project=True %}</div>
+  <div class="card"><h2>{% translate "Assigned to me" %}</h2>{% include "includes/ticket_table.html" with tickets=mine show_project=True %}</div>
+</div>
+{% endblock %}

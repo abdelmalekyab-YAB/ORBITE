@@ -1,0 +1,12 @@
+{% extends "base.html" %}{% load i18n %}
+{% block title %}{% translate "Projects" %}{% endblock %}
+{% block content %}
+<div class="page-head"><h1>{% translate "Projects" %}</h1>{% if user.is_staff %}<a class="btn" href="{% url 'admin:core_project_add' %}">+ {% translate "Add a project" %}</a>{% endif %}</div>
+<div class="card"><table>
+  <thead><tr><th>{% translate "Key" %}</th><th>{% translate "Project" %}</th><th>{% translate "Client" %}</th><th>{% translate "Lead" %}</th><th class="num">{% translate "Client members" %}</th><th class="num">{% translate "Open tickets" %}</th><th></th></tr></thead>
+  <tbody>{% for p in projects %}
+    <tr><td>{{ p.key }}</td><td><a href="{{ p.get_absolute_url }}">{{ p.name }}</a></td><td>{{ p.company }}</td><td>{{ p.lead|default:"—" }}</td>
+      <td class="num">{{ p.n_members }}</td><td class="num">{{ p.n_open }}</td><td>{% if not p.is_active %}<span class="badge">{% translate "Archived" %}</span>{% endif %}</td></tr>
+  {% empty %}<tr><td colspan="7" class="empty">{% translate "No project yet." %}</td></tr>{% endfor %}</tbody>
+</table></div>
+{% endblock %}

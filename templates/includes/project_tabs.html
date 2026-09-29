@@ -1,0 +1,15 @@
+{% load i18n %}
+<div class="page-head">
+  <div>
+    <h1>{{ project.name }}</h1>
+    <p class="subtitle">{{ project.company }}{% if project.lead %} · {% translate "Lead" %} : {{ project.lead }}{% endif %}</p>
+  </div>
+  <a class="btn btn-primary" href="{% url 'ticket_create' project.key %}">{% if user.is_digitalia %}{% translate "New ticket" %}{% else %}+ {% translate "New request" %}{% endif %}</a>
+</div>
+{% with name=request.resolver_match.url_name %}
+<nav class="tabs">
+  <a href="{% url 'project_detail' project.key %}" class="{% if name == 'project_detail' %}active{% endif %}">{% translate "Overview" %}</a>
+  <a href="{% url 'roadmap' project.key %}" class="{% if name == 'roadmap' or 'milestone' in name %}active{% endif %}">{% translate "Roadmap" %}</a>
+  <a href="{% url 'project_tickets' project.key %}" class="{% if 'ticket' in name %}active{% endif %}">{% if user.is_digitalia %}{% translate "Tickets" %}{% else %}{% translate "My requests" %}{% endif %}</a>
+</nav>
+{% endwith %}
