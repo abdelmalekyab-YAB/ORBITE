@@ -12,5 +12,6 @@
   <a href="{% url 'project_detail' project.key %}" class="{% if name == 'project_detail' %}active{% endif %}">{% if user.is_digitalia %}{% translate "Overview" %}{% else %}{% translate "Summary" %}{% endif %}</a>
   <a href="{% url 'roadmap' project.key %}" class="{% if name == 'roadmap' or 'milestone' in name %}active{% endif %}">{% translate "Roadmap" %}</a>
   <a href="{% url 'project_tickets' project.key %}" class="{% if 'ticket' in name %}active{% endif %}">{% if user.is_digitalia %}{% translate "Tickets" %}{% else %}{% translate "My requests" %}{% endif %}</a>
+  {% if user.is_digitalia and user.is_staff %}<a href="{% url 'project_settings' project.key %}" class="{% if name == 'project_settings' %}active{% endif %}">⚙ {% translate "Settings" %}</a>{% endif %}
 </nav>
 {% endwith %}

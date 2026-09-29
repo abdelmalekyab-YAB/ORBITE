@@ -1,4 +1,5 @@
 import os
+import uuid
 
 from django.conf import settings
 from django.db import models, transaction
@@ -171,7 +172,8 @@ class Comment(models.Model):
 
 
 def attachment_path(instance, filename):
-    return f"attachments/{instance.ticket.project.key}/{instance.ticket.number}/{filename}"
+    # A random prefix keeps two files with the same name (e.g. two voice notes) apart.
+    return f"attachments/{instance.ticket.project.key}/{instance.ticket.number}/{uuid.uuid4().hex[:8]}-{filename}"
 
 
 class Attachment(models.Model):
@@ -180,6 +182,8 @@ class Attachment(models.Model):
         Comment, verbose_name=_("comment"), on_delete=models.CASCADE, null=True, blank=True, related_name="attachments",
     )
     file = models.FileField(_("file"), upload_to=attachment_path)
+    name = models.CharField(_("file name"), max_length=255, blank=True)
+    size = models.PositiveBigIntegerField(_("size"), default=0)
     uploaded_by = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("uploaded by"), on_delete=models.SET_NULL, null=True)
     is_internal = models.BooleanField(_("internal"), default=False)
     created_at = models.DateTimeField(_("created at"), auto_now_add=True)
@@ -189,13 +193,31 @@ class Attachment(models.Model):
         verbose_name = _("attachment")
         verbose_name_plural = _("attachments")
 
+    def save(self, *args, **kwargs):
+        if self.file and not self.name:
+            self.name = os.path.basename(self.file.name)
+        if self.file and not self.size:
+            self.size = self.file.size
+        super().save(*args, **kwargs)
+
     @property
     def filename(self):
-        return os.path.basename(self.file.name)
+        return self.name or os.path.basename(self.file.name)
+
+    @property
+    def kind(self):
+        from .media import kind_for
+
+        return kind_for(self.filename)
 
     @property
     def is_image(self):
-        return self.filename.lower().rsplit(".", 1)[-1] in {"png", "jpg", "jpeg", "gif", "webp"}
+        return self.kind == "image"
+
+    @property
+    def is_media(self):
+        """Shown inline in the browser rather than downloaded."""
+        return self.kind in ("image", "video", "audio") or self.filename.lower().endswith(".pdf")
 
 
 class TicketEvent(models.Model):

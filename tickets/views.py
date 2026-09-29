@@ -35,7 +35,8 @@ def _get_ticket(user, key, number):
 
 def _save_files(ticket, files, user, comment=None, internal=False):
     for f in files:
-        Attachment.objects.create(ticket=ticket, comment=comment, file=f, uploaded_by=user, is_internal=internal)
+        Attachment.objects.create(ticket=ticket, comment=comment, file=f, name=f.name, size=f.size,
+                                  uploaded_by=user, is_internal=internal)
         TicketEvent.objects.create(
             ticket=ticket, user=user, kind=TicketEvent.Kind.ATTACHED, new_value=f.name, is_internal=internal,
         )
@@ -159,4 +160,4 @@ def attachment_download(request, pk):
     _get_ticket(request.user, ticket.project.key, ticket.number)  # 404 if the ticket is not visible
     if attachment.is_internal and not request.user.is_digitalia:
         raise PermissionDenied
-    return FileResponse(attachment.file.open("rb"), as_attachment=not attachment.is_image, filename=attachment.filename)
+    return FileResponse(attachment.file.open("rb"), as_attachment=not attachment.is_media, filename=attachment.filename)

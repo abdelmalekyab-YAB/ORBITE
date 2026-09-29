@@ -1,0 +1,27 @@
+{% extends "base.html" %}{% load i18n %}
+{% block title %}{{ company.name }}{% endblock %}
+{% block content %}
+<div class="page-head">
+  <div><p class="muted" style="margin:0"><a href="{% url 'client_list' %}">{% translate "Clients" %}</a> /</p><h1>{{ company.name }}</h1></div>
+  <div class="head-actions">
+    <a class="btn" href="{% url 'company_edit' company.pk %}">{% translate "Rename" %}</a>
+    <a class="btn" href="{% url 'project_create' %}?company={{ company.pk }}">+ {% translate "New project" %}</a>
+    <a class="btn btn-primary" href="{% url 'user_create' %}?company={{ company.pk }}">+ {% translate "Invite a user" %}</a>
+  </div>
+</div>
+<div class="grid">
+  <div class="card"><h2>{% translate "Projects" %}</h2>
+    {% if projects %}<table><thead><tr><th>{% translate "Project" %}</th><th class="num">{% translate "Client members" %}</th><th class="num">{% translate "Open tickets" %}</th><th></th></tr></thead><tbody>
+      {% for p in projects %}<tr><td><a href="{{ p.get_absolute_url }}">{{ p.name }}</a> <span class="muted">{{ p.key }}</span>{% if not p.is_active %} <span class="badge">{% translate "Archived" %}</span>{% endif %}</td>
+        <td class="num">{{ p.n_members }}</td><td class="num">{{ p.n_open }}</td><td><a href="{% url 'project_settings' p.key %}">{% translate "Settings" %}</a></td></tr>{% endfor %}
+    </tbody></table>{% else %}<p class="empty">{% translate "No project yet." %}</p>{% endif %}
+  </div>
+  <div class="card"><h2>{% translate "Users" %}</h2>
+    {% if users %}<table><thead><tr><th>{% translate "Name" %}</th><th>{% translate "Projects" %}</th><th>{% translate "Status" %}</th></tr></thead><tbody>
+      {% for u in users %}<tr><td><a href="{% url 'user_edit' u.pk %}">{{ u }}</a><br><span class="muted">{{ u.email }}</span></td>
+        <td>{% for p in u.projects.all %}{{ p.name }}{% if not forloop.last %}, {% endif %}{% empty %}<span class="muted">—</span>{% endfor %}</td>
+        <td>{% include "manage/_account_status.html" %}</td></tr>{% endfor %}
+    </tbody></table>{% else %}<p class="empty">{% translate "No user yet. Invite the first one." %}</p>{% endif %}
+  </div>
+</div>
+{% endblock %}

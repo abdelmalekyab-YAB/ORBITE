@@ -16,3 +16,11 @@ def sort_url(context, key):
     params["sort"] = key
     params.pop("page", None)
     return "?" + params.urlencode()
+
+
+@register.inclusion_tag("includes/media_input.html")
+def media_input(name, input_id):
+    """The attachment picker outside of a Django form (e.g. the "not OK" dialog)."""
+    from tickets.media import ACCEPT
+
+    return {"widget": {"name": name, "attrs": {"id": input_id}}, "accept": ACCEPT}

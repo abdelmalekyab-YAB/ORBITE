@@ -1,4 +1,4 @@
-{% load static i18n %}<!doctype html>
+{% load static i18n orbit %}<!doctype html>
 {% get_current_language as LANGUAGE_CODE %}
 <html lang="{{ LANGUAGE_CODE }}">
 <head>
@@ -20,7 +20,7 @@
       <a href="{% url 'global_board' %}">{% translate "Board" %}</a>
       <a href="{% url 'all_tickets' %}">{% translate "All tickets" %}</a>
       <a href="{% url 'team' %}">{% translate "Team" %}</a>
-      {% if user.is_staff %}<a href="{% url 'admin:index' %}">{% translate "Administration" %}</a>{% endif %}
+      {% if user.is_staff %}<a href="{% url 'user_list' %}">{% translate "Accounts" %}</a>{% endif %}
     {% else %}
       {% for p in user.projects.all %}<a href="{% url 'project_board' p.key %}">{{ p.name }}</a>{% endfor %}
     {% endif %}
@@ -33,7 +33,7 @@
         {% for code, name in LANGUAGES %}<option value="{{ code }}"{% if code == LANGUAGE_CODE %} selected{% endif %}>{{ code|upper }}</option>{% endfor %}
       </select>
     </form>
-    <span>{{ user }}{% if user.company %} · {{ user.company }}{% endif %}</span>
+    <a href="{% url 'password_change' %}" title="{% translate 'Change my password' %}">{{ user }}{% if user.company %} · {{ user.company }}{% endif %}</a>
     <form action="{% url 'logout' %}" method="post">{% csrf_token %}<button class="linkbtn">{% translate "Log out" %}</button></form>
   </div>
 </header>
@@ -50,6 +50,7 @@
     <p class="muted">{% translate "Describe what you tested and what went wrong, so Digitalia can fix it without calling you back." %}</p>
     <textarea id="explain-text" rows="5" required minlength="10" placeholder="{% translate 'Example: on the results page, the date filter shows no result when I pick last month.' %}"></textarea>
     <p class="explain-error" id="explain-error" hidden></p>
+    <div class="explain-media">{% media_input "files" "explain-files" %}</div>
     <div class="explain-actions">
       <button type="button" class="btn" id="explain-cancel">{% translate "Cancel" %}</button>
       <button type="submit" class="btn btn-ko-solid" id="explain-submit">{% translate "Send: not OK" %}</button>
@@ -60,9 +61,13 @@
   window.ORBIT_I18N = {
     moveRow: "{% translate 'Move the card within its own row.' %}",
     saveError: "{% translate 'The status could not be saved. Try again.' %}",
-    tooShort: "{% translate 'Please explain what is not working (at least 10 characters).' %}"
+    tooShort: "{% translate 'Please explain what is not working (at least 10 characters).' %}",
+    remove: "{% translate 'Remove' %}",
+    voiceNote: "{% translate 'Voice note' %}",
+    micDenied: "{% translate 'The microphone is not available. Check that your browser allows it, or add an audio file instead.' %}"
   };
 </script>
+<script src="{% static 'orbit/media.js' %}"></script>
 <script src="{% static 'orbit/board.js' %}"></script>
 {% endif %}
 </body>

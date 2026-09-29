@@ -11,7 +11,18 @@
     clearTimeout(say.t); say.t = setTimeout(() => { toast.hidden = true; }, 3500);
   }
   function post(url, body) {
-    return fetch(url, { method: "POST", headers: { "Content-Type": "application/json", "X-CSRFToken": csrf }, body: JSON.stringify(body) })
+    // Files (from the "not OK" dialog) are sent as multipart; everything else as JSON.
+    let init = { method: "POST", headers: { "X-CSRFToken": csrf } };
+    if (body.files && body.files.length) {
+      const form = new FormData();
+      Object.entries(body).forEach(([k, v]) => { if (k !== "files" && v != null) form.append(k, v); });
+      body.files.forEach(f => form.append("files", f, f.name));
+      init.body = form;
+    } else {
+      const { files, ...rest } = body;
+      init.headers["Content-Type"] = "application/json"; init.body = JSON.stringify(rest);
+    }
+    return fetch(url, init)
       .then(r => r.json().then(data => { if (!r.ok) { const e = new Error(data.error || ""); e.data = data; throw e; } return data; }));
   }
 
@@ -20,13 +31,15 @@
   function askExplanation() {
     return new Promise(resolve => {
       const text = document.getElementById("explain-text"), err = document.getElementById("explain-error");
+      const media = dialog.querySelector("[data-media-input]");
+      if (media && window.orbitSetupMedia) { window.orbitSetupMedia(media); media.orbitReset(); }
       const form = document.getElementById("explain-form"), cancel = document.getElementById("explain-cancel");
       text.value = ""; err.hidden = true;
       const done = value => { form.onsubmit = null; cancel.onclick = null; dialog.onclose = null; if (dialog.open) dialog.close(); resolve(value); };
       form.onsubmit = e => {
         e.preventDefault();
         if (text.value.trim().length < 10) { err.textContent = i18n.tooShort; err.hidden = false; text.focus(); return; }
-        done(text.value.trim());
+        done({ message: text.value.trim(), files: media && media.orbitFiles ? media.orbitFiles() : [] });
       };
       cancel.onclick = () => done(null);
       dialog.onclose = () => done(null);
@@ -36,9 +49,9 @@
 
   async function clientAct(url, body, ref) {
     if (NEEDS_EXPLANATION.includes(body.action)) {
-      const message = await askExplanation();
-      if (message === null) return false;
-      body.message = message;
+      const answer = await askExplanation();
+      if (answer === null) return false;
+      Object.assign(body, answer);
     }
     try {
       const data = await post(url, body);
@@ -48,9 +61,9 @@
     } catch (err) {
       if (err.data && err.data.needs_message && !body.message) {
         // A drop that means "not OK": ask for the explanation, then send again.
-        const message = await askExplanation();
-        if (message === null) return false;
-        return clientAct(url, Object.assign({}, body, { message }), ref);
+        const answer = await askExplanation();
+        if (answer === null) return false;
+        return clientAct(url, Object.assign({}, body, answer), ref);
       }
       say(err.message || i18n.saveError, true);
       return false;

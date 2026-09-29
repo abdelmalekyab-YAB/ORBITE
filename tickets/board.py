@@ -1,7 +1,8 @@
-"""Kanban boards: a simple read-only board for clients, a drag & drop board for Digitalia."""
+"""Kanban boards: clients act on the cards waiting for them, Digitalia drags any card."""
 import datetime
 import json
 
+from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from django.db.models import Count, Q
@@ -16,7 +17,8 @@ from core.models import Project
 from core.permissions import digitalia_required, get_project_for
 
 from .forms import staff_users
-from .models import Ticket, TicketEvent
+from .media import is_allowed
+from .models import Attachment, Ticket, TicketEvent
 from .services import record_changes, snapshot
 
 S = Ticket.Status
@@ -242,10 +244,17 @@ def client_action(request, pk):
     """A client answers a question or gives the result of a test, from the board."""
     user = request.user
     ticket = get_object_or_404(Ticket.objects.visible_to(user), pk=pk)
-    try:
-        payload = json.loads(request.body or "{}")
-    except ValueError:
-        payload = {}
+    if request.content_type == "multipart/form-data":
+        payload = request.POST.dict()
+    else:
+        try:
+            payload = json.loads(request.body or "{}")
+        except ValueError:
+            payload = {}
+    files = request.FILES.getlist("files")
+    for f in files:
+        if not is_allowed(f.name) or f.size > settings.ORBIT_MAX_ATTACHMENT_SIZE:
+            return JsonResponse({"error": _("%(name)s: this file cannot be attached.") % {"name": f.name}}, status=400)
     action = payload.get("action")
     # Dropping a card on a column is translated into an action.
     target = payload.get("column")
@@ -267,8 +276,11 @@ def client_action(request, pk):
     with transaction.atomic():
         if note:
             prefix = {"test_ko": _("Test not OK"), "reopen": _("Reopened: not OK after all")}.get(action)
-            ticket.comments.create(author=user, body=f"{prefix} : {note}" if prefix else note)
+            comment = ticket.comments.create(author=user, body=f"{prefix} : {note}" if prefix else note)
             TicketEvent.objects.create(ticket=ticket, user=user, kind=TicketEvent.Kind.COMMENTED)
+            for f in files:
+                Attachment.objects.create(ticket=ticket, comment=comment, file=f, name=f.name, size=f.size, uploaded_by=user)
+                TicketEvent.objects.create(ticket=ticket, user=user, kind=TicketEvent.Kind.ATTACHED, new_value=f.name)
         before = snapshot(ticket)
         ticket.status = CLIENT_ACTIONS[action][1]
         ticket.save()

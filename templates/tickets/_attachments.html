@@ -1,6 +1,13 @@
-<div class="thumbs">
-{% for a in files %}
-  {% if a.is_image %}<a href="{% url 'attachment_download' a.pk %}" target="_blank"><img src="{% url 'attachment_download' a.pk %}" alt="{{ a.filename }}"></a>
-  {% else %}<a class="btn" href="{% url 'attachment_download' a.pk %}">📎 {{ a.filename }}</a>{% endif %}
+{% load i18n %}<div class="attachments">
+{% for a in files %}{% url 'attachment_download' a.pk as src %}
+  <div class="att att-{{ a.kind }}">
+    {% if a.kind == "image" %}<a href="{{ src }}" target="_blank" rel="noopener"><img src="{{ src }}" alt="{{ a.filename }}" loading="lazy"></a>
+    {% elif a.kind == "video" %}<video controls preload="metadata" src="{{ src }}"></video>
+    {% elif a.kind == "audio" %}<audio controls preload="metadata" src="{{ src }}"></audio>{% endif %}
+    <div class="att-meta">
+      <a href="{{ src }}{% if not a.is_media %}{% endif %}" target="_blank" rel="noopener">{% if a.kind == "document" %}📄 {% elif a.kind == "audio" %}🎙️ {% elif a.kind == "video" %}🎬 {% endif %}{{ a.filename }}</a>
+      <span>{% if a.size %}{{ a.size|filesizeformat }}{% endif %}{% if a.is_internal %} · 🔒{% endif %}</span>
+    </div>
+  </div>
 {% endfor %}
 </div>

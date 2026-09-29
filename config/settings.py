@@ -15,6 +15,8 @@ SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "dev-insecure-change-me")
 DEBUG = env_bool("DJANGO_DEBUG", True)
 ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", "localhost,127.0.0.1").split(",")
 
+FORM_RENDERER = "django.forms.renderers.TemplatesSetting"
+
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -22,6 +24,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.forms",
     "core",
     "tickets",
 ]
@@ -69,6 +72,8 @@ DATABASES = {
 }
 
 AUTH_USER_MODEL = "core.User"
+AUTHENTICATION_BACKENDS = ["core.backends.EmailOrUsernameBackend"]
+PASSWORD_RESET_TIMEOUT = 7 * 24 * 3600  # invitation and reset links are valid for 7 days
 AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
     {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
@@ -93,7 +98,8 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 MEDIA_URL = "media/"
 MEDIA_ROOT = Path(os.environ.get("ORBIT_MEDIA_ROOT", BASE_DIR / "media"))
 FILE_UPLOAD_MAX_MEMORY_SIZE = 5 * 1024 * 1024
-ORBIT_MAX_ATTACHMENT_SIZE = 20 * 1024 * 1024
+ORBIT_MAX_ATTACHMENT_SIZE = int(os.environ.get("ORBIT_MAX_ATTACHMENT_MB", "100")) * 1024 * 1024
+DATA_UPLOAD_MAX_MEMORY_SIZE = 10 * 1024 * 1024
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 

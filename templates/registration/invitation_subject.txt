@@ -1,0 +1,1 @@
+{% load i18n %}{% blocktranslate with name=invited_by.get_full_name|default:invited_by.username %}{{ name }} invites you to Orbit, your project space with Digitalia{% endblocktranslate %}

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-29 18:41+0200\n"
+"POT-Creation-Date: 2026-09-29 19:01+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,16 +17,109 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: config/settings.py:84
+#: config/settings.py:89
 msgid "French"
 msgstr ""
 
-#: config/settings.py:84
+#: config/settings.py:89
 msgid "English"
 msgstr ""
 
 #: core/admin.py:17 core/admin.py:19
 msgid "Orbit"
+msgstr ""
+
+#: core/manage_forms.py:35
+msgid "Client accounts of this company that can see the project."
+msgstr ""
+
+#: core/manage_forms.py:40
+msgid "This key is already used by another project."
+msgstr ""
+
+#: core/manage_forms.py:46 templates/base.html:19
+#: templates/core/client_list.html:6 templates/core/dashboard.html:15
+#: templates/core/project_list.html:2 templates/core/project_list.html:4
+#: templates/manage/company_detail.html:13
+#: templates/manage/company_detail.html:20 templates/manage/user_list.html:18
+msgid "Projects"
+msgstr ""
+
+#: core/manage_forms.py:47
+msgid "For a client: the projects they will see when they log in."
+msgstr ""
+
+#: core/manage_forms.py:53
+msgid "Orbit administrator"
+msgstr ""
+
+#: core/manage_forms.py:53
+msgid "Active account"
+msgstr ""
+
+#: core/manage_forms.py:55
+msgid "Digitalia only: can manage clients, projects and accounts."
+msgstr ""
+
+#: core/manage_forms.py:56
+msgid "A deactivated account can no longer log in."
+msgstr ""
+
+#: core/manage_forms.py:73
+msgid "An account already uses this e-mail address."
+msgstr ""
+
+#: core/manage_forms.py:81
+msgid "Choose the client company of this account."
+msgstr ""
+
+#: core/manage_forms.py:86
+#, python-format
+msgid "These projects belong to another client: %(names)s"
+msgstr ""
+
+#: core/manage_views.py:38
+#, python-format
+msgid "Client %(name)s saved."
+msgstr ""
+
+#: core/manage_views.py:41
+msgid "Edit client"
+msgstr ""
+
+#: core/manage_views.py:41
+msgid "New client"
+msgstr ""
+
+#: core/manage_views.py:55
+#, python-format
+msgid "Project %(name)s saved."
+msgstr ""
+
+#: core/manage_views.py:94 core/manage_views.py:124
+msgid "You cannot deactivate your own account."
+msgstr ""
+
+#: core/manage_views.py:100
+#, python-format
+msgid "Invitation sent to %(email)s."
+msgstr ""
+
+#: core/manage_views.py:102
+msgid "Account saved."
+msgstr ""
+
+#: core/manage_views.py:115
+#, python-format
+msgid "A new invitation link was sent to %(email)s."
+msgstr ""
+
+#: core/manage_views.py:128
+msgid "Account reactivated."
+msgstr ""
+
+#: core/manage_views.py:128
+msgid "Account deactivated: it can no longer log in."
 msgstr ""
 
 #: core/models.py:12 core/models.py:61 core/models.py:110
@@ -41,8 +134,8 @@ msgstr ""
 msgid "Check for Digitalia itself; leave unchecked for clients."
 msgstr ""
 
-#: core/models.py:17 core/models.py:77 tickets/models.py:100
-#: tickets/models.py:165 tickets/models.py:185
+#: core/models.py:17 core/models.py:77 tickets/models.py:101
+#: tickets/models.py:166 tickets/models.py:189
 msgid "created at"
 msgstr ""
 
@@ -56,11 +149,12 @@ msgstr ""
 
 #: core/models.py:30 templates/core/client_list.html:6
 #: templates/core/dashboard.html:17 templates/core/project_list.html:6
-#: tickets/forms.py:106 tickets/models.py:53
+#: tickets/forms.py:119 tickets/models.py:54
 msgid "Client"
 msgstr ""
 
 #: core/models.py:31 templates/core/team.html:4
+#: templates/manage/user_list.html:13
 msgid "Digitalia team"
 msgstr ""
 
@@ -68,7 +162,7 @@ msgstr ""
 msgid "role"
 msgstr ""
 
-#: core/models.py:40 tickets/models.py:211
+#: core/models.py:40 tickets/models.py:233
 msgid "user"
 msgstr ""
 
@@ -88,7 +182,7 @@ msgstr ""
 msgid "Short prefix used in ticket references, e.g. SCV."
 msgstr ""
 
-#: core/models.py:66 core/models.py:113 tickets/models.py:80
+#: core/models.py:66 core/models.py:113 tickets/models.py:81
 msgid "description"
 msgstr ""
 
@@ -108,7 +202,7 @@ msgstr ""
 msgid "active"
 msgstr ""
 
-#: core/models.py:81 core/models.py:109 tickets/models.py:69
+#: core/models.py:81 core/models.py:109 tickets/models.py:70
 msgid "project"
 msgstr ""
 
@@ -132,27 +226,27 @@ msgstr ""
 msgid "Milestone"
 msgstr ""
 
-#: core/models.py:105 tickets/board.py:38
+#: core/models.py:105 tickets/board.py:40
 msgid "Planned"
 msgstr ""
 
 #: core/models.py:106 templates/core/dashboard.html:10
 #: templates/core/dashboard.html:18 templates/core/project_detail.html:10
-#: templates/core/project_detail.html:34 tickets/board.py:39
-#: tickets/models.py:39
+#: templates/core/project_detail.html:34 tickets/board.py:41
+#: tickets/models.py:40
 msgid "In progress"
 msgstr ""
 
 #: core/models.py:107 templates/core/project_detail.html:13
-#: tickets/board.py:41 tickets/models.py:42
+#: tickets/board.py:43 tickets/models.py:43
 msgid "Done"
 msgstr ""
 
-#: core/models.py:111 tickets/models.py:212
+#: core/models.py:111 tickets/models.py:234
 msgid "kind"
 msgstr ""
 
-#: core/models.py:112 tickets/models.py:82
+#: core/models.py:112 tickets/models.py:83
 msgid "status"
 msgstr ""
 
@@ -168,7 +262,7 @@ msgstr ""
 msgid "visible to client"
 msgstr ""
 
-#: core/models.py:120 tickets/models.py:76
+#: core/models.py:120 tickets/models.py:77
 msgid "roadmap step"
 msgstr ""
 
@@ -185,14 +279,9 @@ msgid "Dashboard"
 msgstr ""
 
 #: templates/base.html:18 templates/core/client_list.html:2
-#: templates/core/client_list.html:4
+#: templates/core/client_list.html:4 templates/manage/company_detail.html:5
+#: templates/manage/user_list.html:12
 msgid "Clients"
-msgstr ""
-
-#: templates/base.html:19 templates/core/client_list.html:6
-#: templates/core/dashboard.html:15 templates/core/project_list.html:2
-#: templates/core/project_list.html:4
-msgid "Projects"
 msgstr ""
 
 #: templates/base.html:20 templates/core/dashboard.html:30
@@ -209,12 +298,18 @@ msgstr ""
 msgid "Team"
 msgstr ""
 
-#: templates/base.html:23
-msgid "Administration"
+#: templates/base.html:23 templates/manage/user_form.html:5
+#: templates/manage/user_list.html:2 templates/manage/user_list.html:5
+msgid "Accounts"
 msgstr ""
 
 #: templates/base.html:31
 msgid "Language"
+msgstr ""
+
+#: templates/base.html:36 templates/registration/password_change_form.html:2
+#: templates/registration/password_change_form.html:5
+msgid "Change my password"
 msgstr ""
 
 #: templates/base.html:37
@@ -237,42 +332,62 @@ msgid ""
 "last month."
 msgstr ""
 
-#: templates/base.html:54 templates/core/milestone_form.html:11
+#: templates/base.html:55 templates/core/milestone_form.html:11
+#: templates/includes/media_input.html:13 templates/manage/form.html:10
+#: templates/manage/project_form.html:22 templates/manage/user_form.html:31
 #: templates/tickets/ticket_form.html:18
 msgid "Cancel"
 msgstr ""
 
-#: templates/base.html:55
+#: templates/base.html:56
 msgid "Send: not OK"
 msgstr ""
 
-#: templates/base.html:61
+#: templates/base.html:62
 msgid "Move the card within its own row."
 msgstr ""
 
-#: templates/base.html:62
+#: templates/base.html:63
 msgid "The status could not be saved. Try again."
 msgstr ""
 
-#: templates/base.html:63
+#: templates/base.html:64
 msgid "Please explain what is not working (at least 10 characters)."
+msgstr ""
+
+#: templates/base.html:65
+msgid "Remove"
+msgstr ""
+
+#: templates/base.html:66
+msgid "Voice note"
+msgstr ""
+
+#: templates/base.html:67
+msgid ""
+"The microphone is not available. Check that your browser allows it, or add "
+"an audio file instead."
 msgstr ""
 
 #: templates/core/client_list.html:4
 msgid "Add a client"
 msgstr ""
 
-#: templates/core/client_list.html:6
+#: templates/core/client_list.html:6 templates/manage/company_detail.html:19
 msgid "Users"
 msgstr ""
 
 #: templates/core/client_list.html:6 templates/core/dashboard.html:7
 #: templates/core/project_detail.html:7 templates/core/project_list.html:6
-#: templates/core/team.html:7
+#: templates/core/team.html:7 templates/manage/company_detail.html:14
 msgid "Open tickets"
 msgstr ""
 
-#: templates/core/client_list.html:11
+#: templates/core/client_list.html:9 tickets/models.py:111
+msgid "tickets"
+msgstr ""
+
+#: templates/core/client_list.html:12
 msgid "No client yet."
 msgstr ""
 
@@ -289,12 +404,12 @@ msgid "Open bugs"
 msgstr ""
 
 #: templates/core/dashboard.html:9 templates/core/project_detail.html:9
-#: tickets/forms.py:128 tickets/forms.py:144
+#: tickets/forms.py:141 tickets/forms.py:157
 msgid "Changes & features"
 msgstr ""
 
 #: templates/core/dashboard.html:11 templates/core/dashboard.html:18
-#: templates/core/project_detail.html:11 tickets/models.py:40
+#: templates/core/project_detail.html:11 tickets/models.py:41
 msgid "Waiting for client"
 msgstr ""
 
@@ -304,9 +419,10 @@ msgid "Late"
 msgstr ""
 
 #: templates/core/dashboard.html:17 templates/core/project_list.html:6
-#: templates/includes/ticket_table.html:5 templates/tickets/board.html:13
-#: templates/tickets/ticket_detail.html:77 tickets/board.py:61
-#: tickets/forms.py:107
+#: templates/includes/ticket_table.html:5
+#: templates/manage/company_detail.html:14 templates/tickets/board.html:13
+#: templates/tickets/ticket_detail.html:77 tickets/board.py:63
+#: tickets/forms.py:120
 msgid "Project"
 msgstr ""
 
@@ -347,7 +463,7 @@ msgid "Assigned to me"
 msgstr ""
 
 #: templates/core/milestone_form.html:2 templates/tickets/board.html:27
-#: templates/tickets/ticket_detail.html:83 tickets/forms.py:114
+#: templates/tickets/ticket_detail.html:83 tickets/forms.py:127
 msgid "Roadmap step"
 msgstr ""
 
@@ -359,7 +475,10 @@ msgstr ""
 msgid "New roadmap step"
 msgstr ""
 
-#: templates/core/milestone_form.html:10 templates/tickets/ticket_form.html:17
+#: templates/core/milestone_form.html:10 templates/manage/form.html:9
+#: templates/manage/project_form.html:21 templates/manage/user_form.html:30
+#: templates/registration/password_change_form.html:8
+#: templates/tickets/ticket_form.html:17
 msgid "Save"
 msgstr ""
 
@@ -400,15 +519,20 @@ msgstr ""
 msgid "Lead"
 msgstr ""
 
-#: templates/core/project_list.html:6
+#: templates/core/project_list.html:6 templates/manage/company_detail.html:14
 msgid "Client members"
 msgstr ""
 
-#: templates/core/project_list.html:9
+#: templates/core/project_list.html:9 templates/manage/company_detail.html:15
 msgid "Archived"
 msgstr ""
 
-#: templates/core/project_list.html:10
+#: templates/core/project_list.html:9 templates/includes/project_tabs.html:15
+#: templates/manage/company_detail.html:16
+msgid "Settings"
+msgstr ""
+
+#: templates/core/project_list.html:10 templates/manage/company_detail.html:17
 msgid "No project yet."
 msgstr ""
 
@@ -445,12 +569,34 @@ msgstr ""
 msgid "Workload per team member."
 msgstr ""
 
-#: templates/core/team.html:7
+#: templates/core/team.html:7 templates/manage/company_detail.html:20
+#: templates/manage/user_list.html:18
 msgid "Name"
 msgstr ""
 
 #: templates/core/team.html:7
 msgid "Email"
+msgstr ""
+
+#: templates/includes/media_input.html:4
+msgid "Add files"
+msgstr ""
+
+#: templates/includes/media_input.html:6
+msgid "Photo or video"
+msgstr ""
+
+#: templates/includes/media_input.html:8
+msgid "Record audio"
+msgstr ""
+
+#: templates/includes/media_input.html:12
+msgid "Stop and add"
+msgstr ""
+
+#: templates/includes/media_input.html:15
+msgid ""
+"Photos, videos, voice notes, PDF, Word, Excel… You can also drop files here."
 msgstr ""
 
 #: templates/includes/project_tabs.html:7 templates/tickets/ticket_form.html:6
@@ -494,7 +640,8 @@ msgid "Title"
 msgstr ""
 
 #: templates/includes/ticket_table.html:6
-#: templates/tickets/ticket_list.html:25 tickets/forms.py:109
+#: templates/manage/company_detail.html:20 templates/manage/user_list.html:18
+#: templates/tickets/ticket_list.html:25 tickets/forms.py:122
 msgid "Status"
 msgstr ""
 
@@ -506,8 +653,8 @@ msgstr ""
 
 #: templates/includes/ticket_table.html:6 templates/tickets/board.html:19
 #: templates/tickets/ticket_detail.html:80
-#: templates/tickets/ticket_list.html:26 tickets/board.py:62
-#: tickets/forms.py:113
+#: templates/tickets/ticket_list.html:26 tickets/board.py:64
+#: tickets/forms.py:126
 msgid "Assignee"
 msgstr ""
 
@@ -515,20 +662,272 @@ msgstr ""
 msgid "Nothing here."
 msgstr ""
 
+#: templates/manage/_account_status.html:1 templates/manage/user_list.html:14
+msgid "Deactivated"
+msgstr ""
+
+#: templates/manage/_account_status.html:2
+msgid "Invitation sent"
+msgstr ""
+
+#: templates/manage/_account_status.html:3
+msgid "Active"
+msgstr ""
+
+#: templates/manage/_account_status.html:3
+msgid "Last login"
+msgstr ""
+
+#: templates/manage/company_detail.html:7
+msgid "Rename"
+msgstr ""
+
+#: templates/manage/company_detail.html:8 templates/manage/project_form.html:2
+#: templates/manage/project_form.html:6
+msgid "New project"
+msgstr ""
+
+#: templates/manage/company_detail.html:9
+msgid "Invite a user"
+msgstr ""
+
+#: templates/manage/company_detail.html:24
+msgid "No user yet. Invite the first one."
+msgstr ""
+
+#: templates/manage/project_form.html:2 templates/manage/project_form.html:6
+msgid "Project settings"
+msgstr ""
+
+#: templates/manage/project_form.html:18
+msgid ""
+"No client account in this company yet. Save the project, then invite users "
+"from the client page."
+msgstr ""
+
+#: templates/manage/user_form.html:2 templates/manage/user_form.html:6
+msgid "Invite someone"
+msgstr ""
+
+#: templates/manage/user_form.html:10 templates/manage/user_list.html:25
+msgid "Resend invitation"
+msgstr ""
+
+#: templates/manage/user_form.html:10
+msgid "Send a new password link"
+msgstr ""
+
+#: templates/manage/user_form.html:12
+msgid "Deactivate"
+msgstr ""
+
+#: templates/manage/user_form.html:12
+msgid "Reactivate"
+msgstr ""
+
+#: templates/manage/user_form.html:16
+msgid ""
+"The person receives an e-mail with a link to choose their password. They "
+"then log in with their e-mail address."
+msgstr ""
+
+#: templates/manage/user_form.html:30
+msgid "Send the invitation"
+msgstr ""
+
+#: templates/manage/user_list.html:5
+msgid ""
+"Invite clients and Digitalia team members, choose their projects, deactivate"
+" an account."
+msgstr ""
+
+#: templates/manage/user_list.html:7
+msgid "Digitalia member"
+msgstr ""
+
+#: templates/manage/user_list.html:8
+msgid "Invite a client"
+msgstr ""
+
+#: templates/manage/user_list.html:16
+msgid "Name, e-mail or company"
+msgstr ""
+
+#: templates/manage/user_list.html:16 templates/tickets/board.html:11
+#: tickets/forms.py:118
+msgid "Search"
+msgstr ""
+
+#: templates/manage/user_list.html:18
+msgid "E-mail"
+msgstr ""
+
+#: templates/manage/user_list.html:18
+msgid "Company"
+msgstr ""
+
+#: templates/manage/user_list.html:20
+msgid "Admin"
+msgstr ""
+
+#: templates/manage/user_list.html:27
+msgid "No account here."
+msgstr ""
+
+#: templates/registration/_set_password.html:5
+#: templates/registration/password_reset_confirm.html:2
+msgid "New password"
+msgstr ""
+
+#: templates/registration/_set_password.html:7
+msgid "At least 8 characters, not too common, not only digits."
+msgstr ""
+
+#: templates/registration/_set_password.html:8
+msgid "Confirm the password"
+msgstr ""
+
+#: templates/registration/_set_password.html:13
+msgid ""
+"This link is no longer valid: it has already been used or it has expired."
+msgstr ""
+
+#: templates/registration/_set_password.html:14
+msgid "Get a new link"
+msgstr ""
+
+#: templates/registration/invitation_email.txt:1
+#: templates/registration/password_reset_email.txt:1
+#, python-format
+msgid "Hello %(first)s,"
+msgstr ""
+
+#: templates/registration/invitation_email.txt:3
+msgid "An Orbit account has been created for you in the Digitalia team."
+msgstr ""
+
+#: templates/registration/invitation_email.txt:3
+msgid ""
+"Digitalia has created your Orbit account. It is where you follow your "
+"project, send your requests (bugs, changes, questions…) and answer our "
+"questions."
+msgstr ""
+
+#: templates/registration/invitation_email.txt:5
+msgid "Your projects:"
+msgstr ""
+
+#: templates/registration/invitation_email.txt:8
+msgid ""
+"To activate your account, choose your password here (link valid for 7 days):"
+msgstr ""
+
+#: templates/registration/invitation_email.txt:11
+#, python-format
+msgid "Then log in with your e-mail address (%(email)s) at: "
+msgstr ""
+
+#: templates/registration/invitation_subject.txt:1
+#, python-format
+msgid "%(name)s invites you to Orbit, your project space with Digitalia"
+msgstr ""
+
 #: templates/registration/login.html:2 templates/registration/login.html:12
 msgid "Log in"
 msgstr ""
 
-#: templates/registration/login.html:6
+#: templates/registration/login.html:4
 msgid "Your project space with Digitalia"
 msgstr ""
 
-#: templates/registration/login.html:9
-msgid "Username"
+#: templates/registration/login.html:7
+#: templates/registration/password_reset_form.html:7
+msgid "E-mail address"
 msgstr ""
 
-#: templates/registration/login.html:10
+#: templates/registration/login.html:9
 msgid "Password"
+msgstr ""
+
+#: templates/registration/login.html:13
+#: templates/registration/password_reset_form.html:2
+#: templates/registration/password_reset_form.html:4
+msgid "Forgot your password?"
+msgstr ""
+
+#: templates/registration/password_change_done.html:3
+msgid "Password changed"
+msgstr ""
+
+#: templates/registration/password_change_done.html:4
+msgid "Back to Orbit"
+msgstr ""
+
+#: templates/registration/password_reset_confirm.html:4
+msgid "Choose a new password"
+msgstr ""
+
+#: templates/registration/password_reset_confirm.html:5
+msgid "Save my new password"
+msgstr ""
+
+#: templates/registration/password_reset_done.html:2
+msgid "E-mail sent"
+msgstr ""
+
+#: templates/registration/password_reset_done.html:4
+msgid "Check your e-mails"
+msgstr ""
+
+#: templates/registration/password_reset_done.html:5
+msgid ""
+"If an account uses this address, you will receive a link to choose a new "
+"password in a few minutes. Look in your spam folder too."
+msgstr ""
+
+#: templates/registration/password_reset_done.html:6
+#: templates/registration/password_reset_form.html:11
+msgid "Back to login"
+msgstr ""
+
+#: templates/registration/password_reset_email.txt:3
+msgid ""
+"You asked to reset your Orbit password. Choose a new one here (link valid "
+"for 7 days):"
+msgstr ""
+
+#: templates/registration/password_reset_email.txt:6
+msgid ""
+"If you did not ask for it, ignore this e-mail: your password stays the same."
+msgstr ""
+
+#: templates/registration/password_reset_form.html:5
+msgid ""
+"Enter your e-mail address. We will send you a link to choose a new password."
+msgstr ""
+
+#: templates/registration/password_reset_form.html:10
+msgid "Send the link"
+msgstr ""
+
+#: templates/registration/password_reset_subject.txt:1
+msgid "Orbit: reset your password"
+msgstr ""
+
+#: templates/registration/welcome.html:2
+msgid "Welcome"
+msgstr ""
+
+#: templates/registration/welcome.html:4
+msgid "Welcome to Orbit"
+msgstr ""
+
+#: templates/registration/welcome.html:5
+msgid "Choose your password to activate your account."
+msgstr ""
+
+#: templates/registration/welcome.html:6
+msgid "Activate my account"
 msgstr ""
 
 #: templates/tickets/_card.html:17 templates/tickets/board.html:79
@@ -562,7 +961,7 @@ msgid "Comments"
 msgstr ""
 
 #: templates/tickets/_card.html:33 templates/tickets/board.html:21
-#: tickets/board.py:117
+#: tickets/board.py:119
 msgid "Unassigned"
 msgstr ""
 
@@ -574,16 +973,12 @@ msgstr ""
 msgid "Search the board"
 msgstr ""
 
-#: templates/tickets/board.html:11 tickets/forms.py:105
-msgid "Search"
-msgstr ""
-
 #: templates/tickets/board.html:13
 msgid "All projects"
 msgstr ""
 
 #: templates/tickets/board.html:16 templates/tickets/ticket_list.html:25
-#: tickets/board.py:64 tickets/forms.py:108
+#: tickets/board.py:66 tickets/forms.py:121
 msgid "Type"
 msgstr ""
 
@@ -596,7 +991,7 @@ msgid "Everyone"
 msgstr ""
 
 #: templates/tickets/board.html:23 templates/tickets/ticket_list.html:23
-#: tickets/forms.py:111
+#: tickets/forms.py:124
 msgid "Origin"
 msgstr ""
 
@@ -736,7 +1131,7 @@ msgid "Discussion"
 msgstr ""
 
 #: templates/tickets/ticket_detail.html:60
-#: templates/tickets/ticket_detail.html:78 tickets/models.py:55
+#: templates/tickets/ticket_detail.html:78 tickets/models.py:56
 msgid "System"
 msgstr ""
 
@@ -757,7 +1152,7 @@ msgid "Author"
 msgstr ""
 
 #: templates/tickets/ticket_detail.html:79
-#: templates/tickets/ticket_list.html:26 tickets/models.py:205
+#: templates/tickets/ticket_list.html:26 tickets/models.py:227
 msgid "Created"
 msgstr ""
 
@@ -826,11 +1221,11 @@ msgstr ""
 msgid "last update"
 msgstr ""
 
-#: templates/tickets/ticket_list.html:19 tickets/models.py:99
+#: templates/tickets/ticket_list.html:19 tickets/models.py:100
 msgid "target date"
 msgstr ""
 
-#: templates/tickets/ticket_list.html:20 tickets/models.py:83
+#: templates/tickets/ticket_list.html:20 tickets/models.py:84
 msgid "priority"
 msgstr ""
 
@@ -838,8 +1233,8 @@ msgstr ""
 msgid "Client / project"
 msgstr ""
 
-#: templates/tickets/ticket_list.html:25 tickets/board.py:63
-#: tickets/forms.py:110
+#: templates/tickets/ticket_list.html:25 tickets/board.py:65
+#: tickets/forms.py:123
 msgid "Priority"
 msgstr ""
 
@@ -847,298 +1242,328 @@ msgstr ""
 msgid "No ticket matches these filters."
 msgstr ""
 
-#: tickets/board.py:37
+#: tickets/board.py:39
 msgid "Received"
 msgstr ""
 
-#: tickets/board.py:40
+#: tickets/board.py:42
 msgid "Your turn: answer or test"
 msgstr ""
 
-#: tickets/board.py:49
+#: tickets/board.py:51
 msgid "Answered by the client, back to Digitalia"
 msgstr ""
 
-#: tickets/board.py:50
+#: tickets/board.py:52
 msgid "Test approved by the client"
 msgstr ""
 
-#: tickets/board.py:51
+#: tickets/board.py:53
 msgid "Test not conclusive, back to Digitalia"
 msgstr ""
 
-#: tickets/board.py:52
+#: tickets/board.py:54
 msgid "Reopened by the client, back to Digitalia"
 msgstr ""
 
-#: tickets/board.py:60
+#: tickets/board.py:62
 msgid "None"
 msgstr ""
 
-#: tickets/board.py:230
+#: tickets/board.py:232
 msgid "Unknown status."
 msgstr ""
 
-#: tickets/board.py:260
+#: tickets/board.py:257
+#, python-format
+msgid "%(name)s: this file cannot be attached."
+msgstr ""
+
+#: tickets/board.py:269
 msgid "This card cannot be moved there."
 msgstr ""
 
-#: tickets/board.py:264
+#: tickets/board.py:273
 #, python-format
 msgid "Please explain what is not working (at least %(n)s characters)."
 msgstr ""
 
-#: tickets/board.py:269
+#: tickets/board.py:278
 msgid "Test not OK"
 msgstr ""
 
-#: tickets/board.py:269
+#: tickets/board.py:278
 msgid "Reopened: not OK after all"
 msgstr ""
 
-#: tickets/forms.py:26
+#: tickets/forms.py:35
+#, python-format
+msgid "%(name)s: this type of file is not accepted."
+msgstr ""
+
+#: tickets/forms.py:39
 #, python-format
 msgid "%(name)s is too large (max %(max)s)."
 msgstr ""
 
-#: tickets/forms.py:39 tickets/forms.py:53 tickets/forms.py:84
-msgid "Files or screenshots"
+#: tickets/forms.py:52 tickets/forms.py:66 tickets/forms.py:97
+msgid "Photos, videos, audio or documents"
 msgstr ""
 
-#: tickets/forms.py:80
+#: tickets/forms.py:93
 msgid "Client requests always stay visible to the client."
 msgstr ""
 
-#: tickets/forms.py:89
+#: tickets/forms.py:102
 msgid "Write a reply…"
 msgstr ""
 
-#: tickets/forms.py:100
+#: tickets/forms.py:113
 msgid "Write a comment or add a file."
 msgstr ""
 
-#: tickets/forms.py:112
+#: tickets/forms.py:125
 msgid "Visibility"
 msgstr ""
 
-#: tickets/forms.py:115
+#: tickets/forms.py:128
 msgid "Created from"
 msgstr ""
 
-#: tickets/forms.py:116
+#: tickets/forms.py:129
 msgid "Created until"
 msgstr ""
 
-#: tickets/forms.py:117
+#: tickets/forms.py:130
 msgid "Late only"
 msgstr ""
 
-#: tickets/forms.py:118
+#: tickets/forms.py:131
 msgid "Include closed"
 msgstr ""
 
-#: tickets/forms.py:129
+#: tickets/forms.py:142
 msgid "In progress or in test"
 msgstr ""
 
-#: tickets/models.py:28
-msgid "Change request"
+#: tickets/media.py:15
+msgid "Photo"
+msgstr ""
+
+#: tickets/media.py:15
+msgid "Video"
+msgstr ""
+
+#: tickets/media.py:15
+msgid "Audio"
+msgstr ""
+
+#: tickets/media.py:15
+msgid "Document"
 msgstr ""
 
 #: tickets/models.py:29
-msgid "Bug / anomaly"
+msgid "Change request"
 msgstr ""
 
 #: tickets/models.py:30
-msgid "Question"
+msgid "Bug / anomaly"
 msgstr ""
 
 #: tickets/models.py:31
-msgid "Support request"
+msgid "Question"
 msgstr ""
 
 #: tickets/models.py:32
-msgid "New feature"
+msgid "Support request"
 msgstr ""
 
 #: tickets/models.py:33
+msgid "New feature"
+msgstr ""
+
+#: tickets/models.py:34
 msgid "Internal task"
 msgstr ""
 
-#: tickets/models.py:36
+#: tickets/models.py:37
 msgid "New"
 msgstr ""
 
-#: tickets/models.py:37
+#: tickets/models.py:38
 msgid "To analyse"
 msgstr ""
 
-#: tickets/models.py:38
+#: tickets/models.py:39
 msgid "To do"
 msgstr ""
 
-#: tickets/models.py:41
+#: tickets/models.py:42
 msgid "In test"
 msgstr ""
 
-#: tickets/models.py:43
+#: tickets/models.py:44
 msgid "Rejected"
 msgstr ""
 
-#: tickets/models.py:44
+#: tickets/models.py:45
 msgid "Cancelled"
 msgstr ""
 
-#: tickets/models.py:47
+#: tickets/models.py:48
 msgid "Low"
 msgstr ""
 
-#: tickets/models.py:48
+#: tickets/models.py:49
 msgid "Normal"
 msgstr ""
 
-#: tickets/models.py:49
+#: tickets/models.py:50
 msgid "High"
 msgstr ""
 
-#: tickets/models.py:50
+#: tickets/models.py:51
 msgid "Critical"
 msgstr ""
 
-#: tickets/models.py:54
+#: tickets/models.py:55
 msgid "Digitalia"
 msgstr ""
 
-#: tickets/models.py:58
+#: tickets/models.py:59
 msgid "Visible to client"
 msgstr ""
 
-#: tickets/models.py:59
+#: tickets/models.py:60
 msgid "Internal Digitalia"
 msgstr ""
 
-#: tickets/models.py:70
+#: tickets/models.py:71
 msgid "number"
 msgstr ""
 
-#: tickets/models.py:72
+#: tickets/models.py:73
 msgid "parent ticket"
 msgstr ""
 
-#: tickets/models.py:79
+#: tickets/models.py:80
 msgid "title"
 msgstr ""
 
-#: tickets/models.py:81
+#: tickets/models.py:82
 msgid "type"
 msgstr ""
 
-#: tickets/models.py:84
+#: tickets/models.py:85
 msgid "origin"
 msgstr ""
 
-#: tickets/models.py:85
+#: tickets/models.py:86
 msgid "visibility"
 msgstr ""
 
-#: tickets/models.py:87 tickets/models.py:160
+#: tickets/models.py:88 tickets/models.py:161
 msgid "author"
 msgstr ""
 
-#: tickets/models.py:91
+#: tickets/models.py:92
 msgid "author company"
 msgstr ""
 
-#: tickets/models.py:95
+#: tickets/models.py:96
 msgid "assignee"
 msgstr ""
 
-#: tickets/models.py:101
+#: tickets/models.py:102
 msgid "updated at"
 msgstr ""
 
-#: tickets/models.py:102
+#: tickets/models.py:103
 msgid "closed at"
 msgstr ""
 
-#: tickets/models.py:109 tickets/models.py:159 tickets/models.py:178
-#: tickets/models.py:210
+#: tickets/models.py:110 tickets/models.py:160 tickets/models.py:180
+#: tickets/models.py:232
 msgid "ticket"
 msgstr ""
 
-#: tickets/models.py:110
-msgid "tickets"
-msgstr ""
-
-#: tickets/models.py:161 tickets/models.py:169 tickets/models.py:180
+#: tickets/models.py:162 tickets/models.py:170 tickets/models.py:182
 msgid "comment"
 msgstr ""
 
-#: tickets/models.py:163
+#: tickets/models.py:164
 msgid "internal note"
 msgstr ""
 
-#: tickets/models.py:163
+#: tickets/models.py:164
 msgid "Internal notes are never shown to the client."
 msgstr ""
 
-#: tickets/models.py:170
+#: tickets/models.py:171
 msgid "comments"
 msgstr ""
 
-#: tickets/models.py:182
+#: tickets/models.py:184
 msgid "file"
 msgstr ""
 
-#: tickets/models.py:183
+#: tickets/models.py:185
+msgid "file name"
+msgstr ""
+
+#: tickets/models.py:186
+msgid "size"
+msgstr ""
+
+#: tickets/models.py:187
 msgid "uploaded by"
 msgstr ""
 
-#: tickets/models.py:184 tickets/models.py:216
+#: tickets/models.py:188 tickets/models.py:238
 msgid "internal"
 msgstr ""
 
-#: tickets/models.py:189
+#: tickets/models.py:193
 msgid "attachment"
 msgstr ""
 
-#: tickets/models.py:190
+#: tickets/models.py:194
 msgid "attachments"
 msgstr ""
 
-#: tickets/models.py:206
+#: tickets/models.py:228
 msgid "Changed"
 msgstr ""
 
-#: tickets/models.py:207
+#: tickets/models.py:229
 msgid "Commented"
 msgstr ""
 
-#: tickets/models.py:208
+#: tickets/models.py:230
 msgid "File added"
 msgstr ""
 
-#: tickets/models.py:213
+#: tickets/models.py:235
 msgid "field"
 msgstr ""
 
-#: tickets/models.py:214
+#: tickets/models.py:236
 msgid "old value"
 msgstr ""
 
-#: tickets/models.py:215
+#: tickets/models.py:237
 msgid "new value"
 msgstr ""
 
-#: tickets/models.py:217
+#: tickets/models.py:239
 msgid "date"
 msgstr ""
 
-#: tickets/models.py:221
+#: tickets/models.py:243
 msgid "history entry"
 msgstr ""
 
-#: tickets/models.py:222
+#: tickets/models.py:244
 msgid "history"
 msgstr ""
 
@@ -1218,15 +1643,15 @@ msgstr ""
 msgid "New message from the client"
 msgstr ""
 
-#: tickets/views.py:91
+#: tickets/views.py:92
 #, python-format
 msgid "Ticket %(ref)s created."
 msgstr ""
 
-#: tickets/views.py:122
+#: tickets/views.py:123
 msgid "Your reply has been added."
 msgstr ""
 
-#: tickets/views.py:150
+#: tickets/views.py:151
 msgid "Ticket updated."
 msgstr ""

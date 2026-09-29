@@ -7,11 +7,20 @@ from django.utils.translation import gettext_lazy as _
 
 from core.models import Company, Milestone, Project
 
+from .media import ACCEPT, is_allowed
 from .models import Comment, Ticket
 
 
 class MultipleFileInput(forms.ClearableFileInput):
+    """Rendered by includes/media_input.html: files, photos, videos and voice recordings."""
+
     allow_multiple_selected = True
+    template_name = "includes/media_input.html"
+
+    def get_context(self, name, value, attrs):
+        context = super().get_context(name, value, attrs)
+        context["accept"] = ACCEPT
+        return context
 
 
 class MultipleFileField(forms.FileField):
@@ -21,6 +30,10 @@ class MultipleFileField(forms.FileField):
         files = data if isinstance(data, (list, tuple)) else ([data] if data else [])
         cleaned = [super(MultipleFileField, self).clean(f, initial) for f in files]
         for f in cleaned:
+            if not is_allowed(f.name):
+                raise forms.ValidationError(
+                    _("%(name)s: this type of file is not accepted.") % {"name": f.name}
+                )
             if f.size > settings.ORBIT_MAX_ATTACHMENT_SIZE:
                 raise forms.ValidationError(
                     _("%(name)s is too large (max %(max)s).")
@@ -36,7 +49,7 @@ def staff_users():
 class ClientTicketForm(forms.ModelForm):
     """Simple request form used by clients."""
 
-    files = MultipleFileField(label=_("Files or screenshots"), required=False)
+    files = MultipleFileField(label=_("Photos, videos, audio or documents"), required=False)
 
     class Meta:
         model = Ticket
@@ -50,7 +63,7 @@ class ClientTicketForm(forms.ModelForm):
 
 
 class StaffTicketForm(forms.ModelForm):
-    files = MultipleFileField(label=_("Files or screenshots"), required=False)
+    files = MultipleFileField(label=_("Photos, videos, audio or documents"), required=False)
 
     class Meta:
         model = Ticket
@@ -81,7 +94,7 @@ class StaffTicketForm(forms.ModelForm):
 
 
 class CommentForm(forms.ModelForm):
-    files = MultipleFileField(label=_("Files or screenshots"), required=False)
+    files = MultipleFileField(label=_("Photos, videos, audio or documents"), required=False)
 
     class Meta:
         model = Comment

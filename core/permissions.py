@@ -19,3 +19,16 @@ def digitalia_required(view):
 def get_project_for(user, key):
     """Return the project if the user may access it, else 404 (never reveal other clients' projects)."""
     return get_object_or_404(user.visible_projects().select_related("company"), key__iexact=key)
+
+
+def manager_required(view):
+    """Orbit administrators: Digitalia accounts allowed to manage clients, projects and accounts."""
+
+    @wraps(view)
+    def wrapper(request, *args, **kwargs):
+        user = request.user
+        if not user.is_authenticated or not user.is_digitalia or not (user.is_staff or user.is_superuser):
+            raise PermissionDenied
+        return view(request, *args, **kwargs)
+
+    return wrapper

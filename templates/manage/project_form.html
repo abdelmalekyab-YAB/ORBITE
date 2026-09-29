@@ -1,0 +1,32 @@
+{% extends "base.html" %}{% load i18n %}
+{% block title %}{% if project %}{% translate "Project settings" %}{% else %}{% translate "New project" %}{% endif %}{% endblock %}
+{% block content %}
+{% if project %}{% include "includes/project_tabs.html" %}{% endif %}
+<div class="card" style="max-width:760px">
+  <h1>{% if project %}{% translate "Project settings" %}{% else %}{% translate "New project" %}{% endif %}</h1>
+  <form method="post" id="project-form">{% csrf_token %}
+    {{ form.non_field_errors }}
+    <div class="form-grid">
+      {% include "includes/field.html" with field=form.company %}
+      {% include "includes/field.html" with field=form.name %}
+      {% include "includes/field.html" with field=form.key %}
+      {% include "includes/field.html" with field=form.lead %}
+    </div>
+    {% include "includes/field.html" with field=form.description %}
+    <div class="form-row"><label>{{ form.members.label }}</label>
+      {% if form.members.field.queryset %}<div class="checks">{{ form.members }}</div>
+      {% else %}<p class="muted">{% translate "No client account in this company yet. Save the project, then invite users from the client page." %}</p>{% endif %}
+      <div class="help">{{ form.members.help_text }}</div>{{ form.members.errors }}</div>
+    {% include "includes/field.html" with field=form.is_active %}
+    <button class="btn btn-primary">{% translate "Save" %}</button>
+    <a class="btn" href="{% if project %}{{ project.get_absolute_url }}{% else %}{% url 'project_list' %}{% endif %}">{% translate "Cancel" %}</a>
+  </form>
+</div>
+<script>
+  // Changing the client reloads the list of its accounts.
+  document.getElementById("id_company").addEventListener("change", e => {
+    const url = new URL(location.href); url.searchParams.set("company", e.target.value);
+    {% if not project %}location.href = url;{% endif %}
+  });
+</script>
+{% endblock %}

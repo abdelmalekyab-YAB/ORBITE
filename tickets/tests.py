@@ -344,3 +344,50 @@ class NotificationTests(TestCase):
         with self.captureOnCommitCallbacks(execute=True):
             self.client.post(reverse("ticket_move", args=[internal.pk]), '{"status": "in_test"}', content_type="application/json")
         self.assertEqual(mail.outbox, [])
+
+
+@override_settings(MEDIA_ROOT=MEDIA, LANGUAGE_CODE="en")
+class MediaTests(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        wws = Company.objects.create(name="WWS")
+        cls.staff = User.objects.create_user("staff", password="x", role=User.Role.STAFF)
+        cls.client_user = User.objects.create_user("client", password="x", company=wws)
+        cls.project = Project.objects.create(company=wws, name="Smart CV", key="SCV")
+        cls.project.members.add(cls.client_user)
+
+    def test_photos_videos_audio_and_documents_are_accepted(self):
+        self.client.force_login(self.client_user)
+        files = [SimpleUploadedFile(n, b"x", content_type=t) for n, t in [
+            ("photo.jpg", "image/jpeg"), ("screen.mp4", "video/mp4"), ("Note vocale.weba", "audio/webm"),
+            ("spec.pdf", "application/pdf"), ("devis.xlsx", "application/octet-stream")]]
+        self.client.post(reverse("ticket_create", args=["SCV"]),
+                         {"type": "bug", "title": "Crash", "description": "d", "priority": "normal", "files": files})
+        ticket = Ticket.objects.get()
+        kinds = sorted(a.kind for a in ticket.attachments.all())
+        self.assertEqual(kinds, ["audio", "document", "document", "image", "video"])
+        page = self.client.get(ticket.get_absolute_url()).content.decode()
+        self.assertIn("<video", page)
+        self.assertIn("<audio", page)
+        video = ticket.attachments.get(name="screen.mp4")
+        response = self.client.get(reverse("attachment_download", args=[video.pk]))
+        self.assertNotIn("attachment;", response.get("Content-Disposition", ""))
+
+    def test_dangerous_files_are_refused(self):
+        self.client.force_login(self.client_user)
+        response = self.client.post(reverse("ticket_create", args=["SCV"]), {
+            "type": "bug", "title": "x", "description": "d", "priority": "normal",
+            "files": [SimpleUploadedFile("virus.exe", b"MZ")]})
+        self.assertContains(response, "not accepted")
+        self.assertFalse(Ticket.objects.exists())
+
+    def test_not_ok_can_carry_a_voice_note(self):
+        ticket = Ticket.objects.create(project=self.project, title="t", author=self.staff, status="in_test")
+        self.client.force_login(self.client_user)
+        self.client.post(reverse("ticket_client_action", args=[ticket.pk]), {
+            "action": "test_ko", "message": "Voir ma note vocale et la capture",
+            "files": [SimpleUploadedFile("note.weba", b"a"), SimpleUploadedFile("capture.png", b"p")]})
+        ticket.refresh_from_db()
+        self.assertEqual(ticket.status, "in_progress")
+        comment = ticket.comments.get()
+        self.assertEqual(sorted(a.kind for a in comment.attachments.all()), ["audio", "image"])
