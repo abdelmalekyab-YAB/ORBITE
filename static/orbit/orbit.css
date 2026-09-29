@@ -23,8 +23,9 @@ h2 { font-size: 16px; margin: 0 0 12px; }
 .tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--border); margin-bottom: 20px; }
 .tabs a { padding: 8px 14px; color: var(--muted); border-bottom: 2px solid transparent; }
 .tabs a.active { color: var(--primary); border-color: var(--primary); font-weight: 600; }
-.card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 18px; margin-bottom: 20px; }
-.grid { display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 18px; margin-bottom: 20px; overflow-x: auto; min-width: 0; }
+.grid { display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); }
+td:first-child a, .badge, td.num { white-space: nowrap; }
 .grid-2 { display: grid; gap: 20px; grid-template-columns: 2fr 1fr; }
 @media (max-width: 900px) { .grid-2 { grid-template-columns: 1fr; } }
 .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px; margin-bottom: 20px; }
