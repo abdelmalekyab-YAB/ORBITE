@@ -1,0 +1,21 @@
+{% load i18n orbit %}
+{% if tickets %}
+<table>
+  <thead><tr>
+    <th>{% translate "Ref." %}</th><th>{% translate "Title" %}</th>{% if show_project %}<th>{% translate "Project" %}</th>{% endif %}
+    <th>{% translate "Status" %}</th><th>{% translate "Target date" %}</th>{% if user.is_digitalia %}<th>{% translate "Assignee" %}</th>{% endif %}
+  </tr></thead>
+  <tbody>
+  {% for t in tickets %}
+    <tr>
+      <td><a href="{{ t.get_absolute_url }}">{{ t.reference }}</a></td>
+      <td>{% if user.is_digitalia %}{{ t.origin|origin_icon }} {% endif %}{{ t.title }}</td>
+      {% if show_project %}<td>{{ t.project.name }}</td>{% endif %}
+      <td><span class="badge status-{{ t.status }}">{{ t.get_status_display }}</span></td>
+      <td class="{% if t.is_late %}late{% endif %}">{{ t.due_date|date:"SHORT_DATE_FORMAT"|default:"—" }}</td>
+      {% if user.is_digitalia %}<td>{{ t.assignee|default:"—" }}</td>{% endif %}
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% else %}<p class="empty">{% translate "Nothing here." %}</p>{% endif %}

@@ -1,0 +1,1721 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-29 19:13+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: config/settings.py:89
+msgid "French"
+msgstr "Français"
+
+#: config/settings.py:89
+msgid "English"
+msgstr "Anglais"
+
+#: core/admin.py:17 core/admin.py:19
+msgid "Orbit"
+msgstr "Orbit"
+
+#: core/manage_forms.py:35
+msgid "Client accounts of this company that can see the project."
+msgstr "Comptes clients de cette société qui voient le projet."
+
+#: core/manage_forms.py:40
+msgid "This key is already used by another project."
+msgstr "Cette clé est déjà utilisée par un autre projet."
+
+#: core/manage_forms.py:46 templates/base.html:19
+#: templates/core/client_list.html:6 templates/core/dashboard.html:15
+#: templates/core/project_list.html:2 templates/core/project_list.html:4
+#: templates/manage/company_detail.html:13
+#: templates/manage/company_detail.html:20 templates/manage/user_list.html:18
+msgid "Projects"
+msgstr "Projets"
+
+#: core/manage_forms.py:47
+msgid "For a client: the projects they will see when they log in."
+msgstr "Pour un client : les projets qu'il verra en se connectant."
+
+#: core/manage_forms.py:53
+msgid "Orbit administrator"
+msgstr "Administrateur Orbit"
+
+#: core/manage_forms.py:53
+msgid "Active account"
+msgstr "Compte actif"
+
+#: core/manage_forms.py:55
+msgid "Digitalia only: can manage clients, projects and accounts."
+msgstr ""
+"Digitalia uniquement : peut gérer les clients, les projets et les comptes."
+
+#: core/manage_forms.py:56
+msgid "A deactivated account can no longer log in."
+msgstr "Un compte désactivé ne peut plus se connecter."
+
+#: core/manage_forms.py:73
+msgid "An account already uses this e-mail address."
+msgstr "Un compte utilise déjà cette adresse e-mail."
+
+#: core/manage_forms.py:81
+msgid "Choose the client company of this account."
+msgstr "Choisissez la société cliente de ce compte."
+
+#: core/manage_forms.py:86
+#, python-format
+msgid "These projects belong to another client: %(names)s"
+msgstr "Ces projets appartiennent à un autre client : %(names)s"
+
+#: core/manage_views.py:38
+#, python-format
+msgid "Client %(name)s saved."
+msgstr "Client %(name)s enregistré."
+
+#: core/manage_views.py:41
+msgid "Edit client"
+msgstr "Modifier le client"
+
+#: core/manage_views.py:41
+msgid "New client"
+msgstr "Nouveau client"
+
+#: core/manage_views.py:55
+#, python-format
+msgid "Project %(name)s saved."
+msgstr "Projet %(name)s enregistré."
+
+#: core/manage_views.py:94 core/manage_views.py:124
+msgid "You cannot deactivate your own account."
+msgstr "Vous ne pouvez pas désactiver votre propre compte."
+
+#: core/manage_views.py:100
+#, python-format
+msgid "Invitation sent to %(email)s."
+msgstr "Invitation envoyée à %(email)s."
+
+#: core/manage_views.py:102
+msgid "Account saved."
+msgstr "Compte enregistré."
+
+#: core/manage_views.py:115
+#, python-format
+msgid "A new invitation link was sent to %(email)s."
+msgstr "Un nouveau lien a été envoyé à %(email)s."
+
+#: core/manage_views.py:128
+msgid "Account reactivated."
+msgstr "Compte réactivé."
+
+#: core/manage_views.py:128
+msgid "Account deactivated: it can no longer log in."
+msgstr "Compte désactivé : il ne peut plus se connecter."
+
+#: core/models.py:12 core/models.py:61 core/models.py:110
+msgid "name"
+msgstr "nom"
+
+#: core/models.py:14
+msgid "Digitalia (internal)"
+msgstr "Digitalia (interne)"
+
+#: core/models.py:15
+msgid "Check for Digitalia itself; leave unchecked for clients."
+msgstr "Cocher pour Digitalia ; laisser décoché pour les clients."
+
+#: core/models.py:17 core/models.py:77 tickets/models.py:101
+#: tickets/models.py:166 tickets/models.py:189
+msgid "created at"
+msgstr "créé le"
+
+#: core/models.py:21 core/models.py:35
+msgid "company"
+msgstr "société"
+
+#: core/models.py:22
+msgid "companies"
+msgstr "sociétés"
+
+#: core/models.py:30 templates/core/client_list.html:6
+#: templates/core/dashboard.html:17 templates/core/project_list.html:6
+#: tickets/forms.py:119 tickets/models.py:54
+msgid "Client"
+msgstr "Client"
+
+#: core/models.py:31 templates/core/team.html:4
+#: templates/manage/user_list.html:13
+msgid "Digitalia team"
+msgstr "Équipe Digitalia"
+
+#: core/models.py:33
+msgid "role"
+msgstr "rôle"
+
+#: core/models.py:40 tickets/models.py:233
+msgid "user"
+msgstr "utilisateur"
+
+#: core/models.py:41
+msgid "users"
+msgstr "utilisateurs"
+
+#: core/models.py:58 templates/registration/login.html:18
+#: templates/registration/login.html:19
+msgid "client"
+msgstr "client"
+
+#: core/models.py:63
+msgid "key"
+msgstr "clé"
+
+#: core/models.py:64
+msgid "Short prefix used in ticket references, e.g. SCV."
+msgstr "Préfixe court utilisé dans les références des tickets, ex. SCV."
+
+#: core/models.py:66 core/models.py:113 tickets/models.py:81
+msgid "description"
+msgstr "description"
+
+#: core/models.py:68
+msgid "client members"
+msgstr "membres client"
+
+#: core/models.py:69
+msgid "Client accounts that can access this project."
+msgstr "Comptes clients ayant accès à ce projet."
+
+#: core/models.py:72
+msgid "project lead"
+msgstr "chef de projet"
+
+#: core/models.py:76
+msgid "active"
+msgstr "actif"
+
+#: core/models.py:81 core/models.py:109 tickets/models.py:70
+msgid "project"
+msgstr "projet"
+
+#: core/models.py:82
+msgid "projects"
+msgstr "projets"
+
+#: core/models.py:99
+msgid "Version"
+msgstr "Version"
+
+#: core/models.py:100
+msgid "Lot"
+msgstr "Lot"
+
+#: core/models.py:101
+msgid "Sprint"
+msgstr "Sprint"
+
+#: core/models.py:102
+msgid "Milestone"
+msgstr "Jalon"
+
+#: core/models.py:105 tickets/board.py:40
+msgid "Planned"
+msgstr "Planifiées"
+
+#: core/models.py:106 templates/core/dashboard.html:10
+#: templates/core/dashboard.html:18 templates/core/project_detail.html:10
+#: templates/core/project_detail.html:34 tickets/board.py:41
+#: tickets/models.py:40
+msgid "In progress"
+msgstr "En cours"
+
+#: core/models.py:107 templates/core/project_detail.html:13
+#: tickets/board.py:43 tickets/models.py:43
+msgid "Done"
+msgstr "Terminé"
+
+#: core/models.py:111 tickets/models.py:234
+msgid "kind"
+msgstr "type"
+
+#: core/models.py:112 tickets/models.py:83
+msgid "status"
+msgstr "statut"
+
+#: core/models.py:114
+msgid "start date"
+msgstr "date de début"
+
+#: core/models.py:115
+msgid "due date"
+msgstr "échéance"
+
+#: core/models.py:116
+msgid "visible to client"
+msgstr "visible par le client"
+
+#: core/models.py:120 tickets/models.py:77
+msgid "roadmap step"
+msgstr "étape de roadmap"
+
+#: core/models.py:121
+msgid "roadmap steps"
+msgstr "étapes de roadmap"
+
+#: core/views.py:78
+msgid "Roadmap step saved."
+msgstr "Étape de roadmap enregistrée."
+
+#: templates/base.html:17 templates/core/dashboard.html:2
+msgid "Dashboard"
+msgstr "Tableau de bord"
+
+#: templates/base.html:18 templates/core/client_list.html:2
+#: templates/core/client_list.html:4 templates/manage/company_detail.html:5
+#: templates/manage/user_list.html:12
+msgid "Clients"
+msgstr "Clients"
+
+#: templates/base.html:20 templates/core/dashboard.html:30
+#: templates/includes/project_tabs.html:11 templates/tickets/board.html:2
+#: templates/tickets/board.html:7
+msgid "Board"
+msgstr "Tableau"
+
+#: templates/base.html:21 templates/tickets/ticket_list.html:4
+msgid "All tickets"
+msgstr "Tous les tickets"
+
+#: templates/base.html:22 templates/core/team.html:2
+msgid "Team"
+msgstr "Équipe"
+
+#: templates/base.html:23 templates/manage/user_form.html:5
+#: templates/manage/user_list.html:2 templates/manage/user_list.html:5
+msgid "Accounts"
+msgstr "Comptes"
+
+#: templates/base.html:31
+msgid "Language"
+msgstr "Langue"
+
+#: templates/base.html:36 templates/registration/password_change_form.html:2
+#: templates/registration/password_change_form.html:5
+msgid "Change my password"
+msgstr "Changer mon mot de passe"
+
+#: templates/base.html:37
+msgid "Log out"
+msgstr "Déconnexion"
+
+#: templates/base.html:49
+msgid "What is not working?"
+msgstr "Qu'est-ce qui ne fonctionne pas ?"
+
+#: templates/base.html:50
+msgid ""
+"Describe what you tested and what went wrong, so Digitalia can fix it "
+"without calling you back."
+msgstr ""
+"Décrivez ce que vous avez testé et ce qui ne va pas : Digitalia pourra "
+"corriger sans avoir à vous recontacter."
+
+#: templates/base.html:51
+msgid ""
+"Example: on the results page, the date filter shows no result when I pick "
+"last month."
+msgstr ""
+"Exemple : sur la page des résultats, le filtre par date n'affiche rien quand"
+" je choisis le mois dernier."
+
+#: templates/base.html:55 templates/core/milestone_form.html:11
+#: templates/includes/media_input.html:13 templates/manage/form.html:10
+#: templates/manage/project_form.html:22 templates/manage/user_form.html:31
+#: templates/tickets/ticket_form.html:18
+msgid "Cancel"
+msgstr "Annuler"
+
+#: templates/base.html:56
+msgid "Send: not OK"
+msgstr "Envoyer : pas OK"
+
+#: templates/base.html:62
+msgid "Move the card within its own row."
+msgstr "Déplacez la carte dans sa propre ligne."
+
+#: templates/base.html:63
+msgid "The status could not be saved. Try again."
+msgstr "Le statut n'a pas pu être enregistré. Réessayez."
+
+#: templates/base.html:64
+msgid "Please explain what is not working (at least 10 characters)."
+msgstr "Expliquez ce qui ne fonctionne pas (au moins 10 caractères)."
+
+#: templates/base.html:65
+msgid "Remove"
+msgstr "Retirer"
+
+#: templates/base.html:66
+msgid "Voice note"
+msgstr "Note vocale"
+
+#: templates/base.html:67
+msgid ""
+"The microphone is not available. Check that your browser allows it, or add "
+"an audio file instead."
+msgstr ""
+"Le micro n'est pas disponible. Autorisez-le dans votre navigateur, ou "
+"ajoutez plutôt un fichier audio."
+
+#: templates/core/client_list.html:4
+msgid "Add a client"
+msgstr "Ajouter un client"
+
+#: templates/core/client_list.html:6 templates/manage/company_detail.html:19
+msgid "Users"
+msgstr "Utilisateurs"
+
+#: templates/core/client_list.html:6 templates/core/dashboard.html:7
+#: templates/core/project_detail.html:7 templates/core/project_list.html:6
+#: templates/core/team.html:7 templates/manage/company_detail.html:14
+msgid "Open tickets"
+msgstr "Tickets ouverts"
+
+#: templates/core/client_list.html:9 tickets/models.py:111
+msgid "tickets"
+msgstr "tickets"
+
+#: templates/core/client_list.html:12
+msgid "No client yet."
+msgstr "Aucun client pour l'instant."
+
+#: templates/core/dashboard.html:4
+msgid "Digitalia cockpit"
+msgstr "Cockpit Digitalia"
+
+#: templates/core/dashboard.html:5
+msgid "All client projects at a glance."
+msgstr "Tous les projets clients en un coup d'œil."
+
+#: templates/core/dashboard.html:8 templates/core/project_detail.html:8
+msgid "Open bugs"
+msgstr "Bugs ouverts"
+
+#: templates/core/dashboard.html:9 templates/core/project_detail.html:9
+#: tickets/forms.py:141 tickets/forms.py:157
+msgid "Changes & features"
+msgstr "Évolutions & fonctionnalités"
+
+#: templates/core/dashboard.html:11 templates/core/dashboard.html:18
+#: templates/core/project_detail.html:11 tickets/models.py:41
+msgid "Waiting for client"
+msgstr "En attente client"
+
+#: templates/core/dashboard.html:12 templates/core/dashboard.html:18
+#: templates/core/project_detail.html:12 templates/core/team.html:7
+msgid "Late"
+msgstr "En retard"
+
+#: templates/core/dashboard.html:17 templates/core/project_list.html:6
+#: templates/includes/ticket_table.html:5
+#: templates/manage/company_detail.html:14 templates/tickets/board.html:13
+#: templates/tickets/ticket_detail.html:77 tickets/board.py:63
+#: tickets/forms.py:120
+msgid "Project"
+msgstr "Projet"
+
+#: templates/core/dashboard.html:17
+msgid "Bugs"
+msgstr "Bugs"
+
+#: templates/core/dashboard.html:17
+msgid "Changes"
+msgstr "Évolutions"
+
+#: templates/core/dashboard.html:18
+msgid "Open"
+msgstr "Ouverts"
+
+#: templates/core/dashboard.html:18
+msgid "Progress"
+msgstr "Avancement"
+
+#: templates/core/dashboard.html:32
+msgid "No active project."
+msgstr "Aucun projet actif."
+
+#: templates/core/dashboard.html:37
+msgid "New client requests"
+msgstr "Nouvelles demandes client"
+
+#: templates/core/dashboard.html:38
+msgid "Late tickets"
+msgstr "Tickets en retard"
+
+#: templates/core/dashboard.html:39 templates/core/project_detail.html:35
+msgid "Next deadlines"
+msgstr "Prochaines échéances"
+
+#: templates/core/dashboard.html:40 templates/tickets/board.html:20
+msgid "Assigned to me"
+msgstr "Mes tickets"
+
+#: templates/core/milestone_form.html:2 templates/tickets/board.html:27
+#: templates/tickets/ticket_detail.html:83 tickets/forms.py:127
+msgid "Roadmap step"
+msgstr "Étape de roadmap"
+
+#: templates/core/milestone_form.html:6
+msgid "Edit roadmap step"
+msgstr "Modifier l'étape"
+
+#: templates/core/milestone_form.html:6
+msgid "New roadmap step"
+msgstr "Nouvelle étape"
+
+#: templates/core/milestone_form.html:10 templates/manage/form.html:9
+#: templates/manage/project_form.html:21 templates/manage/user_form.html:30
+#: templates/registration/password_change_form.html:8
+#: templates/tickets/ticket_form.html:17
+msgid "Save"
+msgstr "Enregistrer"
+
+#: templates/core/project_detail.html:6
+msgid "Overall progress"
+msgstr "Avancement global"
+
+#: templates/core/project_detail.html:18
+msgid "Waiting for the client"
+msgstr "En attente du client"
+
+#: templates/core/project_detail.html:18 templates/tickets/_card.html:16
+msgid "Digitalia is waiting for your answer"
+msgstr "Digitalia attend votre réponse"
+
+#: templates/core/project_detail.html:24 templates/core/roadmap.html:2
+#: templates/includes/project_tabs.html:13
+msgid "Roadmap"
+msgstr "Roadmap"
+
+#: templates/core/project_detail.html:32 templates/core/roadmap.html:22
+msgid "No roadmap step yet."
+msgstr "Aucune étape de roadmap pour l'instant."
+
+#: templates/core/project_detail.html:36
+msgid "Recently done"
+msgstr "Récemment terminé"
+
+#: templates/core/project_list.html:4
+msgid "Add a project"
+msgstr "Ajouter un projet"
+
+#: templates/core/project_list.html:6
+msgid "Key"
+msgstr "Clé"
+
+#: templates/core/project_list.html:6 templates/includes/project_tabs.html:5
+msgid "Lead"
+msgstr "Responsable"
+
+#: templates/core/project_list.html:6 templates/manage/company_detail.html:14
+msgid "Client members"
+msgstr "Membres client"
+
+#: templates/core/project_list.html:9 templates/manage/company_detail.html:15
+msgid "Archived"
+msgstr "Archivé"
+
+#: templates/core/project_list.html:9 templates/includes/project_tabs.html:15
+#: templates/manage/company_detail.html:16
+msgid "Settings"
+msgstr "Paramètres"
+
+#: templates/core/project_list.html:10 templates/manage/company_detail.html:17
+msgid "No project yet."
+msgstr "Aucun projet pour l'instant."
+
+#: templates/core/project_picker.html:2 templates/core/project_picker.html:4
+msgid "My projects"
+msgstr "Mes projets"
+
+#: templates/core/project_picker.html:5
+msgid "Choose a project."
+msgstr "Choisissez un projet."
+
+#: templates/core/project_picker.html:10
+msgid "No project is linked to your account yet. Please contact Digitalia."
+msgstr ""
+"Aucun projet n'est encore rattaché à votre compte. Contactez Digitalia."
+
+#: templates/core/roadmap.html:5
+msgid "Add a roadmap step"
+msgstr "Ajouter une étape"
+
+#: templates/core/roadmap.html:10 templates/tickets/ticket_list.html:32
+msgid "Internal"
+msgstr "Interne"
+
+#: templates/core/roadmap.html:11 templates/tickets/ticket_detail.html:18
+#: templates/tickets/ticket_form.html:6
+msgid "Edit"
+msgstr "Modifier"
+
+#: templates/core/roadmap.html:23
+msgid "Not planned yet"
+msgstr "Pas encore planifié"
+
+#: templates/core/team.html:5
+msgid "Workload per team member."
+msgstr "Charge par membre de l'équipe."
+
+#: templates/core/team.html:7 templates/manage/company_detail.html:20
+#: templates/manage/user_list.html:18
+msgid "Name"
+msgstr "Nom"
+
+#: templates/core/team.html:7
+msgid "Email"
+msgstr "E-mail"
+
+#: templates/includes/media_input.html:4
+msgid "Add files"
+msgstr "Ajouter des fichiers"
+
+#: templates/includes/media_input.html:6
+msgid "Photo or video"
+msgstr "Photo ou vidéo"
+
+#: templates/includes/media_input.html:8
+msgid "Record audio"
+msgstr "Enregistrer un audio"
+
+#: templates/includes/media_input.html:12
+msgid "Stop and add"
+msgstr "Arrêter et ajouter"
+
+#: templates/includes/media_input.html:15
+msgid ""
+"Photos, videos, voice notes, PDF, Word, Excel… You can also drop files here."
+msgstr ""
+"Photos, vidéos, notes vocales, PDF, Word, Excel… Vous pouvez aussi déposer "
+"des fichiers ici."
+
+#: templates/includes/project_tabs.html:7 templates/tickets/ticket_form.html:6
+msgid "New ticket"
+msgstr "Nouveau ticket"
+
+#: templates/includes/project_tabs.html:7 templates/tickets/ticket_form.html:2
+#: templates/tickets/ticket_form.html:6
+msgid "New request"
+msgstr "Nouvelle demande"
+
+#: templates/includes/project_tabs.html:11
+msgid "My board"
+msgstr "Mon tableau"
+
+#: templates/includes/project_tabs.html:12
+msgid "Overview"
+msgstr "Vue d'ensemble"
+
+#: templates/includes/project_tabs.html:12
+msgid "Summary"
+msgstr "Résumé"
+
+#: templates/includes/project_tabs.html:14
+#: templates/tickets/ticket_list.html:2
+msgid "Tickets"
+msgstr "Tickets"
+
+#: templates/includes/project_tabs.html:14
+msgid "My requests"
+msgstr "Mes demandes"
+
+#: templates/includes/ticket_table.html:5
+#: templates/tickets/ticket_list.html:23
+msgid "Ref."
+msgstr "Réf."
+
+#: templates/includes/ticket_table.html:5
+#: templates/tickets/ticket_list.html:23
+msgid "Title"
+msgstr "Titre"
+
+#: templates/includes/ticket_table.html:6
+#: templates/manage/company_detail.html:20 templates/manage/user_list.html:18
+#: templates/tickets/ticket_list.html:25 tickets/forms.py:122
+msgid "Status"
+msgstr "Statut"
+
+#: templates/includes/ticket_table.html:6
+#: templates/tickets/ticket_detail.html:81
+#: templates/tickets/ticket_list.html:26
+msgid "Target date"
+msgstr "Date cible"
+
+#: templates/includes/ticket_table.html:6 templates/tickets/board.html:19
+#: templates/tickets/ticket_detail.html:80
+#: templates/tickets/ticket_list.html:26 tickets/board.py:64
+#: tickets/forms.py:126
+msgid "Assignee"
+msgstr "Responsable"
+
+#: templates/includes/ticket_table.html:21
+msgid "Nothing here."
+msgstr "Rien pour l'instant."
+
+#: templates/manage/_account_status.html:1 templates/manage/user_list.html:14
+msgid "Deactivated"
+msgstr "Désactivé"
+
+#: templates/manage/_account_status.html:2
+msgid "Invitation sent"
+msgstr "Invitation envoyée"
+
+#: templates/manage/_account_status.html:3
+msgid "Active"
+msgstr "Actif"
+
+#: templates/manage/_account_status.html:3
+msgid "Last login"
+msgstr "Dernière connexion"
+
+#: templates/manage/company_detail.html:7
+msgid "Rename"
+msgstr "Renommer"
+
+#: templates/manage/company_detail.html:8 templates/manage/project_form.html:2
+#: templates/manage/project_form.html:6
+msgid "New project"
+msgstr "Nouveau projet"
+
+#: templates/manage/company_detail.html:9
+msgid "Invite a user"
+msgstr "Inviter un utilisateur"
+
+#: templates/manage/company_detail.html:24
+msgid "No user yet. Invite the first one."
+msgstr "Aucun utilisateur. Invitez le premier."
+
+#: templates/manage/project_form.html:2 templates/manage/project_form.html:6
+msgid "Project settings"
+msgstr "Paramètres du projet"
+
+#: templates/manage/project_form.html:18
+msgid ""
+"No client account in this company yet. Save the project, then invite users "
+"from the client page."
+msgstr ""
+"Aucun compte client dans cette société. Enregistrez le projet, puis invitez "
+"des utilisateurs depuis la page du client."
+
+#: templates/manage/user_form.html:2 templates/manage/user_form.html:6
+msgid "Invite someone"
+msgstr "Inviter quelqu'un"
+
+#: templates/manage/user_form.html:10 templates/manage/user_list.html:25
+msgid "Resend invitation"
+msgstr "Renvoyer l'invitation"
+
+#: templates/manage/user_form.html:10
+msgid "Send a new password link"
+msgstr "Envoyer un lien de nouveau mot de passe"
+
+#: templates/manage/user_form.html:12
+msgid "Deactivate"
+msgstr "Désactiver"
+
+#: templates/manage/user_form.html:12
+msgid "Reactivate"
+msgstr "Réactiver"
+
+#: templates/manage/user_form.html:16
+msgid ""
+"The person receives an e-mail with a link to choose their password. They "
+"then log in with their e-mail address."
+msgstr ""
+"La personne reçoit un e-mail avec un lien pour choisir son mot de passe. "
+"Elle se connecte ensuite avec son adresse e-mail."
+
+#: templates/manage/user_form.html:30
+msgid "Send the invitation"
+msgstr "Envoyer l'invitation"
+
+#: templates/manage/user_list.html:5
+msgid ""
+"Invite clients and Digitalia team members, choose their projects, deactivate"
+" an account."
+msgstr ""
+"Invitez des clients et des membres de Digitalia, choisissez leurs projets, "
+"désactivez un compte."
+
+#: templates/manage/user_list.html:7
+msgid "Digitalia member"
+msgstr "Membre Digitalia"
+
+#: templates/manage/user_list.html:8
+msgid "Invite a client"
+msgstr "Inviter un client"
+
+#: templates/manage/user_list.html:16
+msgid "Name, e-mail or company"
+msgstr "Nom, e-mail ou société"
+
+#: templates/manage/user_list.html:16 templates/tickets/board.html:11
+#: tickets/forms.py:118
+msgid "Search"
+msgstr "Recherche"
+
+#: templates/manage/user_list.html:18
+msgid "E-mail"
+msgstr "E-mail"
+
+#: templates/manage/user_list.html:18
+msgid "Company"
+msgstr "Société"
+
+#: templates/manage/user_list.html:20
+msgid "Admin"
+msgstr "Admin"
+
+#: templates/manage/user_list.html:27
+msgid "No account here."
+msgstr "Aucun compte ici."
+
+#: templates/registration/_set_password.html:5
+#: templates/registration/password_reset_confirm.html:2
+msgid "New password"
+msgstr "Nouveau mot de passe"
+
+#: templates/registration/_set_password.html:7
+msgid "At least 8 characters, not too common, not only digits."
+msgstr "Au moins 8 caractères, pas trop courant, pas uniquement des chiffres."
+
+#: templates/registration/_set_password.html:8
+msgid "Confirm the password"
+msgstr "Confirmez le mot de passe"
+
+#: templates/registration/_set_password.html:13
+msgid ""
+"This link is no longer valid: it has already been used or it has expired."
+msgstr "Ce lien n'est plus valable : il a déjà servi ou il a expiré."
+
+#: templates/registration/_set_password.html:14
+msgid "Get a new link"
+msgstr "Recevoir un nouveau lien"
+
+#: templates/registration/invitation_email.txt:1
+#: templates/registration/password_reset_email.txt:1
+#, python-format
+msgid "Hello %(first)s,"
+msgstr "Bonjour %(first)s,"
+
+#: templates/registration/invitation_email.txt:3
+msgid "An Orbit account has been created for you in the Digitalia team."
+msgstr "Un compte Orbit vient d'être créé pour vous dans l'équipe Digitalia."
+
+#: templates/registration/invitation_email.txt:3
+msgid ""
+"Digitalia has created your Orbit account. It is where you follow your "
+"project, send your requests (bugs, changes, questions…) and answer our "
+"questions."
+msgstr ""
+"Digitalia a créé votre compte Orbit. C'est là que vous suivez votre projet, "
+"envoyez vos demandes (bugs, évolutions, questions…) et répondez à nos "
+"questions."
+
+#: templates/registration/invitation_email.txt:5
+msgid "Your projects:"
+msgstr "Vos projets :"
+
+#: templates/registration/invitation_email.txt:8
+msgid ""
+"To activate your account, choose your password here (link valid for 7 days):"
+msgstr ""
+"Pour activer votre compte, choisissez votre mot de passe ici (lien valable 7"
+" jours) :"
+
+#: templates/registration/invitation_email.txt:11
+#, python-format
+msgid "Then log in with your e-mail address (%(email)s) at: "
+msgstr "Connectez-vous ensuite avec votre adresse e-mail (%(email)s) sur : "
+
+#: templates/registration/invitation_subject.txt:1
+#, python-format
+msgid "%(name)s invites you to Orbit, your project space with Digitalia"
+msgstr "%(name)s vous invite sur Orbit, votre espace projet avec Digitalia"
+
+#: templates/registration/login.html:2 templates/registration/login.html:12
+msgid "Log in"
+msgstr "Connexion"
+
+#: templates/registration/login.html:4
+msgid "Your project space with Digitalia"
+msgstr "Votre espace projet avec Digitalia"
+
+#: templates/registration/login.html:7
+#: templates/registration/password_reset_form.html:7
+msgid "E-mail address"
+msgstr "Adresse e-mail"
+
+#: templates/registration/login.html:9
+msgid "Password"
+msgstr "Mot de passe"
+
+#: templates/registration/login.html:13
+#: templates/registration/password_reset_form.html:2
+#: templates/registration/password_reset_form.html:4
+msgid "Forgot your password?"
+msgstr "Mot de passe oublié ?"
+
+#: templates/registration/login.html:17
+msgid "Demo accounts (password orbit-demo):"
+msgstr "Comptes de démonstration (mot de passe orbit-demo) :"
+
+#: templates/registration/login.html:20
+msgid "admin"
+msgstr "admin"
+
+#: templates/registration/login.html:21
+msgid "developer"
+msgstr "développeuse"
+
+#: templates/registration/password_change_done.html:3
+msgid "Password changed"
+msgstr "Mot de passe modifié"
+
+#: templates/registration/password_change_done.html:4
+msgid "Back to Orbit"
+msgstr "Retour à Orbit"
+
+#: templates/registration/password_reset_confirm.html:4
+msgid "Choose a new password"
+msgstr "Choisissez un nouveau mot de passe"
+
+#: templates/registration/password_reset_confirm.html:5
+msgid "Save my new password"
+msgstr "Enregistrer mon nouveau mot de passe"
+
+#: templates/registration/password_reset_done.html:2
+msgid "E-mail sent"
+msgstr "E-mail envoyé"
+
+#: templates/registration/password_reset_done.html:4
+msgid "Check your e-mails"
+msgstr "Consultez vos e-mails"
+
+#: templates/registration/password_reset_done.html:5
+msgid ""
+"If an account uses this address, you will receive a link to choose a new "
+"password in a few minutes. Look in your spam folder too."
+msgstr ""
+"Si un compte utilise cette adresse, vous recevrez dans quelques minutes un "
+"lien pour choisir un nouveau mot de passe. Pensez à regarder dans vos spams."
+
+#: templates/registration/password_reset_done.html:6
+#: templates/registration/password_reset_form.html:11
+msgid "Back to login"
+msgstr "Retour à la connexion"
+
+#: templates/registration/password_reset_email.txt:3
+msgid ""
+"You asked to reset your Orbit password. Choose a new one here (link valid "
+"for 7 days):"
+msgstr ""
+"Vous avez demandé à réinitialiser votre mot de passe Orbit. Choisissez-en un"
+" nouveau ici (lien valable 7 jours) :"
+
+#: templates/registration/password_reset_email.txt:6
+msgid ""
+"If you did not ask for it, ignore this e-mail: your password stays the same."
+msgstr ""
+"Si vous n'êtes pas à l'origine de cette demande, ignorez cet e-mail : votre "
+"mot de passe ne change pas."
+
+#: templates/registration/password_reset_form.html:5
+msgid ""
+"Enter your e-mail address. We will send you a link to choose a new password."
+msgstr ""
+"Saisissez votre adresse e-mail. Nous vous enverrons un lien pour choisir un "
+"nouveau mot de passe."
+
+#: templates/registration/password_reset_form.html:10
+msgid "Send the link"
+msgstr "Envoyer le lien"
+
+#: templates/registration/password_reset_subject.txt:1
+msgid "Orbit: reset your password"
+msgstr "Orbit : réinitialisez votre mot de passe"
+
+#: templates/registration/welcome.html:2
+msgid "Welcome"
+msgstr "Bienvenue"
+
+#: templates/registration/welcome.html:4
+msgid "Welcome to Orbit"
+msgstr "Bienvenue sur Orbit"
+
+#: templates/registration/welcome.html:5
+msgid "Choose your password to activate your account."
+msgstr "Choisissez votre mot de passe pour activer votre compte."
+
+#: templates/registration/welcome.html:6
+msgid "Activate my account"
+msgstr "Activer mon compte"
+
+#: templates/tickets/_card.html:17 templates/tickets/board.html:79
+msgid "I answered"
+msgstr "J'ai répondu"
+
+#: templates/tickets/_card.html:19
+msgid "Please test this"
+msgstr "À tester de votre côté"
+
+#: templates/tickets/_card.html:20 templates/tickets/board.html:81
+#: templates/tickets/ticket_detail.html:29
+msgid "Test OK"
+msgstr "Test OK"
+
+#: templates/tickets/_card.html:21 templates/tickets/board.html:82
+#: templates/tickets/ticket_detail.html:30
+msgid "Not OK"
+msgstr "Pas OK"
+
+#: templates/tickets/_card.html:25 templates/tickets/ticket_detail.html:37
+msgid "Not OK after all?"
+msgstr "Finalement pas OK ?"
+
+#: templates/tickets/_card.html:30 templates/tickets/ticket_detail.html:53
+msgid "Subtasks"
+msgstr "Sous-tâches"
+
+#: templates/tickets/_card.html:31
+msgid "Comments"
+msgstr "Commentaires"
+
+#: templates/tickets/_card.html:33 templates/tickets/board.html:21
+#: tickets/board.py:119
+msgid "Unassigned"
+msgstr "Non assigné"
+
+#: templates/tickets/board.html:7
+msgid "Every client project on one board. Drag a card to change its status."
+msgstr ""
+"Tous les projets clients sur un seul tableau. Glissez une carte pour changer"
+" son statut."
+
+#: templates/tickets/board.html:11
+msgid "Search the board"
+msgstr "Rechercher dans le tableau"
+
+#: templates/tickets/board.html:13
+msgid "All projects"
+msgstr "Tous les projets"
+
+#: templates/tickets/board.html:16 templates/tickets/ticket_list.html:25
+#: tickets/board.py:66 tickets/forms.py:121
+msgid "Type"
+msgstr "Type"
+
+#: templates/tickets/board.html:16
+msgid "All types"
+msgstr "Tous les types"
+
+#: templates/tickets/board.html:19
+msgid "Everyone"
+msgstr "Tout le monde"
+
+#: templates/tickets/board.html:23 templates/tickets/ticket_list.html:23
+#: tickets/forms.py:124
+msgid "Origin"
+msgstr "Origine"
+
+#: templates/tickets/board.html:23
+msgid "All origins"
+msgstr "Toutes origines"
+
+#: templates/tickets/board.html:27
+msgid "All roadmap steps"
+msgstr "Toutes les étapes"
+
+#: templates/tickets/board.html:31
+msgid "Group by"
+msgstr "Regrouper par"
+
+#: templates/tickets/board.html:33
+msgid "Show subtasks"
+msgstr "Afficher les sous-tâches"
+
+#: templates/tickets/board.html:35
+msgid "Apply"
+msgstr "Appliquer"
+
+#: templates/tickets/board.html:36 templates/tickets/ticket_list.html:11
+msgid "Reset"
+msgstr "Réinitialiser"
+
+#: templates/tickets/board.html:50
+msgid "Drop here"
+msgstr "Déposer ici"
+
+#: templates/tickets/board.html:55
+msgid "No ticket on the board."
+msgstr "Aucun ticket sur le tableau."
+
+#: templates/tickets/board.html:59
+#, python-format
+msgid "Done column: tickets closed in the last %(done_days)s days."
+msgstr "Colonne Terminé : tickets clôturés ces %(done_days)s derniers jours."
+
+#: templates/tickets/board.html:64
+msgid "What we need from you"
+msgstr "Ce qu'on attend de vous"
+
+#: templates/tickets/board.html:66
+msgid ""
+"Answer or test these tickets, then tell us with the buttons (or drag the "
+"card out of “Your turn”). The ticket goes straight back to Digitalia."
+msgstr ""
+"Répondez ou testez ces tickets, puis dites-le-nous avec les boutons (ou en "
+"faisant glisser la carte hors de « À vous »). Le ticket repart directement "
+"chez Digitalia."
+
+#: templates/tickets/board.html:71
+msgid "Answer"
+msgstr "Répondre"
+
+#: templates/tickets/board.html:71
+msgid "Test"
+msgstr "Tester"
+
+#: templates/tickets/board.html:73
+msgid "by"
+msgstr "avant le"
+
+#: templates/tickets/board.html:78
+msgid "Reply"
+msgstr "Répondre"
+
+#: templates/tickets/board.html:89
+msgid "Nothing is waiting for you. Digitalia is on it."
+msgstr "Rien ne vous attend : Digitalia s'occupe de tout."
+
+#: templates/tickets/board.html:94
+msgid "Status of all your tickets"
+msgstr "État des lieux de vos tickets"
+
+#: templates/tickets/board.html:95
+msgid "Tickets by column"
+msgstr "Tickets par colonne"
+
+#: templates/tickets/board.html:102
+msgid "done"
+msgstr "terminé"
+
+#: templates/tickets/board.html:103
+msgid "open"
+msgstr "ouverts"
+
+#: templates/tickets/board.html:104
+msgid "late"
+msgstr "en retard"
+
+#: templates/tickets/board.html:105
+msgid "requests in total"
+msgstr "demandes au total"
+
+#: templates/tickets/board.html:109
+msgid "Rejected or cancelled"
+msgstr "Refusés ou annulés"
+
+#: templates/tickets/board.html:111
+msgid "Next deadline"
+msgstr "Prochaine échéance"
+
+#: templates/tickets/ticket_detail.html:19
+msgid "Subtask"
+msgstr "Sous-tâche"
+
+#: templates/tickets/ticket_detail.html:24
+msgid "Digitalia is waiting for your answer on this ticket. Reply below."
+msgstr "Digitalia attend votre réponse sur ce ticket. Répondez ci-dessous."
+
+#: templates/tickets/ticket_detail.html:27
+msgid "This ticket is ready for you to test."
+msgstr "Ce ticket est prêt à être testé."
+
+#: templates/tickets/ticket_detail.html:27
+msgid "Tell us the result:"
+msgstr "Donnez-nous le résultat :"
+
+#: templates/tickets/ticket_detail.html:31
+msgid "If it is not OK, you will be asked to explain what is wrong."
+msgstr "Si ce n'est pas OK, on vous demandera d'expliquer ce qui ne va pas."
+
+#: templates/tickets/ticket_detail.html:36
+msgid "This ticket is done."
+msgstr "Ce ticket est terminé."
+
+#: templates/tickets/ticket_detail.html:45
+msgid "No description."
+msgstr "Pas de description."
+
+#: templates/tickets/ticket_detail.html:47
+msgid "Attachments"
+msgstr "Pièces jointes"
+
+#: templates/tickets/ticket_detail.html:57
+msgid "Discussion"
+msgstr "Discussion"
+
+#: templates/tickets/ticket_detail.html:60
+#: templates/tickets/ticket_detail.html:78 tickets/models.py:56
+msgid "System"
+msgstr "Système"
+
+#: templates/tickets/ticket_detail.html:61
+msgid "Internal note"
+msgstr "Note interne"
+
+#: templates/tickets/ticket_detail.html:65
+msgid "No comment yet."
+msgstr "Aucun commentaire pour l'instant."
+
+#: templates/tickets/ticket_detail.html:69
+msgid "Send"
+msgstr "Envoyer"
+
+#: templates/tickets/ticket_detail.html:78
+msgid "Author"
+msgstr "Auteur"
+
+#: templates/tickets/ticket_detail.html:79
+#: templates/tickets/ticket_list.html:26 tickets/models.py:227
+msgid "Created"
+msgstr "Créé"
+
+#: templates/tickets/ticket_detail.html:85
+msgid "Updated"
+msgstr "Mis à jour"
+
+#: templates/tickets/ticket_detail.html:86
+msgid "Closed"
+msgstr "Clôturé"
+
+#: templates/tickets/ticket_detail.html:90
+msgid "History"
+msgstr "Historique"
+
+#: templates/tickets/ticket_detail.html:95
+msgid "created the ticket"
+msgstr "a créé le ticket"
+
+#: templates/tickets/ticket_detail.html:96
+msgid "commented"
+msgstr "a commenté"
+
+#: templates/tickets/ticket_detail.html:97
+msgid "added"
+msgstr "a ajouté"
+
+#: templates/tickets/ticket_detail.html:98
+msgid "changed"
+msgstr "a modifié"
+
+#: templates/tickets/ticket_form.html:7
+msgid ""
+"Describe your request as precisely as possible. You can attach files or "
+"screenshots."
+msgstr ""
+"Décrivez votre demande le plus précisément possible. Vous pouvez joindre des"
+" fichiers ou des captures d'écran."
+
+#: templates/tickets/ticket_form.html:17
+msgid "Create"
+msgstr "Créer"
+
+#: templates/tickets/ticket_list.html:4
+msgid "Every ticket of every client project."
+msgstr "Tous les tickets de tous les projets clients."
+
+#: templates/tickets/ticket_list.html:11
+msgid "Filter"
+msgstr "Filtrer"
+
+#: templates/tickets/ticket_list.html:15
+#, python-format
+msgid "%(counter)s ticket"
+msgid_plural "%(counter)s tickets"
+msgstr[0] "%(counter)s ticket"
+msgstr[1] "%(counter)s tickets"
+
+#: templates/tickets/ticket_list.html:16
+msgid "Sort by"
+msgstr "Trier par"
+
+#: templates/tickets/ticket_list.html:17
+msgid "creation"
+msgstr "création"
+
+#: templates/tickets/ticket_list.html:18
+msgid "last update"
+msgstr "dernière modification"
+
+#: templates/tickets/ticket_list.html:19 tickets/models.py:100
+msgid "target date"
+msgstr "date cible"
+
+#: templates/tickets/ticket_list.html:20 tickets/models.py:84
+msgid "priority"
+msgstr "priorité"
+
+#: templates/tickets/ticket_list.html:24
+msgid "Client / project"
+msgstr "Client / projet"
+
+#: templates/tickets/ticket_list.html:25 tickets/board.py:65
+#: tickets/forms.py:123
+msgid "Priority"
+msgstr "Priorité"
+
+#: templates/tickets/ticket_list.html:42
+msgid "No ticket matches these filters."
+msgstr "Aucun ticket ne correspond à ces filtres."
+
+#: tickets/board.py:39
+msgid "Received"
+msgstr "Reçues"
+
+#: tickets/board.py:42
+msgid "Your turn: answer or test"
+msgstr "À vous : répondre ou tester"
+
+#: tickets/board.py:51
+msgid "Answered by the client, back to Digitalia"
+msgstr "Réponse envoyée : le ticket repart chez Digitalia"
+
+#: tickets/board.py:52
+msgid "Test approved by the client"
+msgstr "Test validé : ticket terminé"
+
+#: tickets/board.py:53
+msgid "Test not conclusive, back to Digitalia"
+msgstr "Test non concluant : le ticket repart chez Digitalia"
+
+#: tickets/board.py:54
+msgid "Reopened by the client, back to Digitalia"
+msgstr "Ticket rouvert : il repart chez Digitalia"
+
+#: tickets/board.py:62
+msgid "None"
+msgstr "Aucun"
+
+#: tickets/board.py:232
+msgid "Unknown status."
+msgstr "Statut inconnu."
+
+#: tickets/board.py:257
+#, python-format
+msgid "%(name)s: this file cannot be attached."
+msgstr "%(name)s : ce fichier ne peut pas être joint."
+
+#: tickets/board.py:269
+msgid "This card cannot be moved there."
+msgstr "Cette carte ne peut pas être déplacée ici."
+
+#: tickets/board.py:273
+#, python-format
+msgid "Please explain what is not working (at least %(n)s characters)."
+msgstr "Expliquez ce qui ne fonctionne pas (au moins %(n)s caractères)."
+
+#: tickets/board.py:278
+msgid "Test not OK"
+msgstr "Test pas OK"
+
+#: tickets/board.py:278
+msgid "Reopened: not OK after all"
+msgstr "Rouvert : finalement pas OK"
+
+#: tickets/forms.py:35
+#, python-format
+msgid "%(name)s: this type of file is not accepted."
+msgstr "%(name)s : ce type de fichier n'est pas accepté."
+
+#: tickets/forms.py:39
+#, python-format
+msgid "%(name)s is too large (max %(max)s)."
+msgstr "%(name)s est trop volumineux (max %(max)s)."
+
+#: tickets/forms.py:52 tickets/forms.py:66 tickets/forms.py:97
+msgid "Photos, videos, audio or documents"
+msgstr "Photos, vidéos, audio ou documents"
+
+#: tickets/forms.py:93
+msgid "Client requests always stay visible to the client."
+msgstr "Les demandes client restent toujours visibles par le client."
+
+#: tickets/forms.py:102
+msgid "Write a reply…"
+msgstr "Écrire une réponse…"
+
+#: tickets/forms.py:113
+msgid "Write a comment or add a file."
+msgstr "Écrivez un commentaire ou ajoutez un fichier."
+
+#: tickets/forms.py:125
+msgid "Visibility"
+msgstr "Visibilité"
+
+#: tickets/forms.py:128
+msgid "Created from"
+msgstr "Créé depuis"
+
+#: tickets/forms.py:129
+msgid "Created until"
+msgstr "Créé jusqu'au"
+
+#: tickets/forms.py:130
+msgid "Late only"
+msgstr "En retard uniquement"
+
+#: tickets/forms.py:131
+msgid "Include closed"
+msgstr "Inclure les clôturés"
+
+#: tickets/forms.py:142
+msgid "In progress or in test"
+msgstr "En cours ou en test"
+
+#: tickets/media.py:15
+msgid "Photo"
+msgstr "Photo"
+
+#: tickets/media.py:15
+msgid "Video"
+msgstr "Vidéo"
+
+#: tickets/media.py:15
+msgid "Audio"
+msgstr "Audio"
+
+#: tickets/media.py:15
+msgid "Document"
+msgstr "Document"
+
+#: tickets/models.py:29
+msgid "Change request"
+msgstr "Demande d'évolution"
+
+#: tickets/models.py:30
+msgid "Bug / anomaly"
+msgstr "Bug / anomalie"
+
+#: tickets/models.py:31
+msgid "Question"
+msgstr "Question"
+
+#: tickets/models.py:32
+msgid "Support request"
+msgstr "Demande de support"
+
+#: tickets/models.py:33
+msgid "New feature"
+msgstr "Nouvelle fonctionnalité"
+
+#: tickets/models.py:34
+msgid "Internal task"
+msgstr "Tâche interne"
+
+#: tickets/models.py:37
+msgid "New"
+msgstr "Nouveau"
+
+#: tickets/models.py:38
+msgid "To analyse"
+msgstr "À analyser"
+
+#: tickets/models.py:39
+msgid "To do"
+msgstr "À faire"
+
+#: tickets/models.py:42
+msgid "In test"
+msgstr "En test"
+
+#: tickets/models.py:44
+msgid "Rejected"
+msgstr "Refusé"
+
+#: tickets/models.py:45
+msgid "Cancelled"
+msgstr "Annulé"
+
+#: tickets/models.py:48
+msgid "Low"
+msgstr "Basse"
+
+#: tickets/models.py:49
+msgid "Normal"
+msgstr "Normale"
+
+#: tickets/models.py:50
+msgid "High"
+msgstr "Haute"
+
+#: tickets/models.py:51
+msgid "Critical"
+msgstr "Critique"
+
+#: tickets/models.py:55
+msgid "Digitalia"
+msgstr "Digitalia"
+
+#: tickets/models.py:59
+msgid "Visible to client"
+msgstr "Visible client"
+
+#: tickets/models.py:60
+msgid "Internal Digitalia"
+msgstr "Interne Digitalia"
+
+#: tickets/models.py:71
+msgid "number"
+msgstr "numéro"
+
+#: tickets/models.py:73
+msgid "parent ticket"
+msgstr "ticket parent"
+
+#: tickets/models.py:80
+msgid "title"
+msgstr "titre"
+
+#: tickets/models.py:82
+msgid "type"
+msgstr "type"
+
+#: tickets/models.py:85
+msgid "origin"
+msgstr "origine"
+
+#: tickets/models.py:86
+msgid "visibility"
+msgstr "visibilité"
+
+#: tickets/models.py:88 tickets/models.py:161
+msgid "author"
+msgstr "auteur"
+
+#: tickets/models.py:92
+msgid "author company"
+msgstr "société de l'auteur"
+
+#: tickets/models.py:96
+msgid "assignee"
+msgstr "responsable"
+
+#: tickets/models.py:102
+msgid "updated at"
+msgstr "mis à jour le"
+
+#: tickets/models.py:103
+msgid "closed at"
+msgstr "clôturé le"
+
+#: tickets/models.py:110 tickets/models.py:160 tickets/models.py:180
+#: tickets/models.py:232
+msgid "ticket"
+msgstr "ticket"
+
+#: tickets/models.py:162 tickets/models.py:170 tickets/models.py:182
+msgid "comment"
+msgstr "commentaire"
+
+#: tickets/models.py:164
+msgid "internal note"
+msgstr "note interne"
+
+#: tickets/models.py:164
+msgid "Internal notes are never shown to the client."
+msgstr "Les notes internes ne sont jamais affichées au client."
+
+#: tickets/models.py:171
+msgid "comments"
+msgstr "commentaires"
+
+#: tickets/models.py:184
+msgid "file"
+msgstr "fichier"
+
+#: tickets/models.py:185
+msgid "file name"
+msgstr "nom du fichier"
+
+#: tickets/models.py:186
+msgid "size"
+msgstr "taille"
+
+#: tickets/models.py:187
+msgid "uploaded by"
+msgstr "ajouté par"
+
+#: tickets/models.py:188 tickets/models.py:238
+msgid "internal"
+msgstr "interne"
+
+#: tickets/models.py:193
+msgid "attachment"
+msgstr "pièce jointe"
+
+#: tickets/models.py:194
+msgid "attachments"
+msgstr "pièces jointes"
+
+#: tickets/models.py:228
+msgid "Changed"
+msgstr "Modifié"
+
+#: tickets/models.py:229
+msgid "Commented"
+msgstr "Commenté"
+
+#: tickets/models.py:230
+msgid "File added"
+msgstr "Fichier ajouté"
+
+#: tickets/models.py:235
+msgid "field"
+msgstr "champ"
+
+#: tickets/models.py:236
+msgid "old value"
+msgstr "ancienne valeur"
+
+#: tickets/models.py:237
+msgid "new value"
+msgstr "nouvelle valeur"
+
+#: tickets/models.py:239
+msgid "date"
+msgstr "date"
+
+#: tickets/models.py:243
+msgid "history entry"
+msgstr "entrée d'historique"
+
+#: tickets/models.py:244
+msgid "history"
+msgstr "historique"
+
+#: tickets/notifications.py:51
+#, python-format
+msgid "Open the ticket: %(url)s"
+msgstr "Ouvrir le ticket : %(url)s"
+
+#: tickets/notifications.py:59
+msgid "Digitalia needs your answer"
+msgstr "Digitalia attend votre réponse"
+
+#: tickets/notifications.py:60 tickets/notifications.py:66
+msgid "Hello,"
+msgstr "Bonjour,"
+
+#: tickets/notifications.py:61
+#, python-format
+msgid "Digitalia is waiting for your answer on “%(title)s”."
+msgstr "Digitalia attend votre réponse sur « %(title)s »."
+
+#: tickets/notifications.py:62
+msgid "Reply directly in Orbit, then click “I answered”."
+msgstr "Répondez directement dans Orbit, puis cliquez sur « J'ai répondu »."
+
+#: tickets/notifications.py:65
+msgid "Ready for you to test"
+msgstr "Prêt à être testé"
+
+#: tickets/notifications.py:67
+#, python-format
+msgid ""
+"“%(title)s” is ready. Please test it and tell us the result in Orbit (Test "
+"OK / Not OK)."
+msgstr ""
+"« %(title)s » est prêt. Merci de le tester et de nous donner le résultat "
+"dans Orbit (Test OK / Pas OK)."
+
+#: tickets/notifications.py:73
+msgid "The client answered"
+msgstr "Le client a répondu"
+
+#: tickets/notifications.py:74
+msgid "The client approved the test"
+msgstr "Le client a validé le test"
+
+#: tickets/notifications.py:75
+msgid "The client says it is NOT OK"
+msgstr "Le client indique que ce n'est PAS OK"
+
+#: tickets/notifications.py:76
+msgid "The client updated the ticket"
+msgstr "Le client a mis à jour le ticket"
+
+#: tickets/notifications.py:79
+msgid "Client message:"
+msgstr "Message du client :"
+
+#: tickets/notifications.py:88
+#, python-format
+msgid "New client request: %(type)s"
+msgstr "Nouvelle demande client : %(type)s"
+
+#: tickets/notifications.py:89
+#, python-format
+msgid "%(author)s (%(company)s) created a request on %(project)s:"
+msgstr "%(author)s (%(company)s) a créé une demande sur %(project)s :"
+
+#: tickets/notifications.py:101
+msgid "New message from Digitalia"
+msgstr "Nouveau message de Digitalia"
+
+#: tickets/notifications.py:102 tickets/notifications.py:105
+#, python-format
+msgid "%(author)s wrote:"
+msgstr "%(author)s a écrit :"
+
+#: tickets/notifications.py:104
+msgid "New message from the client"
+msgstr "Nouveau message du client"
+
+#: tickets/views.py:92
+#, python-format
+msgid "Ticket %(ref)s created."
+msgstr "Ticket %(ref)s créé."
+
+#: tickets/views.py:123
+msgid "Your reply has been added."
+msgstr "Votre réponse a été ajoutée."
+
+#: tickets/views.py:151
+msgid "Ticket updated."
+msgstr "Ticket mis à jour."
+
+#~ msgid "Username"
+#~ msgstr "Identifiant"
+
+#~ msgid "Files or screenshots"
+#~ msgstr "Fichiers ou captures d'écran"
+
+#~ msgid ""
+#~ "Cards in “Your turn” are waiting for you: open them to answer or confirm the"
+#~ " test."
+#~ msgstr ""
+#~ "Les cartes « À vous » attendent votre action : ouvrez-les pour répondre ou "
+#~ "valider le test."

@@ -1,0 +1,13 @@
+{% extends "base.html" %}{% load i18n %}
+{% block title %}{% translate "My projects" %}{% endblock %}
+{% block content %}
+<h1>{% translate "My projects" %}</h1>
+<p class="subtitle">{% translate "Choose a project." %}</p>
+<div class="grid">
+  {% for p in projects %}
+    <a class="card" href="{{ p.get_absolute_url }}"><h2>{{ p.name }}</h2><p class="muted">{{ p.description|truncatewords:25 }}</p></a>
+  {% empty %}
+    <p class="empty">{% translate "No project is linked to your account yet. Please contact Digitalia." %}</p>
+  {% endfor %}
+</div>
+{% endblock %}

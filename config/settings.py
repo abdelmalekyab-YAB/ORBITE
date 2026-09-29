@@ -1,0 +1,114 @@
+"""Orbit settings. Configuration is read from environment variables."""
+import os
+from pathlib import Path
+
+from django.utils.translation import gettext_lazy as _
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+
+def env_bool(name, default=False):
+    return os.environ.get(name, str(default)).lower() in {"1", "true", "yes", "on"}
+
+
+SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "dev-insecure-change-me")
+DEBUG = env_bool("DJANGO_DEBUG", True)
+ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", "localhost,127.0.0.1").split(",")
+
+FORM_RENDERER = "django.forms.renderers.TemplatesSetting"
+
+INSTALLED_APPS = [
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
+    "django.forms",
+    "core",
+    "tickets",
+]
+
+MIDDLEWARE = [
+    "django.middleware.security.SecurityMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.locale.LocaleMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
+]
+
+ROOT_URLCONF = "config.urls"
+
+TEMPLATES = [
+    {
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [BASE_DIR / "templates"],
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.request",
+                "django.template.context_processors.i18n",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
+            ],
+        },
+    },
+]
+
+WSGI_APPLICATION = "config.wsgi.application"
+
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": os.environ.get("POSTGRES_DB", "orbit"),
+        "USER": os.environ.get("POSTGRES_USER", "orbit"),
+        "PASSWORD": os.environ.get("POSTGRES_PASSWORD", "orbit"),
+        "HOST": os.environ.get("POSTGRES_HOST", "localhost"),
+        "PORT": os.environ.get("POSTGRES_PORT", "5432"),
+    }
+}
+
+AUTH_USER_MODEL = "core.User"
+AUTHENTICATION_BACKENDS = ["core.backends.EmailOrUsernameBackend"]
+PASSWORD_RESET_TIMEOUT = 7 * 24 * 3600  # invitation and reset links are valid for 7 days
+AUTH_PASSWORD_VALIDATORS = [
+    {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
+    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
+    {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"},
+    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
+]
+
+LOGIN_URL = "login"
+LOGIN_REDIRECT_URL = "home"
+LOGOUT_REDIRECT_URL = "login"
+
+LANGUAGE_CODE = "fr"
+LANGUAGES = [("fr", _("French")), ("en", _("English"))]
+LOCALE_PATHS = [BASE_DIR / "locale"]
+TIME_ZONE = "Europe/Paris"
+USE_I18N = True
+USE_TZ = True
+
+STATIC_URL = "static/"
+STATICFILES_DIRS = [BASE_DIR / "static"]
+STATIC_ROOT = BASE_DIR / "staticfiles"
+MEDIA_URL = "media/"
+MEDIA_ROOT = Path(os.environ.get("ORBIT_MEDIA_ROOT", BASE_DIR / "media"))
+FILE_UPLOAD_MAX_MEMORY_SIZE = 5 * 1024 * 1024
+ORBIT_MAX_ATTACHMENT_SIZE = int(os.environ.get("ORBIT_MAX_ATTACHMENT_MB", "100")) * 1024 * 1024
+DATA_UPLOAD_MAX_MEMORY_SIZE = 10 * 1024 * 1024
+
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# E-mail. Default: printed in the console. Set EMAIL_HOST etc. to send real e-mails.
+EMAIL_BACKEND = os.environ.get("EMAIL_BACKEND", "django.core.mail.backends.console.EmailBackend")
+EMAIL_HOST = os.environ.get("EMAIL_HOST", "localhost")
+EMAIL_PORT = int(os.environ.get("EMAIL_PORT", "587"))
+EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER", "")
+EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD", "")
+EMAIL_USE_TLS = env_bool("EMAIL_USE_TLS", True)
+DEFAULT_FROM_EMAIL = os.environ.get("DEFAULT_FROM_EMAIL", "Orbit <orbit@digitalia.fr>")
+ORBIT_BASE_URL = os.environ.get("ORBIT_BASE_URL", "http://localhost:8000")

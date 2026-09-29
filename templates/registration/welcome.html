@@ -1,0 +1,7 @@
+{% extends "registration/_auth_page.html" %}{% load i18n %}
+{% block title %}{% translate "Welcome" %}{% endblock %}
+{% block auth %}
+  <h2>👋 {% translate "Welcome to Orbit" %}</h2>
+  {% if validlink %}<p class="muted">{% translate "Choose your password to activate your account." %}</p>{% endif %}
+  {% translate "Activate my account" as button %}{% include "registration/_set_password.html" with button=button %}
+{% endblock %}

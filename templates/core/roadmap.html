@@ -1,0 +1,24 @@
+{% extends "base.html" %}{% load i18n %}
+{% block title %}{% translate "Roadmap" %} · {{ project.name }}{% endblock %}
+{% block content %}
+{% include "includes/project_tabs.html" %}
+{% if user.is_digitalia %}<p><a class="btn" href="{% url 'milestone_create' project.key %}">+ {% translate "Add a roadmap step" %}</a></p>{% endif %}
+{% for item in milestones %}
+  {% with m=item.milestone %}
+  <div class="milestone ms-{{ m.status }}">
+    <h3>{{ m }} <span class="badge">{{ m.get_status_display }}</span>
+      {% if not m.is_client_visible %}<span class="badge vis-internal">{% translate "Internal" %}</span>{% endif %}
+      {% if user.is_digitalia %}<a href="{% url 'milestone_edit' project.key m.pk %}" style="font-weight:400;font-size:13px">{% translate "Edit" %}</a>{% endif %}
+    </h3>
+    <p class="muted">
+      {% if m.start_date %}{{ m.start_date|date:"SHORT_DATE_FORMAT" }} → {% endif %}<span class="{% if m.is_late %}late{% endif %}">{{ m.due_date|date:"SHORT_DATE_FORMAT"|default:"" }}</span>
+      · {{ item.progress }}% · {{ item.stats.done }}/{{ item.stats.open|add:item.stats.done }}
+    </p>
+    <div class="progress" style="max-width:360px;margin-bottom:10px"><span style="width: {{ item.progress }}%"></span></div>
+    {% if m.description %}<p class="body">{{ m.description }}</p>{% endif %}
+    <div class="card" style="padding:8px 12px">{% include "includes/ticket_table.html" with tickets=item.tickets %}</div>
+  </div>
+  {% endwith %}
+{% empty %}<p class="empty">{% translate "No roadmap step yet." %}</p>{% endfor %}
+{% if unplanned %}<h2>{% translate "Not planned yet" %}</h2><div class="card">{% include "includes/ticket_table.html" with tickets=unplanned %}</div>{% endif %}
+{% endblock %}

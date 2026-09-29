@@ -1,0 +1,117 @@
+{% extends "base.html" %}{% load i18n orbit %}
+{% block title %}{% translate "Board" %}{% if project %} · {{ project.name }}{% endif %}{% endblock %}
+{% block main_class %}wide{% endblock %}
+{% block content %}
+{% if project %}{% include "includes/project_tabs.html" %}
+{% else %}
+<div class="page-head"><div><h1>{% translate "Board" %}</h1><p class="subtitle">{% translate "Every client project on one board. Drag a card to change its status." %}</p></div></div>
+{% endif %}
+
+<form method="get" class="board-toolbar" id="board-filters">
+  <input type="search" name="q" value="{{ request.GET.q }}" placeholder="{% translate 'Search the board' %}" aria-label="{% translate 'Search' %}">
+  {% if projects %}
+  <select name="project" aria-label="{% translate 'Project' %}"><option value="">{% translate "All projects" %}</option>
+    {% for p in projects %}<option value="{{ p.pk }}"{% if request.GET.project == p.pk|stringformat:"s" %} selected{% endif %}>{{ p.name }}</option>{% endfor %}</select>
+  {% endif %}
+  <select name="type" aria-label="{% translate 'Type' %}"><option value="">{% translate "All types" %}</option>
+    {% for v, l in types %}<option value="{{ v }}"{% if request.GET.type == v %} selected{% endif %}>{{ l }}</option>{% endfor %}</select>
+  {% if user.is_digitalia %}
+  <select name="assignee" aria-label="{% translate 'Assignee' %}"><option value="">{% translate "Everyone" %}</option>
+    <option value="me"{% if request.GET.assignee == "me" %} selected{% endif %}>{% translate "Assigned to me" %}</option>
+    <option value="none"{% if request.GET.assignee == "none" %} selected{% endif %}>{% translate "Unassigned" %}</option>
+    {% for a in assignees %}<option value="{{ a.pk }}"{% if request.GET.assignee == a.pk|stringformat:"s" %} selected{% endif %}>{{ a }}</option>{% endfor %}</select>
+  <select name="origin" aria-label="{% translate 'Origin' %}"><option value="">{% translate "All origins" %}</option>
+    {% for v, l in origins %}<option value="{{ v }}"{% if request.GET.origin == v %} selected{% endif %}>{{ v|origin_icon }} {{ l }}</option>{% endfor %}</select>
+  {% endif %}
+  {% if milestones %}
+  <select name="milestone" aria-label="{% translate 'Roadmap step' %}"><option value="">{% translate "All roadmap steps" %}</option>
+    {% for m in milestones %}<option value="{{ m.pk }}"{% if request.GET.milestone == m.pk|stringformat:"s" %} selected{% endif %}>{{ m }}</option>{% endfor %}</select>
+  {% endif %}
+  {% if user.is_digitalia %}
+  <label class="group-select">{% translate "Group by" %}
+    <select name="group">{% for v, l in groups.items %}<option value="{{ v }}"{% if group == v %} selected{% endif %}>{{ l }}</option>{% endfor %}</select></label>
+  <label class="check"><input type="checkbox" name="subtasks" value="1"{% if request.GET.subtasks == "1" %} checked{% endif %}> {% translate "Show subtasks" %}</label>
+  {% endif %}
+  <button class="btn">{% translate "Apply" %}</button>
+  {% if request.GET %}<a class="btn-link" href="?">{% translate "Reset" %}</a>{% endif %}
+</form>
+
+<div class="board-scroll">
+  <div class="board" style="--cols: {{ totals|length }}">
+    <div class="board-row board-head">
+      {% for c in totals %}<div class="col-head col-{{ c.key }}">{{ c.title }} <span class="count" data-count-for="{{ c.key }}">{{ c.count }}</span></div>{% endfor %}
+    </div>
+    {% for lane in lanes %}
+      {% if lane.label %}<div class="lane-title"><span>{{ lane.label }}</span> <span class="muted">{{ lane.count }}</span></div>{% endif %}
+      <div class="board-row">
+        {% for col in lane.columns %}
+          <div class="col col-{{ col.key }}" data-status="{{ col.key }}">
+            {% for t in col.tickets %}{% include "tickets/_card.html" %}{% endfor %}
+            {% if not col.tickets %}<div class="col-empty">{% if can_drag %}{% translate "Drop here" %}{% else %}—{% endif %}</div>{% endif %}
+          </div>
+        {% endfor %}
+      </div>
+    {% empty %}
+      <p class="empty">{% translate "No ticket on the board." %}</p>
+    {% endfor %}
+  </div>
+</div>
+<p class="muted board-note">{% blocktranslate %}Done column: tickets closed in the last {{ done_days }} days.{% endblocktranslate %}</p>
+
+{% if not user.is_digitalia %}
+<section class="client-panel">
+  <div class="card todo-card">
+    <h2>{% translate "What we need from you" %} <span class="count-pill{% if client_todo %} hot{% endif %}">{{ client_todo|length }}</span></h2>
+    {% if client_todo %}
+      <p class="muted">{% translate "Answer or test these tickets, then tell us with the buttons (or drag the card out of “Your turn”). The ticket goes straight back to Digitalia." %}</p>
+      <ul class="todo-list">
+      {% for t in client_todo %}
+        <li class="todo-item" data-id="{{ t.pk }}" data-move-url="{% url 'ticket_client_action' t.pk %}">
+          <div class="todo-main">
+            <span class="todo-kind {% if t.status == 'waiting_client' %}ask{% else %}test{% endif %}">{% if t.status == "waiting_client" %}❓ {% translate "Answer" %}{% else %}🧪 {% translate "Test" %}{% endif %}</span>
+            <a href="{{ t.get_absolute_url }}"><strong>{{ t.reference }}</strong> {{ t.title }}</a>
+            {% if t.due_date %}<span class="muted {% if t.is_late %}late{% endif %}">· {% translate "by" %} {{ t.due_date|date:"d/m" }}</span>{% endif %}
+            {% if t.last_message %}<blockquote>« {{ t.last_message.body|truncatechars:160 }} » <span class="muted">— {{ t.last_message.author }}</span></blockquote>{% endif %}
+          </div>
+          <div class="todo-actions">
+            {% if t.status == "waiting_client" %}
+              <a class="btn" href="{{ t.get_absolute_url }}">{% translate "Reply" %}</a>
+              <button type="button" class="btn btn-primary" data-action="answered">✓ {% translate "I answered" %}</button>
+            {% else %}
+              <button type="button" class="btn btn-ok" data-action="test_ok">✓ {% translate "Test OK" %}</button>
+              <button type="button" class="btn btn-ko" data-action="test_ko">✗ {% translate "Not OK" %}</button>
+            {% endif %}
+          </div>
+        </li>
+      {% endfor %}
+      </ul>
+    {% else %}
+      <p class="all-good">✅ {% translate "Nothing is waiting for you. Digitalia is on it." %}</p>
+    {% endif %}
+  </div>
+
+  <div class="card">
+    <h2>{% translate "Status of all your tickets" %}</h2>
+    <div class="overview-bar" role="img" aria-label="{% translate 'Tickets by column' %}">
+      {% for o in overview %}{% if o.count %}<span class="seg seg-{{ o.key }}" style="flex: {{ o.count }}" title="{{ o.title }} : {{ o.count }}"></span>{% endif %}{% endfor %}
+    </div>
+    <ul class="overview-legend">
+      {% for o in overview %}<li><span class="dot seg-{{ o.key }}"></span>{{ o.title }} <strong>{{ o.count }}</strong></li>{% endfor %}
+    </ul>
+    <div class="overview-grid">
+      <div><div class="big">{{ overview_progress }}%</div><div class="muted">{% translate "done" %}</div></div>
+      <div><div class="big">{{ overview_stats.open }}</div><div class="muted">{% translate "open" %}</div></div>
+      <div><div class="big {% if overview_stats.late %}late{% endif %}">{{ overview_stats.late }}</div><div class="muted">{% translate "late" %}</div></div>
+      <div><div class="big">{{ overview_stats.total }}</div><div class="muted">{% translate "requests in total" %}</div></div>
+    </div>
+    <div class="overview-types">
+      {% for r in overview_types %}<span class="type-chip type-{{ r.type }}">{{ r.label }} · {{ r.n }}</span>{% endfor %}
+      {% if overview_closed %}<span class="type-chip">{% translate "Rejected or cancelled" %} · {{ overview_closed }}</span>{% endif %}
+    </div>
+    {% if overview_next_due %}<p class="muted">{% translate "Next deadline" %} : <a href="{{ overview_next_due.get_absolute_url }}">{{ overview_next_due.reference }} {{ overview_next_due.title }}</a> — {{ overview_next_due.due_date|date:"d/m/Y" }}</p>{% endif %}
+  </div>
+</section>
+{% endif %}
+
+
+{% endblock %}

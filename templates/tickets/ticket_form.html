@@ -1,0 +1,21 @@
+{% extends "base.html" %}{% load i18n %}
+{% block title %}{% if ticket %}{{ ticket.reference }}{% else %}{% translate "New request" %}{% endif %}{% endblock %}
+{% block content %}
+{% include "includes/project_tabs.html" %}
+<div class="card" style="max-width:860px">
+  <h2>{% if ticket %}{% translate "Edit" %} {{ ticket.reference }}{% elif user.is_digitalia %}{% translate "New ticket" %}{% else %}{% translate "New request" %}{% endif %}</h2>
+  {% if not user.is_digitalia %}<p class="muted">{% translate "Describe your request as precisely as possible. You can attach files or screenshots." %}</p>{% endif %}
+  <form method="post" enctype="multipart/form-data">{% csrf_token %}
+    {{ form.non_field_errors }}
+    {% include "includes/field.html" with field=form.type %}
+    {% include "includes/field.html" with field=form.title %}
+    {% include "includes/field.html" with field=form.description %}
+    <div class="form-grid">
+      {% for field in form %}{% if field.name not in "type title description files" %}{% include "includes/field.html" %}{% endif %}{% endfor %}
+    </div>
+    {% include "includes/field.html" with field=form.files %}
+    <button class="btn btn-primary">{% if ticket %}{% translate "Save" %}{% else %}{% translate "Create" %}{% endif %}</button>
+    <a class="btn" href="{% if ticket %}{{ ticket.get_absolute_url }}{% else %}{% url 'project_tickets' project.key %}{% endif %}">{% translate "Cancel" %}</a>
+  </form>
+</div>
+{% endblock %}

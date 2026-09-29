@@ -1,0 +1,255 @@
+<title>Orbit Démo</title>
+<style>
+  /* One screen: a thin demo bar on top, the real Orbit app below in an iframe. */
+  :root { color-scheme: light; --ink: #16152b; --ink-soft: #2a2566; --paper: #f5f6fa; --line: #e2e5ee; --accent: #4b3bdb; --muted: #6b7185; --warn: #fff7dd; --warn-ink: #6d5a12; --bad: #d33a3a; }
+  html, body { height: 100%; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; font-size: 14px; display: flex; flex-direction: column; }
+  [hidden] { display: none !important; }
+  .bar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; padding: 6px 16px; background: var(--warn); color: var(--warn-ink); border-bottom: 1px solid #ecd990; font-size: 12px; }
+  .bar strong { color: var(--ink); }
+  .bar .spacer { flex: 1; }
+  .bar button { font: inherit; border: 1px solid #d9c56b; background: #fff; color: var(--ink); border-radius: 999px; padding: 4px 12px; cursor: pointer; }
+  .bar button:focus-visible, .mail a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .count { display: inline-block; min-width: 18px; padding: 0 5px; border-radius: 99px; background: var(--bad); color: #fff; font-weight: 700; text-align: center; margin-left: 4px; }
+  .count.zero { background: #d9d4b8; color: var(--warn-ink); }
+  main { flex: 1; position: relative; min-height: 0; }
+  iframe { border: 0; width: 100%; height: 100%; display: block; background: var(--paper); }
+  .screen { position: absolute; inset: 0; display: grid; place-items: center; background: linear-gradient(160deg, var(--ink) 0%, var(--ink-soft) 100%); color: #d6d4f5; padding: 16px; text-align: center; }
+  .screen h1 { color: #fff; font-size: 34px; margin: 0 0 8px; }
+  .screen p { max-width: 46ch; line-height: 1.5; margin: 6px auto; }
+  .meter { width: min(320px, 80vw); height: 6px; background: rgba(255,255,255,.15); border-radius: 99px; overflow: hidden; margin: 18px auto 8px; }
+  .meter span { display: block; height: 100%; width: 0; background: #8f84ff; transition: width .4s; }
+  .screen .step { font-size: 12px; opacity: .8; }
+  .screen a { color: #fff; }
+  .busy { position: absolute; top: 10px; right: 16px; background: var(--ink); color: #fff; font-size: 12px; padding: 4px 10px; border-radius: 99px; opacity: .85; }
+  .panel { position: absolute; top: 0; right: 0; bottom: 0; width: min(460px, 100%); background: #fff; border-left: 1px solid var(--line); box-shadow: -10px 0 30px rgba(20,20,50,.15); display: flex; flex-direction: column; z-index: 5; }
+  .panel header { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; border-bottom: 1px solid var(--line); }
+  .panel h2 { font-size: 15px; margin: 0; }
+  .panel .close { border: 0; background: none; font-size: 20px; cursor: pointer; color: var(--muted); }
+  .mails { overflow-y: auto; padding: 12px 16px; display: grid; gap: 10px; align-content: start; }
+  .mail { border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; }
+  .mail .meta { font-size: 12px; color: var(--muted); }
+  .mail .subject { font-weight: 600; margin: 2px 0 6px; }
+  .mail pre { white-space: pre-wrap; word-wrap: break-word; font: inherit; font-size: 13px; margin: 0; }
+  .mail a { color: var(--accent); font-weight: 600; }
+  .empty { color: var(--muted); }
+  .toast { position: absolute; left: 50%; bottom: calc(20px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); background: var(--ink); color: #fff; padding: 10px 16px; border-radius: 8px; font-size: 13px; max-width: calc(100% - 32px); z-index: 6; }
+  .viewer { position: absolute; inset: 0; background: rgba(22,21,43,.8); display: grid; place-items: center; z-index: 7; padding: 16px; }
+  .viewer img, .viewer video { max-width: 100%; max-height: calc(100% - 60px); border-radius: 8px; background: #000; }
+  .viewer button { position: absolute; top: 12px; right: 16px; font-size: 24px; background: none; border: 0; color: #fff; cursor: pointer; }
+</style>
+
+<div class="bar" role="region" aria-label="Démo">
+  <strong>Démo Orbit</strong>
+  <span>La vraie application tourne dans votre navigateur. Données fictives, gardées sur cet appareil.</span>
+  <span class="spacer"></span>
+  <button type="button" id="open-mails">📬 E-mails envoyés <span class="count zero" id="mail-count">0</span></button>
+  <button type="button" id="reset">↺ Réinitialiser la démo</button>
+</div>
+<main>
+  <iframe id="app" title="Orbit"></iframe>
+  <div class="screen" id="loading">
+    <div>
+      <h1>◎ Orbit</h1>
+      <p>Chargement de l'application complète dans votre navigateur…</p>
+      <div class="meter"><span id="meter"></span></div>
+      <div class="step" id="step">Démarrage</div>
+      <p class="step">Le premier chargement télécharge environ 20 Mo. Les suivants sont plus rapides.</p>
+    </div>
+  </div>
+  <div class="screen" id="failed" hidden>
+    <div>
+      <h1>◎ Orbit</h1>
+      <p>Ce navigateur n'a pas pu démarrer l'application complète.</p>
+      <p class="step" id="failed-reason"></p>
+      <p><a href="demo-simple.html">Ouvrir la démo simplifiée</a></p>
+    </div>
+  </div>
+  <div class="busy" id="busy" hidden>…</div>
+  <aside class="panel" id="panel" hidden aria-label="E-mails envoyés">
+    <header><h2>📬 E-mails envoyés par Orbit</h2><button class="close" id="close-mails" aria-label="Fermer">×</button></header>
+    <div class="mails" id="mails"></div>
+  </aside>
+  <div class="toast" id="toast" role="status" hidden></div>
+  <div class="viewer" id="viewer" hidden><button type="button" id="close-viewer" aria-label="Fermer">×</button><div id="viewer-body"></div></div>
+</main>
+
+<script>
+(function () {
+  const $ = id => document.getElementById(id);
+  const frame = $("app");
+  const STEPS = { python: "Démarrage de Python", packages: "Chargement de Django", app: "Chargement d'Orbit", django: "Préparation des données", ready: "Prêt" };
+  const INTERNAL = /^https?:\/\/(testserver|orbit\.demo)(\/.*)?$/;
+  let worker, seq = 0, current = "/", mails = [], seen = 0, started = false;
+  const pending = new Map();
+  const blobs = new Map();
+
+  function toast(msg) { const t = $("toast"); t.textContent = msg; t.hidden = false; clearTimeout(t._h); t._h = setTimeout(() => t.hidden = true, 3500); }
+  function fail(reason) {
+    $("loading").hidden = true; $("failed").hidden = false; $("failed-reason").textContent = reason || "";
+    report(reason);
+  }
+  async function report(reason) {
+    try {
+      const db = window.claude && await window.claude.use("db");
+      if (db) await db.collection("diagnostics").doc(String(Date.now())).set({ reason: String(reason).slice(0, 3000), agent: navigator.userAgent, at: new Date().toISOString() });
+    } catch (e) {}
+  }
+
+  function call(message, transfer) {
+    return new Promise((resolve, reject) => {
+      const id = ++seq; pending.set(id, { resolve, reject });
+      worker.postMessage(Object.assign({ id }, message), transfer || []);
+    });
+  }
+  async function request(req) {
+    $("busy").hidden = false;
+    try {
+      const res = await call({ kind: "request", request: req });
+      mails = res.response.mails || mails; renderMailCount();
+      return res.response;
+    } finally { $("busy").hidden = true; }
+  }
+
+  function toPath(href) {
+    const m = href.match(INTERNAL);
+    if (m) return m[2] || "/";
+    if (href.startsWith("/")) return href;
+    if (href.startsWith("?")) return current.split("?")[0] + href;
+    if (/^https?:/.test(href)) return null;
+    return new URL(href, "http://x" + current).pathname;
+  }
+
+  function render(res) {
+    const type = res.contentType || "";
+    if (type.startsWith("text/html")) {
+      current = res.url;
+      blobs.forEach(u => URL.revokeObjectURL(u)); blobs.clear();
+      frame.srcdoc = new TextDecoder().decode(res.body);
+    } else {
+      toast("Réponse inattendue (" + res.status + ")");
+    }
+  }
+  async function go(path, extra) {
+    const res = await request(Object.assign({ method: "GET", url: path }, extra || {}));
+    render(res);
+    return res;
+  }
+
+  async function fileFields(formData) {
+    const fields = [];
+    for (const [name, value] of formData.entries()) {
+      if (value && typeof value === "object" && "arrayBuffer" in value) {
+        if (!value.name && !value.size) continue;
+        fields.push([name, { name: value.name || "fichier", type: value.type, data: new Uint8Array(await value.arrayBuffer()) }]);
+      } else fields.push([name, String(value)]);
+    }
+    return fields;
+  }
+
+  async function openAttachment(path) {
+    const res = await request({ method: "GET", url: path });
+    const type = (res.contentType || "").split(";")[0];
+    const url = URL.createObjectURL(new Blob([res.body], { type }));
+    const body = $("viewer-body");
+    if (type.startsWith("image/")) body.innerHTML = `<img alt="" src="${url}">`;
+    else if (type.startsWith("video/")) body.innerHTML = `<video controls autoplay src="${url}"></video>`;
+    else if (type.startsWith("audio/")) body.innerHTML = `<audio controls autoplay src="${url}"></audio>`;
+    else { toast("Aperçu disponible pour les photos, vidéos et audios. Les documents s'ouvrent dans la vraie application."); return; }
+    $("viewer").hidden = false;
+  }
+
+  // Called by the bridge script inside each rendered page.
+  window.orbitShell = {
+    link(href, a) {
+      const path = toPath(href);
+      if (path === null) { const out = document.createElement("a"); out.href = href; out.target = "_blank"; out.rel = "noopener"; out.click(); return; }
+      if (path.startsWith("/attachments/")) { openAttachment(path); return; }
+      go(path);
+    },
+    async submit(form, submitter) {
+      const win = form.ownerDocument.defaultView;
+      const data = new win.FormData(form, submitter || undefined);
+      const method = (form.getAttribute("method") || "get").toUpperCase();
+      const action = toPath(form.getAttribute("action") || current.split("?")[0]) || current;
+      if (method === "GET") {
+        const params = new URLSearchParams();
+        for (const [k, v] of data.entries()) if (typeof v === "string") params.append(k, v);
+        go(action.split("?")[0] + (params.toString() ? "?" + params : ""));
+      } else {
+        render(await request({ method: "POST", url: action, fields: await fileFields(data) }));
+      }
+    },
+    async fetch(url, init) {
+      const path = toPath(url) || url;
+      const req = { method: (init.method || "GET").toUpperCase(), url: path };
+      const body = init.body;
+      if (body && typeof body === "object" && "entries" in body) req.fields = await fileFields(body);
+      else if (body != null) { req.body = String(body); req.contentType = (init.headers && (init.headers["Content-Type"] || init.headers["content-type"])) || "text/plain"; }
+      const res = await request(req);
+      return new Response(res.body, { status: res.status, headers: { "Content-Type": res.contentType } });
+    },
+    reload() { go(current); },
+    async pageReady(doc) {
+      // Photos, videos and voice notes: load them from the in-browser server.
+      for (const el of doc.querySelectorAll('[src^="/attachments/"]')) {
+        const path = el.getAttribute("src");
+        if (!blobs.has(path)) {
+          const res = await request({ method: "GET", url: path });
+          blobs.set(path, URL.createObjectURL(new Blob([res.body], { type: (res.contentType || "").split(";")[0] })));
+        }
+        el.src = blobs.get(path);
+      }
+    },
+  };
+
+  function renderMailCount() {
+    const c = $("mail-count"), unread = mails.length - seen;
+    c.textContent = unread > 0 ? unread : mails.length; c.classList.toggle("zero", unread <= 0);
+    if (!$("panel").hidden) renderMails();
+  }
+  function renderMails() {
+    const box = $("mails"); box.innerHTML = "";
+    if (!mails.length) { box.innerHTML = '<p class="empty">Aucun e-mail pour l\'instant. Invitez un client, demandez un nouveau mot de passe ou passez un ticket « À tester » : les e-mails apparaîtront ici.</p>'; return; }
+    mails.slice().reverse().forEach(m => {
+      const div = document.createElement("div"); div.className = "mail";
+      const meta = document.createElement("div"); meta.className = "meta"; meta.textContent = "À : " + m.to.join(", ");
+      const subject = document.createElement("div"); subject.className = "subject"; subject.textContent = m.subject;
+      const pre = document.createElement("pre");
+      m.body.split(/(https?:\/\/\S+)/).forEach(part => {
+        if (/^https?:\/\//.test(part)) {
+          const a = document.createElement("a"); a.href = "#"; a.textContent = part;
+          a.onclick = e => { e.preventDefault(); const p = toPath(part); $("panel").hidden = true; if (p) go(p); };
+          pre.appendChild(a);
+        } else pre.appendChild(document.createTextNode(part));
+      });
+      div.append(meta, subject, pre); box.appendChild(div);
+    });
+  }
+  $("open-mails").onclick = () => { $("panel").hidden = false; seen = mails.length; renderMails(); renderMailCount(); };
+  $("close-mails").onclick = () => { $("panel").hidden = true; };
+  $("close-viewer").onclick = () => { $("viewer").hidden = true; $("viewer-body").innerHTML = ""; };
+  $("reset").onclick = async () => {
+    if (!started) return;
+    await call({ kind: "reset" }); mails = []; seen = 0; renderMailCount();
+    toast("Démo réinitialisée."); go("/login/");
+  };
+
+  try {
+    worker = new Worker("orbit-worker.js");
+  } catch (e) { fail("Worker : " + e.message); return; }
+  const timeout = setTimeout(() => { if (!started) fail("Délai dépassé au démarrage."); }, 180000);
+  worker.onerror = e => { if (!started) fail("Erreur : " + (e.message || "chargement du moteur impossible")); };
+  worker.onmessage = ({ data }) => {
+    if (data.type === "progress") { $("meter").style.width = data.pct + "%"; $("step").textContent = STEPS[data.step] || data.step; return; }
+    if (data.type === "failed") { clearTimeout(timeout); fail(data.error); return; }
+    if (data.type === "ready") {
+      clearTimeout(timeout); started = true;
+      go("/").then(() => { $("loading").hidden = true; }, e => fail(String(e)));
+      return;
+    }
+    const p = pending.get(data.id); if (!p) return; pending.delete(data.id);
+    data.ok ? p.resolve(data) : p.reject(new Error(data.error));
+  };
+})();
+</script>

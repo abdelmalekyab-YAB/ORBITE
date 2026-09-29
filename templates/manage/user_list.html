@@ -1,0 +1,29 @@
+{% extends "base.html" %}{% load i18n %}
+{% block title %}{% translate "Accounts" %}{% endblock %}
+{% block content %}
+<div class="page-head">
+  <div><h1>{% translate "Accounts" %}</h1><p class="subtitle">{% translate "Invite clients and Digitalia team members, choose their projects, deactivate an account." %}</p></div>
+  <div class="head-actions">
+    <a class="btn" href="{% url 'user_create' %}?role=staff">+ {% translate "Digitalia member" %}</a>
+    <a class="btn btn-primary" href="{% url 'user_create' %}">+ {% translate "Invite a client" %}</a>
+  </div>
+</div>
+<nav class="tabs">
+  <a href="{% url 'user_list_tab' 'clients' %}" class="{% if tab == 'clients' %}active{% endif %}">{% translate "Clients" %}</a>
+  <a href="{% url 'user_list_tab' 'digitalia' %}" class="{% if tab == 'digitalia' %}active{% endif %}">{% translate "Digitalia team" %}</a>
+  <a href="{% url 'user_list_tab' 'inactive' %}" class="{% if tab == 'inactive' %}active{% endif %}">{% translate "Deactivated" %}</a>
+</nav>
+<form method="get" class="board-toolbar"><input type="search" name="q" value="{{ q }}" placeholder="{% translate 'Name, e-mail or company' %}" aria-label="{% translate 'Search' %}"><button class="btn">{% translate "Search" %}</button></form>
+<div class="card"><table>
+  <thead><tr><th>{% translate "Name" %}</th><th>{% translate "E-mail" %}</th><th>{% translate "Company" %}</th><th>{% translate "Projects" %}</th><th>{% translate "Status" %}</th><th></th></tr></thead>
+  <tbody>{% for u in users %}
+    <tr><td><a href="{% url 'user_edit' u.pk %}">{{ u }}</a>{% if u.is_staff and u.is_digitalia %} <span class="badge">{% translate "Admin" %}</span>{% endif %}</td>
+      <td>{{ u.email }}</td><td>{% if u.company and not u.company.is_internal %}<a href="{% url 'company_detail' u.company.pk %}">{{ u.company }}</a>{% else %}{{ u.company|default:"—" }}{% endif %}</td>
+      <td>{% for p in u.projects.all %}{{ p.name }}{% if not forloop.last %}, {% endif %}{% empty %}<span class="muted">—</span>{% endfor %}</td>
+      <td>{% include "manage/_account_status.html" %}</td>
+      <td class="row-actions">
+        {% if u.pending %}<form method="post" action="{% url 'user_invite_again' u.pk %}">{% csrf_token %}<input type="hidden" name="next" value="{{ request.get_full_path }}"><button class="btn-link-mini blue">{% translate "Resend invitation" %}</button></form>{% endif %}
+      </td></tr>
+  {% empty %}<tr><td colspan="6" class="empty">{% translate "No account here." %}</td></tr>{% endfor %}</tbody>
+</table></div>
+{% endblock %}

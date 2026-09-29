@@ -1,0 +1,30 @@
+{% extends "registration/_auth_page.html" %}{% load i18n %}
+{% block title %}{% translate "Log in" %}{% endblock %}
+{% block auth %}
+  <p class="subtitle">{% translate "Your project space with Digitalia" %}</p>
+  <form method="post">{% csrf_token %}
+    {% if form.non_field_errors %}<ul class="errorlist">{% for e in form.non_field_errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
+    <div class="form-row"><label for="id_username">{% translate "E-mail address" %}</label>
+      <input type="text" name="username" id="id_username" autocomplete="username" autofocus required value="{{ form.username.value|default:'' }}"></div>
+    <div class="form-row"><label for="id_password">{% translate "Password" %}</label>
+      <input type="password" name="password" id="id_password" autocomplete="current-password" required></div>
+    <input type="hidden" name="next" value="{{ next }}">
+    <button class="btn btn-primary btn-block" type="submit">{% translate "Log in" %}</button>
+    <p class="auth-link"><a href="{% url 'password_reset' %}">{% translate "Forgot your password?" %}</a></p>
+  </form>
+  {% if orbit_demo %}
+  <div class="demo-accounts">
+    <p>{% translate "Demo accounts (password orbit-demo):" %}</p>
+    <button type="button" class="btn" data-fill="julie.martin@wws.fr">🟣 Julie Martin · {% translate "client" %} WWS</button>
+    <button type="button" class="btn" data-fill="karim.benali@rmclub.fr">🟣 Karim Benali · {% translate "client" %} RM Club</button>
+    <button type="button" class="btn" data-fill="yanis@digitalia.fr">🔵 Yanis · Digitalia ({% translate "admin" %})</button>
+    <button type="button" class="btn" data-fill="sara@digitalia.fr">🔵 Sara · Digitalia ({% translate "developer" %})</button>
+  </div>
+  <script>
+    document.querySelectorAll("[data-fill]").forEach(b => b.addEventListener("click", () => {
+      document.getElementById("id_username").value = b.dataset.fill;
+      document.getElementById("id_password").value = "orbit-demo";
+    }));
+  </script>
+  {% endif %}
+{% endblock %}

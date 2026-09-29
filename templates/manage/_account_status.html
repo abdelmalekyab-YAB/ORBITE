@@ -1,0 +1,3 @@
+{% load i18n %}{% if not u.is_active %}<span class="badge">{% translate "Deactivated" %}</span>
+{% elif u.pending %}<span class="badge status-waiting_client">{% translate "Invitation sent" %}</span>
+{% else %}<span class="badge status-done">{% translate "Active" %}</span>{% if u.last_login %} <span class="muted" title="{% translate 'Last login' %}">{{ u.last_login|date:"d/m" }}</span>{% endif %}{% endif %}

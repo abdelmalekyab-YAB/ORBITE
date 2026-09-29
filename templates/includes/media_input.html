@@ -1,0 +1,18 @@
+{% load i18n %}<div class="media-input" data-media-input>
+  <input type="file" name="{{ widget.name }}" id="{{ widget.attrs.id }}" multiple hidden data-media-store>
+  <div class="media-buttons">
+    <label class="btn media-btn">📎 {% translate "Add files" %}
+      <input type="file" multiple accept="{{ accept }}" data-media-pick hidden></label>
+    <label class="btn media-btn">📷 {% translate "Photo or video" %}
+      <input type="file" accept="image/*,video/*" capture="environment" data-media-pick hidden></label>
+    <button type="button" class="btn media-btn" data-media-record>🎙️ <span>{% translate "Record audio" %}</span></button>
+  </div>
+  <div class="media-recording" data-media-recording hidden>
+    <span class="rec-dot"></span> <span data-media-timer>0:00</span>
+    <button type="button" class="btn btn-ko-solid" data-media-stop>■ {% translate "Stop and add" %}</button>
+    <button type="button" class="btn" data-media-cancel>{% translate "Cancel" %}</button>
+  </div>
+  <p class="media-hint muted">{% translate "Photos, videos, voice notes, PDF, Word, Excel… You can also drop files here." %}</p>
+  <ul class="media-list" data-media-list></ul>
+  <p class="media-error" data-media-error hidden></p>
+</div>

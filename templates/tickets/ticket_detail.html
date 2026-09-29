@@ -1,0 +1,105 @@
+{% extends "base.html" %}{% load i18n orbit %}
+{% block title %}{{ ticket.reference }} {{ ticket.title }}{% endblock %}
+{% block content %}
+{% include "includes/project_tabs.html" %}
+<div class="page-head">
+  <div>
+    <p class="muted" style="margin:0">{% if ticket.parent %}<a href="{{ ticket.parent.get_absolute_url }}">{{ ticket.parent.reference }}</a> / {% endif %}{{ ticket.reference }} · {{ ticket.get_type_display }}</p>
+    <h1>{{ ticket.title }}</h1>
+    <p style="margin:6px 0 0">
+      <span class="badge status-{{ ticket.status }}">{{ ticket.get_status_display }}</span>
+      <span class="badge prio-{{ ticket.priority }}">{{ ticket.get_priority_display }}</span>
+      {% if user.is_digitalia %}
+        <span class="badge origin-{{ ticket.origin }}">{{ ticket.origin|origin_icon }} {{ ticket.get_origin_display }}</span>
+        {% if ticket.visibility == 'internal' %}<span class="badge vis-internal">🔒 {{ ticket.get_visibility_display }}</span>{% else %}<span class="badge">👁 {{ ticket.get_visibility_display }}</span>{% endif %}
+      {% endif %}
+    </p>
+  </div>
+  {% if user.is_digitalia %}<div><a class="btn" href="{% url 'ticket_edit' project.key ticket.number %}">{% translate "Edit" %}</a>
+    {% if not ticket.parent %}<a class="btn" href="{% url 'ticket_create' project.key %}?parent={{ ticket.number }}">+ {% translate "Subtask" %}</a>{% endif %}</div>{% endif %}
+</div>
+
+{% if not user.is_digitalia %}
+  {% if ticket.status == 'waiting_client' %}
+  <div class="card" style="border-color:#f1b8d6;background:#fff7fb">⚠️ {% translate "Digitalia is waiting for your answer on this ticket. Reply below." %}</div>
+  {% elif ticket.status == 'in_test' %}
+  <div class="card" style="border-color:#f5d48a;background:#fffaf0" data-move-url="{% url 'ticket_client_action' ticket.pk %}" data-ref="{{ ticket.reference }}">
+    🧪 <strong>{% translate "This ticket is ready for you to test." %}</strong> {% translate "Tell us the result:" %}
+    <div class="ticket-client-actions">
+      <button type="button" class="btn btn-ok" data-action="test_ok">✓ {% translate "Test OK" %}</button>
+      <button type="button" class="btn btn-ko" data-action="test_ko">✗ {% translate "Not OK" %}</button>
+      <span class="muted">{% translate "If it is not OK, you will be asked to explain what is wrong." %}</span>
+    </div>
+  </div>
+  {% elif ticket.status == 'done' %}
+  <div class="card" data-move-url="{% url 'ticket_client_action' ticket.pk %}" data-ref="{{ ticket.reference }}">
+    ✅ {% translate "This ticket is done." %}
+    <button type="button" class="btn-link-mini" data-action="reopen">✗ {% translate "Not OK after all?" %}</button>
+  </div>
+  {% endif %}
+{% endif %}
+
+<div class="grid-2">
+  <div>
+    <div class="card">
+      <div class="body">{{ ticket.description|default:_("No description.")|urlize }}</div>
+      {% if attachments %}
+        <h2 style="margin-top:16px">{% translate "Attachments" %}</h2>
+        {% include "tickets/_attachments.html" with files=attachments %}
+      {% endif %}
+    </div>
+
+    {% if subtasks or user.is_digitalia and not ticket.parent %}
+    <div class="card"><h2>{% translate "Subtasks" %}</h2>{% include "includes/ticket_table.html" with tickets=subtasks %}</div>
+    {% endif %}
+
+    <div class="card">
+      <h2>{% translate "Discussion" %}</h2>
+      {% for c in comments %}
+        <div class="comment {% if c.is_internal %}internal{% endif %} {% if c.author.is_digitalia %}from-digitalia{% else %}from-client{% endif %}">
+          <header><strong>{{ c.author|default:_("System") }}{% if c.author.company %} · {{ c.author.company }}{% endif %}</strong>
+            <span>{% if c.is_internal %}🔒 {% translate "Internal note" %} · {% endif %}{{ c.created_at|date:"SHORT_DATETIME_FORMAT" }}</span></header>
+          <div class="body">{{ c.body|urlize }}</div>
+          {% with files=c.attachments.all %}{% if files %}{% include "tickets/_attachments.html" %}{% endif %}{% endwith %}
+        </div>
+      {% empty %}<p class="empty">{% translate "No comment yet." %}</p>{% endfor %}
+      <form method="post" enctype="multipart/form-data">{% csrf_token %}
+        {{ form.non_field_errors }}
+        {% for field in form %}{% include "includes/field.html" %}{% endfor %}
+        <button class="btn btn-primary">{% translate "Send" %}</button>
+      </form>
+    </div>
+  </div>
+
+  <div>
+    <div class="card meta">
+      <dl>
+        <dt>{% translate "Project" %}</dt><dd>{{ project.name }}</dd>
+        <dt>{% translate "Author" %}</dt><dd>{{ ticket.author|default:_("System") }}{% if ticket.author_company %} · {{ ticket.author_company }}{% endif %}</dd>
+        <dt>{% translate "Created" %}</dt><dd>{{ ticket.created_at|date:"SHORT_DATETIME_FORMAT" }}</dd>
+        <dt>{% translate "Assignee" %}</dt><dd>{{ ticket.assignee|default:"—" }}</dd>
+        <dt>{% translate "Target date" %}</dt><dd class="{% if ticket.is_late %}late{% endif %}">{{ ticket.due_date|date:"SHORT_DATE_FORMAT"|default:"—" }}</dd>
+        {% if ticket.milestone and ticket.milestone.is_client_visible or ticket.milestone and user.is_digitalia %}
+          <dt>{% translate "Roadmap step" %}</dt><dd><a href="{% url 'roadmap' project.key %}">{{ ticket.milestone }}</a></dd>
+        {% endif %}
+        <dt>{% translate "Updated" %}</dt><dd>{{ ticket.updated_at|date:"SHORT_DATETIME_FORMAT" }}</dd>
+        {% if ticket.closed_at %}<dt>{% translate "Closed" %}</dt><dd>{{ ticket.closed_at|date:"SHORT_DATETIME_FORMAT" }}</dd>{% endif %}
+      </dl>
+    </div>
+    <div class="card">
+      <h2>{% translate "History" %}</h2>
+      <ul class="timeline">
+      {% for e in events %}
+        <li><span class="muted">{{ e.created_at|date:"SHORT_DATETIME_FORMAT" }}</span><br>
+          <strong>{{ e.user|default:"⚙️ Orbit" }}</strong>
+          {% if e.kind == 'created' %}{% translate "created the ticket" %}
+          {% elif e.kind == 'commented' %}{% translate "commented" %}
+          {% elif e.kind == 'attached' %}{% translate "added" %} « {{ e.new_value }} »
+          {% else %}{% translate "changed" %} <em>{{ e.field_label }}</em> : {{ e.old_value|default:"—"|truncatechars:40 }} → {{ e.new_value|default:"—"|truncatechars:40 }}{% endif %}
+        </li>
+      {% endfor %}
+      </ul>
+    </div>
+  </div>
+</div>
+{% endblock %}

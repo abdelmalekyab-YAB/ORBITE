@@ -1,0 +1,53 @@
+{% extends "base.html" %}{% load i18n %}
+{% block title %}{% if account %}{{ account }}{% else %}{% translate "Invite someone" %}{% endif %}{% endblock %}
+{% block content %}
+<div class="page-head">
+  <div><p class="muted" style="margin:0"><a href="{% url 'user_list' %}">{% translate "Accounts" %}</a> /</p>
+    <h1>{% if account %}{{ account }}{% else %}{% translate "Invite someone" %}{% endif %}</h1>
+    {% if account %}<p class="subtitle">{{ account.email }} · {% with u=account %}{% include "manage/_account_status.html" with u=account %}{% endwith %}</p>{% endif %}</div>
+  {% if account %}<div class="head-actions">
+    {% if account.is_active %}<form method="post" action="{% url 'user_invite_again' account.pk %}">{% csrf_token %}<input type="hidden" name="next" value="{{ request.path }}">
+      <button class="btn">{% if pending %}{% translate "Resend invitation" %}{% else %}{% translate "Send a new password link" %}{% endif %}</button></form>{% endif %}
+    {% if account != user %}<form method="post" action="{% url 'user_toggle_active' account.pk %}">{% csrf_token %}<input type="hidden" name="next" value="{{ request.path }}">
+      <button class="btn {% if account.is_active %}btn-ko{% endif %}">{% if account.is_active %}{% translate "Deactivate" %}{% else %}{% translate "Reactivate" %}{% endif %}</button></form>{% endif %}
+  </div>{% endif %}
+</div>
+<div class="card" style="max-width:760px">
+  {% if not account %}<p class="muted">{% translate "The person receives an e-mail with a link to choose their password. They then log in with their e-mail address." %}</p>{% endif %}
+  <form method="post">{% csrf_token %}
+    {{ form.non_field_errors }}
+    <div class="form-grid">
+      {% include "includes/field.html" with field=form.first_name %}
+      {% include "includes/field.html" with field=form.last_name %}
+      {% include "includes/field.html" with field=form.email %}
+      {% include "includes/field.html" with field=form.role %}
+      {% include "includes/field.html" with field=form.company %}
+    </div>
+    <div class="form-row" data-for-role="client"><label>{{ form.projects.label }}</label><div class="checks">{{ form.projects }}</div>
+      <div class="help">{{ form.projects.help_text }}</div>{{ form.projects.errors }}</div>
+    <div data-for-role="staff">{% include "includes/field.html" with field=form.is_staff %}</div>
+    {% if form.is_active %}{% include "includes/field.html" with field=form.is_active %}{% endif %}
+    <button class="btn btn-primary">{% if account %}{% translate "Save" %}{% else %}{% translate "Send the invitation" %}{% endif %}</button>
+    <a class="btn" href="{% url 'user_list' %}">{% translate "Cancel" %}</a>
+  </form>
+</div>
+<script>
+  // Show projects for clients, the admin option for Digitalia.
+  (function () {
+    const role = document.getElementById("id_role");
+    const apply = () => document.querySelectorAll("[data-for-role]").forEach(el => el.hidden = el.dataset.forRole !== role.value);
+    role.addEventListener("change", apply); apply();
+    // Only offer the projects of the chosen client company.
+    const company = document.getElementById("id_company");
+    const filterProjects = () => {
+      const name = company.options[company.selectedIndex]?.text || "";
+      document.querySelectorAll("#id_projects label, [data-for-role=client] .checks label").forEach(label => {
+        const mine = !company.value || label.textContent.trim().endsWith("· " + name);
+        label.closest("div, li").hidden = !mine;
+        if (!mine) label.querySelector("input").checked = false;
+      });
+    };
+    company.addEventListener("change", filterProjects); filterProjects();
+  })();
+</script>
+{% endblock %}

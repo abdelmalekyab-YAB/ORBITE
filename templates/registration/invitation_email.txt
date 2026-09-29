@@ -1,0 +1,14 @@
+{% load i18n %}{% autoescape off %}{% blocktranslate with first=user.first_name %}Hello {{ first }},{% endblocktranslate %}
+
+{% if user.is_digitalia %}{% translate "An Orbit account has been created for you in the Digitalia team." %}{% else %}{% translate "Digitalia has created your Orbit account. It is where you follow your project, send your requests (bugs, changes, questions…) and answer our questions." %}{% endif %}
+{% if projects %}
+{% translate "Your projects:" %}{% for p in projects %}
+ - {{ p.name }}{% endfor %}
+{% endif %}
+{% translate "To activate your account, choose your password here (link valid for 7 days):" %}
+{{ link }}
+
+{% blocktranslate with email=user.email %}Then log in with your e-mail address ({{ email }}) at: {% endblocktranslate %}{{ login_url }}
+
+— Orbit, Digitalia
+{% endautoescape %}

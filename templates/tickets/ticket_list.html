@@ -1,0 +1,53 @@
+{% extends "base.html" %}{% load i18n orbit %}
+{% block title %}{% translate "Tickets" %}{% endblock %}
+{% block content %}
+{% if project %}{% include "includes/project_tabs.html" %}{% else %}<h1>{% translate "All tickets" %}</h1><p class="subtitle">{% translate "Every ticket of every client project." %}</p>{% endif %}
+<div class="card">
+  <form method="get" class="filters">
+    {% for field in filter_form %}
+      <div class="{% if field.widget_type == 'checkbox' %}check{% endif %}">{% if field.widget_type == 'checkbox' %}{{ field }} {{ field.label_tag }}{% else %}{{ field.label_tag }}{{ field }}{% endif %}</div>
+    {% endfor %}
+    <input type="hidden" name="sort" value="{{ sort }}">
+    <div><button class="btn btn-primary">{% translate "Filter" %}</button> <a class="btn" href="?">{% translate "Reset" %}</a></div>
+  </form>
+</div>
+<div class="card">
+  <p class="muted">{% blocktranslate count counter=page.paginator.count %}{{ counter }} ticket{% plural %}{{ counter }} tickets{% endblocktranslate %} ·
+    {% translate "Sort by" %} :
+    <a href="{% sort_url 'created' %}">{% translate "creation" %}</a> ·
+    <a href="{% sort_url 'updated' %}">{% translate "last update" %}</a> ·
+    <a href="{% sort_url 'due' %}">{% translate "target date" %}</a> ·
+    <a href="{% sort_url 'priority' %}">{% translate "priority" %}</a></p>
+  <table>
+    <thead><tr>
+      <th>{% translate "Ref." %}</th>{% if user.is_digitalia %}<th>{% translate "Origin" %}</th>{% endif %}<th>{% translate "Title" %}</th>
+      {% if not project %}<th>{% translate "Client / project" %}</th>{% endif %}
+      <th>{% translate "Type" %}</th><th>{% translate "Status" %}</th><th>{% translate "Priority" %}</th>
+      {% if user.is_digitalia %}<th>{% translate "Assignee" %}</th>{% endif %}<th>{% translate "Target date" %}</th><th>{% translate "Created" %}</th>
+    </tr></thead>
+    <tbody>
+    {% for t in page %}
+      <tr>
+        <td><a href="{{ t.get_absolute_url }}">{{ t.reference }}</a></td>
+        {% if user.is_digitalia %}<td><span class="badge origin-{{ t.origin }}">{{ t.origin|origin_icon }} {{ t.get_origin_display }}</span>{% if t.visibility == 'internal' %} <span class="badge vis-internal">{% translate "Internal" %}</span>{% endif %}</td>{% endif %}
+        <td>{% if t.parent_id %}↳ {% endif %}{{ t.title }}</td>
+        {% if not project %}<td>{{ t.project.company }} / <a href="{{ t.project.get_absolute_url }}">{{ t.project.name }}</a></td>{% endif %}
+        <td>{{ t.get_type_display }}</td>
+        <td><span class="badge status-{{ t.status }}">{{ t.get_status_display }}</span></td>
+        <td><span class="badge prio-{{ t.priority }}">{{ t.get_priority_display }}</span></td>
+        {% if user.is_digitalia %}<td>{{ t.assignee|default:"—" }}</td>{% endif %}
+        <td class="{% if t.is_late %}late{% endif %}">{{ t.due_date|date:"SHORT_DATE_FORMAT"|default:"—" }}</td>
+        <td class="muted">{{ t.created_at|date:"SHORT_DATE_FORMAT" }}</td>
+      </tr>
+    {% empty %}<tr><td colspan="10" class="empty">{% translate "No ticket matches these filters." %}</td></tr>{% endfor %}
+    </tbody>
+  </table>
+  {% if page.has_other_pages %}
+  <div class="pagination">
+    {% if page.has_previous %}<a class="btn" href="?{{ querystring }}&page={{ page.previous_page_number }}">←</a>{% endif %}
+    <span>{{ page.number }} / {{ page.paginator.num_pages }}</span>
+    {% if page.has_next %}<a class="btn" href="?{{ querystring }}&page={{ page.next_page_number }}">→</a>{% endif %}
+  </div>
+  {% endif %}
+</div>
+{% endblock %}
