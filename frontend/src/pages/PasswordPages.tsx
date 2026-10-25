@@ -7,7 +7,7 @@ function Frame({ title, hint, children }: { title: string; hint: string; childre
   return (
     <div className="login" style={{ gridTemplateColumns: "1fr", maxWidth: 520 }}>
       <div className="box">
-        <img src="/logo-digitalia.png" alt="Digitalia" style={{ height: 34, marginBottom: 14 }} />
+        <img src={`${import.meta.env.BASE_URL}logo-digitalia.png`} alt="Digitalia" style={{ height: 34, marginBottom: 14 }} />
         <h2>{title}</h2>
         <p className="hint">{hint}</p>
         {children}

@@ -56,7 +56,7 @@ export default function Shell({
           <i />
         </div>
         <img
-          src="/logo-digitalia.png"
+          src={`${import.meta.env.BASE_URL}logo-digitalia.png`}
           alt="Digitalia"
           title="Développé par Digitalia"
           style={{ height: 26, opacity: 0.85, marginLeft: -6 }}

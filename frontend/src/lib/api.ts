@@ -1,6 +1,7 @@
 import type { Me } from "./types";
 
-const BASE = "/api/v1";
+// The API lives next to the app (same origin, also when it is served under a sub-path).
+const BASE = `${import.meta.env.BASE_URL}api/v1`;
 const ACCESS = "orbit.access";
 const REFRESH = "orbit.refresh";
 

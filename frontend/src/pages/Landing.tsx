@@ -80,7 +80,7 @@ export default function Landing() {
       <canvas ref={canvas} />
       <div className="lt">
         <div className="dl">
-          <img src="/logo-digitalia.png" alt="Digitalia" />
+          <img src={`${import.meta.env.BASE_URL}logo-digitalia.png`} alt="Digitalia" />
           DIGITALIA
         </div>
         <span className="sp" />
@@ -151,7 +151,7 @@ export default function Landing() {
             </div>
           ))}
           <div className="core">
-            <img src="/logo-digitalia.png" alt="" />
+            <img src={`${import.meta.env.BASE_URL}logo-digitalia.png`} alt="" />
             <small>DIGITALIA</small>
           </div>
         </div>

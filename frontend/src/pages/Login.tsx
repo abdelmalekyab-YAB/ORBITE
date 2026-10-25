@@ -29,7 +29,7 @@ export default function Login() {
   return (
     <div className="login">
       <div>
-        <img src="/logo-digitalia.png" alt="Digitalia" style={{ height: 40 }} />
+        <img src={`${import.meta.env.BASE_URL}logo-digitalia.png`} alt="Digitalia" style={{ height: 40 }} />
         <div className="tagl">✦ DÉVELOPPÉ PAR DIGITALIA POUR SES CLIENTS</div>
         <h1>
           Votre projet,
