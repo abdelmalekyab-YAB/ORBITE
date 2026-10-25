@@ -45,3 +45,23 @@ Pièces jointes et PDF de propositions : stockage **S3-compatible** dès que `AW
 ## Vérifié
 La pile a été démarrée localement avec `DOMAIN=localhost` : santé API OK, SPA et routes internes servies, redirection
 HTTP → HTTPS, en-têtes de sécurité présents, fichiers statiques de l'admin servis, première sauvegarde écrite.
+
+## Mise en ligne pas à pas (OVH)
+1. **Serveur** : commander un VPS (OVH « VPS » ou Hetzner « CX22 »), système **Ubuntu 24.04**, 2 Go de RAM minimum.
+   Noter son adresse IP.
+2. **DNS** (espace client OVH → Noms de domaine → Zone DNS) : ajouter un enregistrement **A**
+   `orbit` → adresse IP du serveur (pour `orbit.mondomaine.fr`). Attendre quelques minutes.
+3. **Installation** : se connecter au serveur (`ssh root@IP`) puis lancer :
+   `curl -fsSL https://raw.githubusercontent.com/abdelmalekyab-YAB/ORBITE/main/deploy/setup-server.sh | bash -s -- orbit.mondomaine.fr prenom@mondomaine.fr "Prénom Nom"`
+   Le script installe Docker, ouvre les ports 80/443, crée `.env.prod` avec des secrets aléatoires, démarre Orbit
+   (HTTPS automatique) et invite le premier administrateur.
+4. **E-mails** : renseigner `EMAIL_*` dans `/opt/orbit/.env.prod`, puis
+   `cd /opt/orbit && docker compose -f docker-compose.prod.yml --env-file .env.prod up -d`.
+5. **Mises à jour automatiques** : dans GitHub (Settings → Secrets and variables → Actions), créer `DEPLOY_HOST`,
+   `DEPLOY_USER` et `DEPLOY_SSH_KEY`. Ensuite, chaque fusion dans `main` dont la CI est verte met le serveur à jour.
+
+## Basculer sur le domaine de Digitalia
+1. Ajouter l'enregistrement **A** `orbit.digitalia-ltd.com` → même adresse IP.
+2. Dans `/opt/orbit/.env.prod`, remplacer l'ancien domaine par le nouveau (`DOMAIN`, `ALLOWED_HOSTS`, `FRONTEND_URL`,
+   `DEFAULT_FROM_EMAIL`), puis relancer `docker compose ... up -d`. Caddy obtient le nouveau certificat tout seul.
+3. Les liens d'invitation déjà envoyés pointent vers l'ancien domaine : renvoyer les invitations en attente.

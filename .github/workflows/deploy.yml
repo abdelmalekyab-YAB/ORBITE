@@ -1,0 +1,62 @@
+name: Deploy
+
+# Met le serveur à jour après chaque fusion dans main (une fois les secrets configurés).
+# Secrets du dépôt (Settings → Secrets and variables → Actions) :
+#   DEPLOY_HOST : adresse IP ou nom du serveur
+#   DEPLOY_USER : utilisateur SSH (ex. root ou ubuntu)
+#   DEPLOY_SSH_KEY : clé privée SSH autorisée sur le serveur
+on:
+  workflow_run:
+    workflows: [CI]
+    branches: [main]
+    types: [completed]
+  workflow_dispatch:
+
+concurrency: deploy-production
+
+jobs:
+  deploy:
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - name: Check configuration
+        id: config
+        env:
+          HOST: ${{ secrets.DEPLOY_HOST }}
+        run: |
+          if [ -z "$HOST" ]; then
+            echo "Secrets de déploiement absents : rien à déployer pour l'instant."
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Update the server
+        if: steps.config.outputs.ready == 'true'
+        env:
+          HOST: ${{ secrets.DEPLOY_HOST }}
+          USER: ${{ secrets.DEPLOY_USER }}
+          KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+        run: |
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "$KEY" > ~/.ssh/id_deploy && chmod 600 ~/.ssh/id_deploy
+          ssh-keyscan -H "$HOST" >> ~/.ssh/known_hosts
+          ssh -i ~/.ssh/id_deploy "$USER@$HOST" 'set -e
+            cd /opt/orbit
+            git pull --ff-only
+            docker compose -f docker-compose.prod.yml --env-file .env.prod up -d --build
+            docker image prune -f'
+      - name: Health check
+        if: steps.config.outputs.ready == 'true'
+        env:
+          HOST: ${{ secrets.DEPLOY_HOST }}
+          USER: ${{ secrets.DEPLOY_USER }}
+        run: |
+          for i in $(seq 1 20); do
+            if ssh -i ~/.ssh/id_deploy "$USER@$HOST" \
+              'cd /opt/orbit && docker compose -f docker-compose.prod.yml --env-file .env.prod exec -T backend curl -fsS http://localhost:8000/api/v1/health'; then
+              echo "Orbit répond."; exit 0
+            fi
+            sleep 10
+          done
+          echo "Orbit ne répond pas après le déploiement." >&2; exit 1
