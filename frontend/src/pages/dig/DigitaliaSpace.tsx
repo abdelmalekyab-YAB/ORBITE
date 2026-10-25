@@ -9,7 +9,7 @@ import ProjectDetail from "./ProjectDetail";
 import Projects from "./Projects";
 import Team, { useMembers } from "./Team";
 import Triage from "./Triage";
-import Finance from "./Finance";
+import FinanceHub from "./FinanceHub";
 import Access from "./Access";
 import Settings from "./Settings";
 
@@ -83,7 +83,7 @@ export default function DigitaliaSpace() {
         <Route path="projets" element={<Projects />} />
         <Route path="projets/:key" element={<ProjectDetail members={members} />} />
         <Route path="equipe" element={<Team />} />
-        {me.is_orbit_admin && <Route path="finances" element={<Finance />} />}
+        {me.is_orbit_admin && <Route path="finances" element={<FinanceHub />} />}
         {me.is_orbit_admin && <Route path="acces" element={<Access />} />}
         {canTriage && <Route path="reglages" element={<Settings />} />}
         <Route path="*" element={<Navigate to="/dig" replace />} />

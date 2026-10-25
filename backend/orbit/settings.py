@@ -15,7 +15,7 @@ INSTALLED_APPS = [
     "django.contrib.admin", "django.contrib.auth", "django.contrib.contenttypes",
     "django.contrib.sessions", "django.contrib.messages", "django.contrib.staticfiles",
     "rest_framework", "rest_framework_simplejwt", "corsheaders", "django_filters",
-    "apps.accounts", "apps.projects", "apps.tickets", "apps.finance", "apps.notifications",
+    "apps.accounts", "apps.projects", "apps.tickets", "apps.finance", "apps.notifications", "apps.billing",
 ]
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -114,3 +114,13 @@ if os.environ.get("SENTRY_DSN"):  # supervision des erreurs (optionnelle)
     import sentry_sdk
 
     sentry_sdk.init(dsn=os.environ["SENTRY_DSN"], traces_sample_rate=0.1, send_default_pii=False)
+
+# Facturation : Zoho Books en LECTURE SEULE (aucune écriture possible, voir apps/billing/services/zoho.py).
+ZOHO_BOOKS = {
+    "ORGANIZATION_ID": os.environ.get("ZOHO_ORGANIZATION_ID", ""),
+    "API_BASE": os.environ.get("ZOHO_API_BASE", "https://www.zohoapis.com/books/v3"),
+    "ACCOUNTS_BASE": os.environ.get("ZOHO_ACCOUNTS_BASE", "https://accounts.zoho.com"),
+    "CLIENT_ID": os.environ.get("ZOHO_CLIENT_ID", ""),
+    "CLIENT_SECRET": os.environ.get("ZOHO_CLIENT_SECRET", ""),
+    "REFRESH_TOKEN": os.environ.get("ZOHO_REFRESH_TOKEN", ""),
+}

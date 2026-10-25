@@ -37,6 +37,7 @@ urlpatterns = [
     path("api/v1/", include("apps.tickets.urls")),
     path("api/v1/", include("apps.finance.urls")),
     path("api/v1/", include("apps.notifications.urls")),
+    path("api/v1/billing/", include("apps.billing.urls")),
 ]
 if settings.DEBUG:  # en production, les fichiers sont servis par S3
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

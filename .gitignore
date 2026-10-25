@@ -28,3 +28,9 @@ backups/
 Thumbs.db
 .idea/
 .vscode/
+
+# Données financières réelles (export de l'outil finance) : jamais dans le dépôt
+export_plateforme.json
+reference_totals.json
+finance-data/
+orbit-finance/
