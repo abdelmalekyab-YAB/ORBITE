@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-25 15:09+0100\n"
+"POT-Creation-Date: 2026-10-25 15:17+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -271,7 +271,23 @@ msgstr ""
 msgid "roadmap steps"
 msgstr ""
 
-#: core/views.py:82
+#: core/views.py:20
+msgid "Client A"
+msgstr ""
+
+#: core/views.py:20
+msgid "Client B"
+msgstr ""
+
+#: core/views.py:20
+msgid "Client C"
+msgstr ""
+
+#: core/views.py:20
+msgid "You?"
+msgstr ""
+
+#: core/views.py:92
 msgid "Roadmap step saved."
 msgstr ""
 
@@ -463,76 +479,56 @@ msgstr ""
 msgid "Assigned to me"
 msgstr ""
 
-#: templates/core/landing.html:8
-msgid "Orbit, the shared space between Digitalia and its clients."
-msgstr ""
-
-#: templates/core/landing.html:25 templates/registration/login.html:2
-#: templates/registration/login.html:12
+#: templates/core/landing.html:6 templates/registration/login.html:2
+#: templates/registration/login.html:4
 msgid "Log in"
 msgstr ""
 
-#: templates/core/landing.html:30
-msgid "Built by Digitalia for its clients"
+#: templates/core/landing.html:8 templates/registration/_auth_page.html:7
+msgid "BUILT BY DIGITALIA FOR ITS CLIENTS"
 msgstr ""
 
-#: templates/core/landing.html:31
+#: templates/core/landing.html:9
 msgid "your projects, in orbit around you"
 msgstr ""
 
-#: templates/core/landing.html:32
+#: templates/core/landing.html:10
 msgid ""
 "Orbit is the shared space between Digitalia and each of its clients: follow "
 "your projects in production, report a problem, ask for a change, test what "
 "is delivered. At any time, you know who has the ball."
 msgstr ""
 
-#: templates/core/landing.html:34
+#: templates/core/landing.html:11 templates/registration/login.html:11
 msgid "Go to my space"
 msgstr ""
 
-#: templates/core/landing.html:38
+#: templates/core/landing.html:14
 msgid "Transparency"
 msgstr ""
 
-#: templates/core/landing.html:38
+#: templates/core/landing.html:14
 msgid "The real status of every request, without chasing."
 msgstr ""
 
-#: templates/core/landing.html:39
+#: templates/core/landing.html:15
 msgid "One place"
 msgstr ""
 
-#: templates/core/landing.html:39
+#: templates/core/landing.html:15
 msgid "Bugs, changes, questions, tests: everything goes through Orbit."
 msgstr ""
 
-#: templates/core/landing.html:40
+#: templates/core/landing.html:16
 msgid "Who has the ball"
 msgstr ""
 
-#: templates/core/landing.html:40
+#: templates/core/landing.html:16
 msgid "With you or with Digitalia, it is always clear."
 msgstr ""
 
-#: templates/core/landing.html:44
+#: templates/core/landing.html:18
 msgid "Digitalia and its clients"
-msgstr ""
-
-#: templates/core/landing.html:47
-msgid "Client A"
-msgstr ""
-
-#: templates/core/landing.html:48
-msgid "Client C"
-msgstr ""
-
-#: templates/core/landing.html:51
-msgid "Client B"
-msgstr ""
-
-#: templates/core/landing.html:52
-msgid "You?"
 msgstr ""
 
 #: templates/core/milestone_form.html:2 templates/tickets/board.html:27
@@ -831,7 +827,7 @@ msgstr ""
 msgid "Search"
 msgstr ""
 
-#: templates/manage/user_list.html:18
+#: templates/manage/user_list.html:18 templates/registration/login.html:8
 msgid "E-mail"
 msgstr ""
 
@@ -847,25 +843,43 @@ msgstr ""
 msgid "No account here."
 msgstr ""
 
+#: templates/registration/_auth_page.html:5
+msgid "Back"
+msgstr ""
+
+#: templates/registration/_auth_page.html:8
+msgid "Know where"
+msgstr ""
+
+#: templates/registration/_auth_page.html:8
+msgid "every request stands"
+msgstr ""
+
+#: templates/registration/_auth_page.html:9
+msgid ""
+"Report a problem, ask for a change, test what is delivered. At any time, you"
+" know who has the ball."
+msgstr ""
+
 #: templates/registration/_set_password.html:5
 #: templates/registration/password_reset_confirm.html:2
 msgid "New password"
 msgstr ""
 
-#: templates/registration/_set_password.html:7
+#: templates/registration/_set_password.html:6
 msgid "At least 8 characters, not too common, not only digits."
 msgstr ""
 
-#: templates/registration/_set_password.html:8
+#: templates/registration/_set_password.html:7
 msgid "Confirm the password"
 msgstr ""
 
-#: templates/registration/_set_password.html:13
+#: templates/registration/_set_password.html:11
 msgid ""
 "This link is no longer valid: it has already been used or it has expired."
 msgstr ""
 
-#: templates/registration/_set_password.html:14
+#: templates/registration/_set_password.html:12
 msgid "Get a new link"
 msgstr ""
 
@@ -905,27 +919,34 @@ msgstr ""
 msgid "%(name)s invites you to Orbit, your project space with Digitalia"
 msgstr ""
 
-#: templates/registration/login.html:4
-msgid "Your project space with Digitalia"
-msgstr ""
-
-#: templates/registration/login.html:7
-#: templates/registration/password_reset_form.html:7
-msgid "E-mail address"
+#: templates/registration/login.html:5
+msgid "With the e-mail and password received from Digitalia."
 msgstr ""
 
 #: templates/registration/login.html:9
 msgid "Password"
 msgstr ""
 
-#: templates/registration/login.html:13
+#: templates/registration/login.html:12
 #: templates/registration/password_reset_form.html:2
 #: templates/registration/password_reset_form.html:4
 msgid "Forgot your password?"
 msgstr ""
 
+#: templates/registration/login.html:13
+msgid "Contact your Digitalia project manager"
+msgstr ""
+
+#: templates/registration/login.html:13
+msgid "No access yet? Contact your Digitalia project manager."
+msgstr ""
+
+#: templates/registration/login.html:16
+msgid "Demo accounts"
+msgstr ""
+
 #: templates/registration/login.html:17
-msgid "Demo accounts (password orbit-demo):"
+msgid "Password:"
 msgstr ""
 
 #: templates/registration/login.html:20
@@ -967,7 +988,7 @@ msgid ""
 msgstr ""
 
 #: templates/registration/password_reset_done.html:6
-#: templates/registration/password_reset_form.html:11
+#: templates/registration/password_reset_form.html:10
 msgid "Back to login"
 msgstr ""
 
@@ -987,7 +1008,11 @@ msgid ""
 "Enter your e-mail address. We will send you a link to choose a new password."
 msgstr ""
 
-#: templates/registration/password_reset_form.html:10
+#: templates/registration/password_reset_form.html:7
+msgid "E-mail address"
+msgstr ""
+
+#: templates/registration/password_reset_form.html:9
 msgid "Send the link"
 msgstr ""
 

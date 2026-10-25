@@ -15,12 +15,22 @@ from .models import Company, Milestone
 from .permissions import digitalia_required, get_project_for
 
 
+def _landing_satellites():
+    """Clients orbiting Digitalia on the home page (positions and speeds from the reference mock-up)."""
+    names = (settings.ORBIT_LANDING_CLIENTS + [_("Client A"), _("Client B"), _("Client C")])[:3] + [_("You?")]
+    orbits = [("#7c3aed", 6, 38, 0), ("#a04bb5", 20, 26, -9), ("#c2410c", 6, 38, -19), ("#0b8a9c", 20, 26, -13)]
+    return [{"name": name, "initials": "".join(w[0] for w in name.replace("?", "").split()[:2]).upper() + ("?" if name.endswith("?") else ""),
+             "color": color, "radius": radius, "duration": duration, "delay": delay}
+            for name, (color, radius, duration, delay) in zip(names, orbits)]
+
+
 def home(request):
     user = request.user
     if not user.is_authenticated:
-        clients = [{"name": n, "initials": "".join(w[0] for w in n.split()[:2]).upper()}
-                   for n in settings.ORBIT_LANDING_CLIENTS[:3]]
-        return render(request, "core/landing.html", {"clients": clients, "company_site": settings.ORBIT_COMPANY_SITE})
+        return render(request, "core/landing.html", {
+            "satellites": _landing_satellites(), "company_site": settings.ORBIT_COMPANY_SITE,
+            "dots": [{"duration": 14 + i * 5, "delay": i * 3, "angle": i * 61, "left": (16, 30, 44)[i % 3]} for i in range(6)],
+        })
     if user.is_digitalia:
         return redirect("dashboard")
     projects = list(user.visible_projects().filter(is_active=True))

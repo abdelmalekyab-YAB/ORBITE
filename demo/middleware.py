@@ -3,6 +3,8 @@
 Static files are inlined (the iframe has no server to fetch them from) and a small bridge
 script hands links, forms and fetch() calls back to the shell, which runs them through Django.
 """
+import base64
+import mimetypes
 import re
 from pathlib import Path
 
@@ -45,7 +47,15 @@ def _static(path):
     return _cache[path]
 
 
+def _image(path):
+    if path not in _cache:
+        data = base64.b64encode((STATIC_DIR / path).read_bytes()).decode()
+        _cache[path] = f"data:{mimetypes.guess_type(path)[0] or 'image/png'};base64,{data}"
+    return _cache[path]
+
+
 def _inline(html):
+    html = re.sub(r'src="/static/([^"]+\.(?:png|svg|jpg|webp))"', lambda m: f'src="{_image(m.group(1))}"', html)
     html = re.sub(r'<link rel="stylesheet" href="/static/([^"]+)">',
                   lambda m: f"<style>{_static(m.group(1))}</style>", html)
     html = re.sub(r'<script src="/static/([^"]+)"></script>',
