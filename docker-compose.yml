@@ -1,24 +1,32 @@
 services:
   db:
     image: postgres:16
-    environment:
-      POSTGRES_DB: orbit
-      POSTGRES_USER: orbit
-      POSTGRES_PASSWORD: orbit
-    volumes:
-      - pgdata:/var/lib/postgresql/data
-    ports:
-      - "5432:5432"
-  web:
-    build: .
-    environment:
-      POSTGRES_HOST: db
-      DJANGO_ALLOWED_HOSTS: localhost,127.0.0.1
-    volumes:
-      - .:/app
-    ports:
-      - "8000:8000"
-    depends_on:
-      - db
+    environment: { POSTGRES_USER: orbit, POSTGRES_PASSWORD: orbit, POSTGRES_DB: orbit }
+    ports: ["5432:5432"]
+    volumes: [pgdata:/var/lib/postgresql/data]
+  redis:
+    image: redis:7
+  mailhog:
+    image: mailhog/mailhog
+    ports: ["8025:8025"]
+  backend:
+    build: ./backend
+    command: python manage.py runserver 0.0.0.0:8000
+    env_file: .env
+    volumes: ["./backend:/app"]
+    ports: ["8000:8000"]
+    depends_on: [db, redis]
+  worker:
+    build: ./backend
+    command: celery -A orbit worker -B -l info
+    env_file: .env
+    volumes: ["./backend:/app"]
+    depends_on: [db, redis]
+  frontend:
+    image: node:22
+    working_dir: /app
+    command: sh -c "npm install && npm run dev -- --host"
+    volumes: ["./frontend:/app"]
+    ports: ["5173:5173"]
 volumes:
   pgdata:

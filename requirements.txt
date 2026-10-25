@@ -1,2 +1,0 @@
-Django>=5.1,<5.3
-psycopg[binary]>=3.1

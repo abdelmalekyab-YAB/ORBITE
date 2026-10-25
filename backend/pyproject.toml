@@ -1,0 +1,23 @@
+[tool.ruff]
+line-length = 120
+target-version = "py312"
+extend-exclude = ["*/migrations/*"]
+
+[tool.ruff.lint]
+# Liste explicite : le jeu par défaut varie selon la version de ruff.
+select = ["E", "F", "W", "I", "B", "UP", "DJ", "SIM"]
+ignore = ["DJ001", "DJ008"]
+
+[tool.ruff.lint.per-file-ignores]
+"**/test*.py" = ["E501"]
+
+[tool.mypy]
+python_version = "3.12"
+plugins = ["mypy_django_plugin.main", "mypy_drf_plugin.main"]
+ignore_missing_imports = true
+check_untyped_defs = true
+warn_unused_ignores = true
+exclude = ["migrations/", "conftest\\.py$", "test_.*\\.py$", "tests\\.py$"]
+
+[tool.django-stubs]
+django_settings_module = "orbit.settings"
