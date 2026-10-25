@@ -41,7 +41,7 @@
 
 <div class="bar" role="region" aria-label="Démo">
   <strong>Démo Orbit</strong>
-  <span>La vraie application tourne dans votre navigateur. Données fictives, gardées sur cet appareil.</span>
+  <span id="keep">La vraie application tourne dans votre navigateur. Données fictives, gardées sur cet appareil.</span>
   <span class="spacer"></span>
   <button type="button" id="open-mails">📬 E-mails envoyés <span class="count zero" id="mail-count">0</span></button>
   <button type="button" id="reset">↺ Réinitialiser la démo</button>
@@ -86,6 +86,7 @@
 
   function toast(msg) { const t = $("toast"); t.textContent = msg; t.hidden = false; clearTimeout(t._h); t._h = setTimeout(() => t.hidden = true, 3500); }
   function fail(reason) {
+    if (reason && typeof reason !== "string") reason = (reason.message || reason.type || JSON.stringify(reason));
     $("loading").hidden = true; $("failed").hidden = false; $("failed-reason").textContent = reason || "";
     report(reason);
   }
@@ -239,12 +240,13 @@
     worker = new Worker("orbit-worker.js");
   } catch (e) { fail("Worker : " + e.message); return; }
   const timeout = setTimeout(() => { if (!started) fail("Délai dépassé au démarrage."); }, 180000);
-  worker.onerror = e => { if (!started) fail("Erreur : " + (e.message || "chargement du moteur impossible")); };
+  worker.onerror = e => { if (!started) fail("Worker : " + (e.message || "chargement du moteur impossible") + (e.filename ? " (" + e.filename + ":" + e.lineno + ")" : "")); };
   worker.onmessage = ({ data }) => {
     if (data.type === "progress") { $("meter").style.width = data.pct + "%"; $("step").textContent = STEPS[data.step] || data.step; return; }
     if (data.type === "failed") { clearTimeout(timeout); fail(data.error); return; }
     if (data.type === "ready") {
       clearTimeout(timeout); started = true;
+      if (!data.persistent) $("keep").textContent = "Données fictives, gardées le temps de cette visite (ce navigateur n'autorise pas l'enregistrement).";
       go("/").then(() => { $("loading").hidden = true; }, e => fail(String(e)));
       return;
     }

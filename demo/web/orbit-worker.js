@@ -28,8 +28,13 @@ async function boot() {
   progress("app", 70);
   py.unpackArchive(await fetchBytes("orbit-app.zip"), "zip", { extractDir: "/app" });
   py.FS.mkdirTree("/data");
-  py.FS.mount(py.FS.filesystems.IDBFS, {}, "/data");
-  await syncfs(true);
+  try {
+    if (typeof indexedDB === "undefined") throw new Error("no IndexedDB");
+    py.FS.mount(py.FS.filesystems.IDBFS, {}, "/data");
+    persistent = true;
+    await syncfs(true);
+  } catch (e) { persistent = false; }
+  if (!persistent) { try { py.FS.unmount("/data"); } catch (e) {} py.FS.mkdirTree("/data"); }
   let fresh = false;
   try { py.FS.stat("/data/db.sqlite3"); } catch (e) { fresh = true; }
   if (fresh) { await unpackSeed(); await syncfs(false); }
@@ -41,8 +46,8 @@ async function boot() {
 }
 
 const booting = boot().then(
-  () => postMessage({ type: "ready" }),
-  err => postMessage({ type: "failed", error: String(err && err.stack || err) }),
+  () => postMessage({ type: "ready", persistent }),
+  err => postMessage({ type: "failed", error: describe(err) }),
 );
 
 onmessage = async ({ data }) => {
@@ -62,6 +67,6 @@ onmessage = async ({ data }) => {
     const body = result.body;
     postMessage({ id, ok: true, response: result }, body && body.buffer ? [body.buffer] : []);
   } catch (err) {
-    postMessage({ id, ok: false, error: String(err && err.message || err) });
+    postMessage({ id, ok: false, error: describe(err) });
   }
 };
