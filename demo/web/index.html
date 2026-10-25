@@ -233,7 +233,7 @@
   $("reset").onclick = async () => {
     if (!started) return;
     await call({ kind: "reset" }); mails = []; seen = 0; renderMailCount();
-    toast("Démo réinitialisée."); go("/login/");
+    toast("Démo réinitialisée."); go("/");
   };
 
   try {

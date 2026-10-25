@@ -27,6 +27,15 @@ class ManagementTests(TestCase):
     def link_from(self, message):
         return re.search(r"http://testserver(/\S+)", message.body).group(1)
 
+    @override_settings(ORBIT_LANDING_CLIENTS=["WWS", "RM Club"])
+    def test_visitors_see_the_home_page_and_users_their_space(self):
+        response = self.client.get("/")
+        self.assertContains(response, "Orbit")
+        self.assertContains(response, "RM Club")
+        self.assertContains(response, reverse("login"))
+        self.client.force_login(self.admin)
+        self.assertRedirects(self.client.get("/"), reverse("dashboard"))
+
     def test_only_orbit_admins_manage(self):
         self.client.force_login(self.dev)
         for name in ("user_list", "user_create", "company_create", "project_create"):

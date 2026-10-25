@@ -112,3 +112,7 @@ EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD", "")
 EMAIL_USE_TLS = env_bool("EMAIL_USE_TLS", True)
 DEFAULT_FROM_EMAIL = os.environ.get("DEFAULT_FROM_EMAIL", "Orbit <orbit@digitalia.fr>")
 ORBIT_BASE_URL = os.environ.get("ORBIT_BASE_URL", "http://localhost:8000")
+
+# Client names orbiting on the public home page (comma separated). Empty: generic labels.
+ORBIT_LANDING_CLIENTS = [c.strip() for c in os.environ.get("ORBIT_LANDING_CLIENTS", "").split(",") if c.strip()]
+ORBIT_COMPANY_SITE = os.environ.get("ORBIT_COMPANY_SITE", "digitalia-ltd.com")

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-29 19:13+0200\n"
+"POT-Creation-Date: 2026-10-25 15:09+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -271,7 +271,7 @@ msgstr ""
 msgid "roadmap steps"
 msgstr ""
 
-#: core/views.py:78
+#: core/views.py:82
 msgid "Roadmap step saved."
 msgstr ""
 
@@ -461,6 +461,78 @@ msgstr ""
 
 #: templates/core/dashboard.html:40 templates/tickets/board.html:20
 msgid "Assigned to me"
+msgstr ""
+
+#: templates/core/landing.html:8
+msgid "Orbit, the shared space between Digitalia and its clients."
+msgstr ""
+
+#: templates/core/landing.html:25 templates/registration/login.html:2
+#: templates/registration/login.html:12
+msgid "Log in"
+msgstr ""
+
+#: templates/core/landing.html:30
+msgid "Built by Digitalia for its clients"
+msgstr ""
+
+#: templates/core/landing.html:31
+msgid "your projects, in orbit around you"
+msgstr ""
+
+#: templates/core/landing.html:32
+msgid ""
+"Orbit is the shared space between Digitalia and each of its clients: follow "
+"your projects in production, report a problem, ask for a change, test what "
+"is delivered. At any time, you know who has the ball."
+msgstr ""
+
+#: templates/core/landing.html:34
+msgid "Go to my space"
+msgstr ""
+
+#: templates/core/landing.html:38
+msgid "Transparency"
+msgstr ""
+
+#: templates/core/landing.html:38
+msgid "The real status of every request, without chasing."
+msgstr ""
+
+#: templates/core/landing.html:39
+msgid "One place"
+msgstr ""
+
+#: templates/core/landing.html:39
+msgid "Bugs, changes, questions, tests: everything goes through Orbit."
+msgstr ""
+
+#: templates/core/landing.html:40
+msgid "Who has the ball"
+msgstr ""
+
+#: templates/core/landing.html:40
+msgid "With you or with Digitalia, it is always clear."
+msgstr ""
+
+#: templates/core/landing.html:44
+msgid "Digitalia and its clients"
+msgstr ""
+
+#: templates/core/landing.html:47
+msgid "Client A"
+msgstr ""
+
+#: templates/core/landing.html:48
+msgid "Client C"
+msgstr ""
+
+#: templates/core/landing.html:51
+msgid "Client B"
+msgstr ""
+
+#: templates/core/landing.html:52
+msgid "You?"
 msgstr ""
 
 #: templates/core/milestone_form.html:2 templates/tickets/board.html:27
@@ -831,10 +903,6 @@ msgstr ""
 #: templates/registration/invitation_subject.txt:1
 #, python-format
 msgid "%(name)s invites you to Orbit, your project space with Digitalia"
-msgstr ""
-
-#: templates/registration/login.html:2 templates/registration/login.html:12
-msgid "Log in"
 msgstr ""
 
 #: templates/registration/login.html:4

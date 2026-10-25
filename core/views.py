@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
@@ -14,9 +15,12 @@ from .models import Company, Milestone
 from .permissions import digitalia_required, get_project_for
 
 
-@login_required
 def home(request):
     user = request.user
+    if not user.is_authenticated:
+        clients = [{"name": n, "initials": "".join(w[0] for w in n.split()[:2]).upper()}
+                   for n in settings.ORBIT_LANDING_CLIENTS[:3]]
+        return render(request, "core/landing.html", {"clients": clients, "company_site": settings.ORBIT_COMPANY_SITE})
     if user.is_digitalia:
         return redirect("dashboard")
     projects = list(user.visible_projects().filter(is_active=True))

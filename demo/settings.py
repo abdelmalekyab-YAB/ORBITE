@@ -20,3 +20,4 @@ AUTH_PASSWORD_VALIDATORS = []
 SECRET_KEY = "orbit-demo-not-secret"
 MIDDLEWARE = MIDDLEWARE + ["demo.middleware.DemoPageMiddleware"]  # noqa: F405
 TEMPLATES[0]["OPTIONS"]["context_processors"].append("demo.middleware.demo_context")  # noqa: F405
+ORBIT_LANDING_CLIENTS = ["WWS", "RM Club", "Bodytime"]
